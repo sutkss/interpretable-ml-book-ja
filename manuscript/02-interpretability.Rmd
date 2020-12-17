@@ -1,9 +1,12 @@
 ```{r, message = FALSE, warning = FALSE, echo = FALSE}
 devtools::load_all()
 ```
+# 解釈可能性 {#interpretability}
+<!--
+# Interpretability {#interpretability} 
+-->
 
-# Interpretability {#interpretability}
-
+<!--
 There is no mathematical definition of interpretability. 
 A (non-mathematical) definition I like by Miller (2017)[^Miller2017] is:
 **Interpretability is the degree to which a human can understand the cause of a decision.**
@@ -15,13 +18,29 @@ I will use both the terms interpretable and explainable interchangeably.
 Like  Miller (2017), I think it makes sense to distinguish between the terms interpretability/explainability and explanation.
 I will use "explanation" for explanations of individual predictions.
 See the [section about explanations](#explanation) to learn what we humans see as a good explanation.
+-->
+解釈可能性に数学的な定義はありません。
+Miller (2017)[^Miller2017]が提言した個人的に好きな(数学的でない)定義は、
+**解釈可能性とは、人間が決断の要因を理解できる度合いです。**
+そしてもうひとつが、
+**解釈可能性とは、人間がモデルの結果を一貫して予測できる程度です** [^critique]。
+機械学習モデルの解釈可能性が高ければ高いほど、その決定や予測がなされた理由を理解しやすくなります。他のモデルよりも人間が理解しやすい予測をするモデルは、より良い解釈性を持つモデルと言えます。
+本書では、解釈可能と説明可能を互換性のある用語としてどちらも使用します。
+Miller (2017)と同様に、私は「解釈可能性/説明可能性」と「説明」という用語を区別することには意味がある考えます。
+この本では、「説明」という用語を各予測の説明として使用することにします。
+人間にとって良い説明と考えられるものを学ぶには [説明](#explanation)についての節を参照してください。
 
-## Importance of Interpretability {#interpretability-importance}
+<!-- ## Importance of Interpretability {#interpretability-importance} -->
+
+## 解釈可能性の重要性 {#interpretability-importance}
 
 If a machine learning model performs well, **why do not we just trust the model** and ignore **why** it made a certain decision?
 "The problem is that a single metric, such as classification accuracy, is an incomplete description of most real-world tasks." (Doshi-Velez and Kim 2017 [^Doshi2017])
 
-Let us dive deeper into the reasons why interpretability is so important.
+　機械学習のモデルがうまく動作している際、なぜ**そのままモデルを信用**し、**なぜその決定がなされたか**を無視してはいけないのでしょうか。
+"問題は、分類精度などの単一の評価方式では、多くの現実世界の問題を表現するには不完全なものであるということです。" (Doshi-Velez and Kim 2017 [^Doshi2017])
+
+<!-- Let us dive deeper into the reasons why interpretability is so important.
 When it comes to predictive modeling, you have to make a trade-off:
 Do you just want to know **what** is predicted?
 For example, the probability that a customer will churn or how effective some drug will be for a patient.
@@ -31,9 +50,11 @@ But in other cases, knowing the 'why' can help you learn more about the problem,
 Some models may not require explanations  because they are used in a low-risk environment, meaning a mistake will not have serious consequences, (e.g. a movie recommender system) or the method has already been extensively studied and evaluated (e.g. optical character recognition).
 The need for interpretability arises from an incompleteness in problem formalization (Doshi-Velez and Kim 2017), which means that for certain problems or tasks it is not enough to get the prediction (the **what**).
 The model must also explain how it came to the prediction (the **why**), because a correct prediction only partially solves your original problem.
-The following reasons drive the demand for interpretability and explanations (Doshi-Velez and Kim 2017 and Miller 2017).
+The following reasons drive the demand for interpretability and explanations (Doshi-Velez and Kim 2017 and Miller 2017). --> 
+　なぜモデルの解釈可能性がそれほど重要なのか、もう少し考えてみましょう。何らかの予測モデルを構築する場合、そこに発生するトレードオフについて考える必要があります: あなたは顧客を集める可能性や、薬がどれだけ患者に効果的か、といったそのモデルが予測する**結果**についてのみ知りたいのでしょうか。それともたとえ予測性能が下がったとしても予測がなされた**理由**が知りたいのでしょうか。確かに、一部の事例では予測がなされた理由は必要なく、テストデータに対する予測性能のみを知ることができれば十分だと思います。しかし、この**理由**について知ることはその問題やデータに対する理解を深め、モデルが判断を誤る際にもその原因を探ることに役立ちます。また、映画のレコメンデーションといった失敗した際にの影響がそれほど大きくないリスクの低い環境で扱われる場合や、文字認識などといった、用いる手法がすでに広範にわたって研究され評価されている場合などでは、モデルの解釈はそれほで必要ではないでしょう。説明可能であることの必要性は、問題の不完全な定式化によって生じるのです(Doshi-Velez and Kim 2017)。これは、ある特定の問題や課題に対しては、予測（ **結果**）を得るだけでは不十分であるということです。このような場合は、正確な予測は本来の問題の一部のみを解決しただけであり、モデルが予測に至った経緯（ **理由**）も説明されるべきなのです。モデルの解釈・説明は次のような観点からも必要とされます（Doshi-Velez and Kim 2017 and Miller 2017）。
 
-**Human curiosity and learning**: Humans have a mental model of their environment that is updated when something unexpected happens.
+
+<!-- **Human curiosity and learning**: Humans have a mental model of their environment that is updated when something unexpected happens.
 This update is performed by finding an explanation for the unexpected event.
 For example, a human feels unexpectedly sick and asks, "Why do I feel so sick?".
 He learns that he gets sick every time he eats those red berries.
@@ -43,10 +64,11 @@ To facilitate learning and satisfy curiosity as to why certain predictions or be
 Of course, humans do not need explanations for everything that happens.
 For most people it is okay that they do not understand how a computer works.
 Unexpected events makes us curious.
-For example: Why is my computer shutting down unexpectedly?
+For example: Why is my computer shutting down unexpectedly? --> 
 
+ **人間の好奇心と学び**: 私たち人間は自分の周囲の環境に対する心理的なモデルを一人一人が持っており、何か予測していないことが起こった際、このモデルを更新しています。ただし、このモデルの更新はこれらの出来事の原因がわかって初めて行われます。例えば、もし、思いがけず病気にかかってしまったとすると、なぜ病気にかかってしまったのかを考えるでしょう。その後、赤い木の実を食べた後に毎回具合が悪くなることに気付きます。このとき赤い木の実が具合を悪くさせること、また今後赤い木の実は食べないようにするよう、あなたは自分のモデルを更新します。これに対し、不透明なモデルが研究に使用された場合、科学的な知見は全く得られません。問題に対する理解を深め、自身の好奇心を満たすためには、モデルの説明可能性や解釈可能性は不可欠なのです。もちろん、私たちは現実に起こりうる全ての物事に対し説明が必要であるわけではありません。多くの人はコンピュータが動く原理を理解しなくても全く問題ないでしょう。しかし、それでも予想外の出来事というのは私たちの好奇心をそそります。考えてみてください、なにが原因でコンピュータは突然シャットダウンしてしまうのでしょうか。
 
-Closely related to learning is the human desire to **find meaning in the world**.
+<!-- Closely related to learning is the human desire to **find meaning in the world**.
 We want to harmonize contradictions or inconsistencies between elements of our knowledge structures.
 "Why did my dog bite me even though it has never done so before?" a human might ask.
 There is a contradiction between the knowledge of the dog's past behavior and the newly made, unpleasant experience of the bite.
@@ -63,63 +85,134 @@ Advertising follows me on the Internet because I recently bought a washing machi
 Yes, it makes sense to suggest gloves if I already have a winter hat in my shopping cart.
 The algorithm recommends this movie, because users who liked other movies I liked also enjoyed the recommended movie.
 Increasingly, Internet companies are adding explanations to their recommendations.
-A good example are product recommendations, which are based on frequently purchased product combinations:
+A good example are product recommendations, which are based on frequently purchased product combinations: --> 
 
-```{r amazon-recommendation, fig.cap='Recommended products that are frequently bought together.', out.width=500}
+　学びに大きく関係しているのが、人間の**世の中の意味を見出したい**という願望です。私たちは出来事と自分の持っている知識との矛盾や不一致を調和させようとします。「なぜうちの犬はさっき自分のことを噛んできたのだろうか？今までそんなことはなかったのに。」このように考えるわけです。ここには飼い犬の過去の振る舞いと、つい先ほど噛まれたという不快な事実という矛盾があります。
+獣医の説明は、次のように矛盾を解決します: 「その犬はストレスに晒されていたのでしょう。」
+機械の判断が人間の生活により影響を及ぼすようになるのであれば、機械自身がその判断について説明できることがより重要となってきます。もし機械学習モデルがローンの申し込みを拒否するよう判断したならば、これは申し込んだ側にとって予想外の出来事でしょう。
+この予想と実際の結果の矛盾を埋めるには何らかの説明が必要です。この説明では状況を完璧に説明する必要はないでしょうが、主要な原因については言及する必要があるでしょう。
+別の例としては、アルゴリズムを元にした商品のレコメンデーションです。個人的な話ですが、私はある商品や映画がなぜアルゴリズム的に自分に推薦されたのか、いつも考えてしまいます。
+多くの場合は明らかです。直近に洗濯機を購入していたとすると、次の数日間は洗濯機に関する広告が表示されるでしょう。冬の帽子をすでに買い物かごに入れている場合に手袋がおすすめされるのも納得がいきます。
+また映画のレコメンデーション機能は他のユーザーが気に入った映画に基づいて映画を提案します。最近では、インターネット事業を手掛けるより多くの会社がおすすめ機能に説明を加えています。分かりやすい例としては、他ユーザーが合わせて購入する商品をもとにした商品のおすすめ機能が挙げられます。
+
+<!--
+fig.cap=’Recommended products that are frequently bought together’
+--> 
+```{r amazon-recommendation, fig.cap='よく一緒に購入されている商品', out.width=500}
 knitr::include_graphics("images/amazon-freq-bought-together.png")
 ```
 
 
-In many scientific disciplines there is a change from qualitative to quantitative methods (e.g. sociology, psychology), and also towards machine learning (biology, genomics).
-The **goal of science** is to gain knowledge, but many problems are solved with big datasets and black box machine learning models.
-The model itself becomes the source of knowledge instead of the data.
-Interpretability makes it possible to extract this additional knowledge captured by the model.
+<!-- In many scientific disciplines there is a change from qualitative to quantitative methods (e.g. sociology, psychology), and also towards machine learning (biology, genomics).  -- > 
 
-Machine learning models take on real-world tasks that require **safety measures** and testing.
-Imagine a self-driving car automatically detects cyclists based on a deep learning system.
-You want to be 100% sure that the abstraction the system has learned is error-free, because running over cyclists is quite bad.
-An explanation might reveal that the most important learned feature is to recognize the two wheels of a bicycle, and this explanation helps you think about edge cases like bicycles with side bags that partially cover the wheels.
+社会学や哲学など、多くの科学分野において分析の手法は定性的なものから定量的なものへと変化しています。中には生物学や遺伝学など、機械学習へと手法が移っている分野もあります。
 
-By default, machine learning models pick up biases from the training data.
-This can turn your machine learning models into racists that discriminate against underrepresented groups.
-Interpretability is a useful debugging tool for **detecting bias** in machine learning models.
-It might happen that the machine learning model you have trained for automatic approval or rejection of credit applications discriminates against a minority that has been historically disenfranchised.
-Your main goal is to grant loans only to people who will eventually repay them.
-The incompleteness of the problem formulation in this case lies in the fact that you not only want to minimize loan defaults, but are also obliged not to discriminate on the basis of certain demographics.
-This is an additional constraint that is part of your problem formulation (granting loans in a low-risk and compliant way) that is not covered by the loss function the machine learning model was optimized for.
+<!-- The **goal of science** is to gain knowledge, but many problems are solved with big datasets and black box machine learning models. -->
+**科学の目標**は知識を得ることですが、多くの問題は大規模データとブラックボックスな機械学習モデルで解かれてしまっています。
 
-The process of integrating machines and algorithms into our daily lives requires interpretability to increase **social acceptance**.
+<!-- The model itself becomes the source of knowledge instead of the data.
+Interpretability makes it possible to extract this additional knowledge captured by the model. -->
+モデルはそれ自身がデータの代わりに知識の源となります。
+解釈可能性はこのモデルから得られる付加的な知識を抽出することを可能にします。
+
+<!-- Machine learning models take on real-world tasks that require **safety measures** and testing. -->
+機械学習モデルは、**安全対策**とテストが必要な実務課題を引き受けるようになります。
+
+<!-- Imagine a self-driving car automatically detects cyclists based on a deep learning system.
+You want to be 100% sure that the abstraction the system has learned is error-free, because running over cyclists is quite bad. →
+自動運転車がディープラーニングのシステムに基づいて自転車を自動検出する場面を想像してください。
+車が自転車を轢くことは非常に危険であるため、そのシステムが学習した抽象概念には全く間違いが無いと100%確信できる必要があります。
+
+<!-- An explanation might reveal that the most important learned feature is to recognize the two wheels of a bicycle, and this explanation helps you think about edge cases like bicycles with side bags that partially cover the wheels. -->
+
+モデルを読み解くと、学習によって得られた自転車の最も重要な特徴が2つの車輪を認識することだとしましょう。すると、このモデルによる説明から、車輪の一部を覆うサイドバッグをつけた自転車のようなコーナーケースを考えるのに役立ちます。
+
+<!-- By default, machine learning models pick up biases from the training data.
+This can turn your machine learning models into racists that discriminate against protected groups.
+Interpretability is a useful debugging tool for **detecting bias** in machine learning models. -->
+デフォルトでは、機械学習モデルは学習データに内在するバイアスを反映してしまいます。これは機械学習モデルを、保護されるべきグループを差別する人種差別主義者に変えうるものです。
+解釈可能性は、機械学習モデルの**バイアス検出**のための便利なデバッグツールになります。
+
+<!-- It might happen that the machine learning model you have trained for automatic approval or rejection of credit applications discriminates against a minority.
+Your main goal is to grant loans only to people who will eventually repay them. -->
+例えば、クレジット申請を自動で承認、拒否をするために学習したモデルが、少数派を差別するケースが考えられます。
+企業の最大の目標はきちんと返済する人にだけローンを貸すことです。
+
+<!-- The incompleteness of the problem formulation in this case lies in the fact that you not only want to minimize loan defaults, but are also obliged not to discriminate on the basis of certain demographics.
+This is an additional constraint that is part of your problem formulation (granting loans in a low-risk and compliant way) that is not covered by the loss function the machine learning model was optimized for. -->
+この例における問題の定式化の不備は、ローンの不履行を最小化するだけではなく、特定の人口統計に基づいて差別をしない義務があることです。
+低リスクでなるべく多くの人を受け入れるようにローンを貸し出すという問題の定式化には、機械学習モデルが最適化する損失関数でカバーできていない追加の制約を加える必要があります。
+
+<!-- The process of integrating machines and algorithms into our daily lives requires interpretability to increase **social acceptance**.
 People attribute beliefs, desires, intentions and so on to objects.
 In a famous experiment, Heider and Simmel (1944) [^Heider] showed participants videos of shapes in which a circle opened a "door" to enter a "room" (which was simply a rectangle).
-The participants described the actions of the shapes as they would describe the actions of a human agent, assigning intentions and even emotions and personality traits to the shapes.
-Robots are a good example, like my vacuum cleaner, which I named "Doge".
-If Doge gets stuck, I think:
-"Doge wants to keep cleaning, but asks me for help because it got stuck."
-Later, when Doge finishes cleaning and searches the home base to recharge, I think:
-"Doge has a desire to recharge and intends to find the home base."
-I also attribute personality traits:
-"Doge is a bit dumb, but in a cute way."
-These are my thoughts, especially when I find out that Doge has knocked over a plant while dutifully vacuuming the house.
-A machine or algorithm that explains its predictions will find more acceptance.
-See also the [chapter on explanations](#explanation), which argues that explanations are a social process.
+The participants described the actions of the shapes as they would describe the actions of a human agent, assigning intentions and even emotions and personality traits to the shapes. -->
+機械とアルゴリズムを私たちの日常生活に取り入れるプロセスとして、**社会的受容**を高めるための解釈可能性が必要です。
+人間は、信念や欲求、意図などが物体にあると考えます。
+有名な実験で、Heider and Simmel（1944）[^ Heider]は、円が「ドア」を開いて「部屋」（ただの長方形）に入るようなビデオを参加者に見せました。
+参加者は、人間の行動を説明するのと同様に図形の行動を説明し、意図、さらには感情や性格までもを図形に割り当てました。
 
+<!-- Robots are a good example, like my vacuum cleaner, which I named "Doge". -->
+私が"Doge"と名付けたロボット掃除機のように、ロボットはその良い例です。
+<!-- If Doge gets stuck, I think:
+"Doge wants to keep cleaning, but asks me for help because it got stuck." -->
+例えばもしDogeが停止していると、私はこう考えるでしょう。
+「Dogeは掃除を続けたがっているが、動けなくなってしまったから私に助けを求めてきたぞ。」
 
-Explanations are used to **manage social interactions**.
-By creating a shared meaning of something, the explainer influences the actions, emotions and beliefs of the recipient of the explanation.
-For a machine to interact with us, it may need to shape our emotions and beliefs.
-Machines have to "persuade" us, so that they can achieve their intended goal.
-I would not fully accept my robot vacuum cleaner if it did not explain its behavior to some degree.
-The vacuum cleaner creates a shared meaning of, for example, an "accident" (like getting stuck on the bathroom carpet ... again) by explaining that it got stuck instead of simply stopping to work without comment.
-Interestingly, there may be a misalignment between the goal of the explaining machine (create trust) and the goal of the recipient (understand the prediction or behavior).
-Perhaps the full explanation for why Doge got stuck could be that the battery was very low, that one of the wheels is not working properly and that there is a bug that makes the robot go to the same spot over and over again even though there was an obstacle.
-These reasons (and a few more) caused the robot to get stuck, but it only explained that something was in the way, and that was enough for me to trust its behavior and get a shared meaning of that accident.
+<!-- Later, when Doge finishes cleaning and searches the home base to recharge, I think:
+"Doge has a desire to recharge and intends to find the home base." -->
+しばらくしてDogeが掃除を終え、充電台を探していれば私はこう考えます。
+「Dogeは充電したがっていて、そのために台を見つけるつもりなんだ。」
+
+<!-- I also attribute personality traits:
+"Doge is a bit dumb, but in a cute way." -->
+
+また、私はDogeに個性をも見出すでしょう。
+「Dogeは少し抜けているが、そこが可愛いんだ。」
+
+<!-- These are my thoughts, especially when I find out that Doge has knocked over a plant while dutifully vacuuming the house. -->
+これらは私の考えですが、特にDogeが真面目に家を掃除しようとして、植物を倒してしまった時などにそう感じます。
+
+<!-- A machine or algorithm that explains its predictions will find more acceptance.
+See also the [chapter on explanations](#explanation), which argues that explanations are a social process. -->
+
+予測の理由を説明できる機械やアルゴリズムはより広く受け入れられるでしょう。
+説明は社会的プロセスであると主張している[説明](#explanation)についての章も参照してください。
+
+<!--Explanations are used to **manage social interactions**.-->
+説明は**社会的相互作用を管理する**のに使われます。
+
+<!-- By creating a shared meaning of something, the explainer influences the actions, emotions and beliefs of the recipient of the explanation. -->
+説明者は何かしらの意図を共有することで、説明を受ける人の行動や感情、信念に影響をもたらします。
+
+<!-- For a machine to interact with us, it may need to shape our emotions and beliefs.
+Machines have to "persuade" us, so that they can achieve their intended goal. -->
+機械が私たちが互いに影響し合うためには、人間の感情や信念を形にする必要があるかもしれません。
+機械が意図した目標を達成するためには、私たちを"説得"する必要があります。
+
+<!-- I would not fully accept my robot vacuum cleaner if it did not explain its behavior to some degree. -->
+ロボット掃除機がその動作をある程度説明できなければ、私は完全に受け入れることはできないでしょう。
+
+<!-- The vacuum cleaner creates a shared meaning of, for example, an "accident" (like getting stuck on the bathroom carpet ... again) by explaining that it got stuck instead of simply stopping to work without comment. -->
+掃除機は何も言わず単に停止するのではなく、その理由（例えばバスルームのカーペットに引っかかるといった「事故」など）を説明することで、共通の理解を生み出します。
+
+<!-- Interestingly, there may be a misalignment between the goal of the explaining machine (create trust) and the goal of the recipient (understand the prediction or behavior).
+Perhaps the full explanation for why Doge got stuck could be that the battery was very low, that one of the wheels is not working properly and that there is a bug that makes the robot go to the same spot over and over again even though there was an obstacle. -->
+興味深いことに、説明する機械側の目的（信頼を築く）と受け手側の目的（予測、あるいは動作を理解する）の間に乖離が生じる可能性があります。
+ひょっとしたら、Dogeが動かなくなった本当の理由は、バッテリーがとても少ないこと、タイヤの１つが故障していること、障害物があるにも関わらず同じ場所を何度も往復するバグがあることかもしれません。
+
+<!-- These reasons (and a few more) caused the robot to get stuck, but it only explained that something was in the way, and that was enough for me to trust its behavior and get a shared meaning of that accident.
 By the way, Doge got stuck in the bathroom again.
-We have to remove the carpets  each time before we let Doge vacuum.
+We have to remove the carpets  each time before we let Doge vacuum. -->
+これらの理由（もしくは他のいくつかの理由）によってロボット掃除機は停止しましたが、私が彼の動きを信頼しその事故の共通の意味を理解するには、何かが邪魔をしていることを説明すれば十分でした。
+ちなみに、Dogeはバスルームでまた立ち往生しました。
+Dogeに掃除させる前に、毎回カーペットを退けておく必要があったみたいです。
 
-```{r doge-stuck, fig.cap="Doge, our vacuum cleaner, got stuck. As an explanation for the accident, Doge told us that it needs to be on an even surface.", out.width=800}
+<!--fig.cap="Doge, our vacuum cleaner, got stuck. As an explanation for the accident, Doge told us that it needs to be on an even surface."-->
+```{r doge-stuck, fig.cap="掃除機 Doge が停止している。事故の説明として、Doge は平らな表面上に居なければならないと教えてくれた。", out.width=800}
 knitr::include_graphics("images/doge-stuck.jpg")
 ```
-
+<!--
 Machine learning models can only be **debugged and audited** when they can be interpreted.
 Even in low risk environments, such as movie recommendations, the ability to interpret is valuable in the research and development phase as well as after deployment.
 Later, when a model is used in a product, things can go wrong.
@@ -128,20 +221,44 @@ It delivers a direction for how to fix the system.
 Consider an example of a husky versus wolf classifier that misclassifies some huskies as wolves.
 Using interpretable machine learning methods, you would find that the misclassification was due to the snow on the image.
 The classifier learned to use snow as a feature for classifying images as "wolf", which might make sense in terms of separating wolves from huskies in the training dataset, but not in real-world use.
+-->
+機械学習モデルは解釈可能な場合にのみ**デバッグや検査**ができます。
+映画推薦のようなリスクが低い場合や、デプロイ後に限らず研究・調査段階であったとしても解釈可能性は価値があります。
+モデルを製品の中で使用する場合、後になってから問題が発生することがあります。
+誤った予測に対する解釈はエラーの原因を理解するために役立ちます。
+これによって、システムをどのように修正するかという方向性が得られます。
+ハスキーとオオカミの分類器において一部のハスキーをオオカミと誤分類する例を考えてみます。
+解釈可能な機械学習手法を用いると、誤分類が画像上の雪によって生じていることがわかりました。
+分類器は画像をオオカミと分類するための特徴として雪を学習しました。学習データにおいて、ハスキーとオオカミを分類するという観点からは意味があったかもしれませんが、実世界では、意味がありません。
 
+<!--
 If you can ensure that the machine learning model can explain decisions, you can also check the following traits more easily (Doshi-Velez and Kim 2017):
-
-- Fairness: Ensuring that predictions are unbiased and do not implicitly or explicitly discriminate against underrepresented groups.
+- Fairness: Ensuring that predictions are unbiased and do not implicitly or explicitly discriminate against protected groups.
 An interpretable model can tell you why it has decided that a certain person should not get a loan, and it becomes easier for a human to judge whether the decision is based on a learned demographic (e.g. racial) bias.
 - Privacy: Ensuring that sensitive information in the data is protected.
 - Reliability or Robustness: Ensuring that small changes in the input do not lead to large changes in the prediction.
 - Causality: Check that only causal relationships are picked up. 
 - Trust: It is easier for humans to trust a system that explains its decisions compared to a black box.
+-->
+機械学習モデルが判断の根拠を説明できるようになれば、以下の特性も簡単に確かめることができます。 (Doshi-Velez and Kim 2017)
+- 公平性: 予測に偏りがなく、保護されるグループに対して明示的または暗黙的に差別しない。
+解釈可能なモデルでは、ある人物が融資を受けるべきでないと決定した理由がわかり、その理由が学習した人口統計(人種など)の偏りに基づいているかどうかを人間が判断しやすくなります。
+- プライバシー: データ内の機密情報が保護されていること。
+- 信頼性または頑健性：入力の小さな変化が予測に大きな変化をもたらさないこと。
+- 因果関係: 因果関係だけが取得されていること。
+- 信頼: ブラックボックスよりも自身の決定を説明できるシステムの方が人間に信頼されやすいこと。
 
+<!--
 **When we do not need interpretability.**
+-->
+**解釈可能性を必要としない場合**
 
+<!--
 The following scenarios illustrate when we do not need or even do not want interpretability of machine learning models.
+-->
+以下のシナリオは機械学習モデルの解釈可能性がいつ必要とされないか、あるいはいつ求められないかを説明します。
 
+<!--
 Interpretability is not required if the model **has no significant impact**.
 Imagine someone named Mike working on a machine learning side project to predict where his friends will go for their next holidays based on Facebook data.
 Mike just likes to surprise his friends with educated guesses where they will be going on holidays.
@@ -150,13 +267,30 @@ It is perfectly fine not to have interpretability in this case.
 The situation would change if Mike started building a business around these holiday destination predictions.
 If the model is wrong, the business could lose money, or the model may work worse for some people because of learned racial bias.
 As soon as the model has a significant impact, be it financial or social, interpretability becomes relevant.
+-->
+モデルが**重大な影響力を持たない**ならば、解釈可能性は必要とされません。
+フェイスブックのデータを元に友人が次の休暇にどこへ行くのかを予測する機械学習のプロジェクトで働くマイクという人物を想像してみてください。
+マイクは友人が休暇中にどこへ行くのかを学習によって推測することで単に友人を驚かせるのが好きなのです。
+もしモデルが間違えたとしても(最悪、マイクが少し恥ずかしい思いをするだけで)実害はありませんし、マイクがモデルの予測結果を説明できなくても問題はありません。
+この場合では解釈可能性がなくても全く問題ないのです。
+もしマイクが休暇中の行き先予測に関するビジネスを始めるならば、状況は変わります。
+もしモデルが間違えれば、ビジネスでお金を失うか、あるいは人種に関する偏見を学習することでモデルが一部の人々にとって悪く働くかもしれません。
+経済的であれ社会的であれ、モデルが重大な影響力を持つとすぐに、解釈可能性は重要になります。
 
+<!--
 Interpretability is not required when the **problem is well studied**.
 Some applications have been sufficiently well studied so that there is enough practical experience with the model and problems with the model have been solved over time.
 A good example is a machine learning model for optical character recognition that processes images from envelopes and extracts addresses.
 There is years of experience with these systems and it is clear that they work. 
 In addition, we are not really interested in gaining additional insights about the task at hand. 
+-->
+**問題が十分に研究されている**ならば、解釈可能性は必要ありません。
+一部のアプリケーションは十分に研究されているため、モデルに関する十分な実務経験があり、モデルの問題は時間をかけて解決されてきました。
+その良い例は、封筒の画像を処理して住所を抽出する光学式文字認識の機械学習モデルです。
+これらのシステムには長年の経験があり、それらが機能することは明らかです。
+加えて、このタスクについて追加の洞察を得ることには関心がありません。
 
+<!--
 Interpretability might enable people or programs to **manipulate the system**.
 Problems with users who deceive a system result from a mismatch between the goals of the creator and the user of a model.
 Credit scoring is such a system because banks want to ensure that loans are only given to applicants who are likely to return them, and applicants aim to get the loan even if the bank does not want to give them one.
@@ -171,13 +305,35 @@ The distribution of search queries changed and Google Flu Trends missed many flu
 Google searches do not cause the flu.
 When people search for symptoms like "fever" it is merely a correlation with actual flu outbreaks.
 Ideally, models would only use causal features because they would not be gameable.
+-->
+解釈可能性は人間やプログラムが**システムを操作すること**を可能にします。
+システムを欺く問題はモデルの使用者と開発者間の目的の不一致によって発生します。
+クレジットの信用スコアはそのようなシステムであり、銀行は返済能力のある申請者だけに融資されるようにしたい一方で、申請者はたとえ銀行が融資を望まない場合でも融資されることを目的とします。
+この両者の目的の不一致は、申請者が融資を得る可能性を高めるためにシステムを操る動機となります。
+２枚より多くのクレジットカードを所持していると数値に悪影響があると申請者が知っていれば、数値を向上させるために３枚目のカードを一旦返却し、融資が成立した後に新たなカードを発行するでしょう。
+これは数値が改善される一方で、融資を返済する実際の可能性は変わりません。
+このシステムは、入力が因果的特徴の代理となっている場合であって、出力との実際の因果関係とは異なる場合に操られるでしょう。
+モデルをゲーム化させないためにも、代理的な特徴は避けるべきです。
+例えば、グーグルはインフルエンザの流行を予測するためにGoogle Flu Trendsと呼ばれるシステムを開発しました。
+そのシステムはGoogle検索とインフルエンザの流行を関連付けましたが、機能は低下してしまいました。
+検索クエリの分布が変化したことで、Google Flu Trendsは多くのインフルエンザの流行を見逃してしまいました。
+グーグル検索はインフルエンザを引き起こす原因ではないのです。
+人々が”発熱”のような症状を検索する時と、実際のインフルエンザの流行とは単なる相関関係にすぎません。
+理想的なのは、ゲーム化しないようにモデルが因果的な特徴だけを使用することです。
 
 <!--{pagebreak}-->
 
+<!--
 ## Taxonomy of Interpretability Methods
+-->
+## 解釈可能な手法の分類
 
+<!--
 Methods for machine learning interpretability can be classified according to various criteria. 
+-->
+機械学習の解釈方法は様々な指標で分類できます。
 
+<!--
 **Intrinsic or post hoc?**
 This criteria distinguishes whether interpretability is achieved by restricting the complexity of the machine learning model (intrinsic) or by applying methods that analyze the model after training (post hoc).
 Intrinsic interpretability refers to machine learning models that are considered interpretable due to their simple structure, such as short decision trees or sparse linear models.
@@ -186,10 +342,24 @@ Permutation feature importance is, for example, a post hoc interpretation method
 Post hoc methods can also be applied to intrinsically interpretable models.
 For example, permutation feature importance can be computed for decision trees.
 The organization of the chapters in this book is determined by the distinction between [intrinsically interpretable models](#simple) and [post hoc (and model-agnostic) interpretation methods](#agnostic).
+-->
+**本質的 (intrinsic) か後付けか (post-hoc)**
+この指標は、解釈性の獲得を、機械学習モデルの複雑度を制限することで行う本質的 (intrinsic)と、モデルを訓練した後に分析することで行う後付け(post-hoc)に分かれます。
+本質的な解釈は機械学習モデルの単純な構造によるものであり、たとえば、単純な決定木やスパース制約をかけた線形モデルが該当します。
+後付けの解釈はモデルを学習した後に解釈するための手法です。
+例えば、Permutation Feature Importance は後付けの解釈方法です。
+後付けの手法は本質的に解釈可能なモデルに対しても適用できます。
+例として、Permutation Feature Importance は決定木に適用できます。
+本書はこの分類方法を用いて[本質的に解釈可能なモデル](#simple)と[後付けでモデルに依存しない解釈方法](#agnostic)の2つの章を設けています。
 
+<!--
 **Result of the interpretation method**
 The various interpretation methods can be roughly differentiated according to their results.
+-->
+**解釈方法の結果**
+解釈方法は様々ですが、その結果に応じて大まかに分類可能です。
 
+<!--
 - **Feature summary statistic**:
 Many interpretation methods provide summary statistics for each feature.
 Some methods return a single number per feature, such as feature importance, or a more complex result, such as the pairwise feature interaction strengths, which consist of a number for each feature pair.
@@ -215,8 +385,32 @@ This works well for images and texts, but is less useful for tabular data with h
 - **Intrinsically interpretable model**:
 One solution to interpreting black box models is to approximate them (either globally or locally) with an interpretable model. 
 The interpretable model itself is interpreted by looking at internal model parameters or feature summary statistics.
+-->
+- **特徴量の要約統計量**: 
+解釈方法の多くは、特徴量ごとに要約統計量を算出します。
+特徴量重要度のように特徴量ごとに1つの値を計算するものもあれば、
+2項間の相互作用の強さ(pairwise feature interaction strengths)のように特徴量のペアごとに計算するものもあります。
+- **特徴量の視覚的要約**: 
+特徴量の要約統計量は大抵、可視化できます。
+中には特徴量の Partial dependence のように、解釈に表が適さず、可視化が頼りになるものもあります。
+Partial dependence plots は、注目したい特徴量の値と平均的な予測の結果との関係を表します。そのため、Partial dependenceの表現方法は、座標を記載するのではなく、実際に曲線を描くことです。
+- **モデルの内部(例：学習後の重み)**: 
+本質的に解釈可能なモデルはこの分類に属し、例えば、線形モデルの重みや学習された木構造 (分割のための特徴量と閾値) があります。
+特徴量の要約統計量との境界は曖昧で、線形モデルの重みはモデルの本質であると同時に、特徴量の要約統計量でもあります。
+他にもモデルの中身を出力する方法として、畳み込みニューラルネットワークで検出した特徴を可視化する手法があります。
+モデルの中身を出力する解釈方法は、本質的にモデル専用の方法です(次項参照)。
+- **データ点**: 
+モデルを解釈するために既存の、あるいは新しく作ったデータ点を出力するすべての方法がこのカテゴリに属します。
+一例としてcounterfactual explanationsを挙げます。
+ある観測値から得た予測を解釈する時、予測結果（たとえば分類結果）が変わるように特徴量の一部を改変します。
+他の例として、特定の予測結果を得る典型的な特徴量（prototype）を特定する方法があります。
+利便性の観点から、新しいデータ点を出力する解釈方法は、データ点そのものの解釈可能性が求められます。
+この方法は画像やテキストに向いている一方で、何百もの特徴量から成るテーブルデータには向いていません。
+- **本質的に解釈可能なモデル**: 
+ブラックボックスなモデルを解釈する1つの方法として、モデルを大局的ないし局所的に解釈可能なモデルで近似してしまう手があります。
+解釈可能なモデルは、モデル内部のパラメータや特徴量の要約統計量を確認することで解釈が可能です。
 
-
+<!--
 **Model-specific or model-agnostic?**
 Model-specific interpretation tools are limited to specific model classes.
 The interpretation of regression weights in a linear model is a model-specific interpretation, since -- by definition -- the interpretation of intrinsically interpretable models is always model-specific.
@@ -224,21 +418,44 @@ Tools that only work for the interpretation of e.g. neural networks are model-sp
 Model-agnostic tools can be used on any machine learning model and are applied after the model has been trained (post hoc).
 These agnostic methods usually work by analyzing feature input and output pairs. 
 By definition, these methods cannot have access to model internals such as weights or structural information.
+-->
+**モデル専用か汎用か**
+モデル専用の解釈方法は、特定のモデルやクラスに限定されています。
+線形モデルの重みの解釈はモデル固有の解釈方法であり、定義から、本質的に解釈可能なモデルの解釈方法は常にモデル特有の方法と言えます。
+例えば、ニュートラルネットワークの解釈のみに使える手法もモデル専用です。
+モデルに依存しない手法はいかなる機械学習モデルにも適用でき、学習済みモデルにも使えます(post hoc)。
+これらの汎用手法は、たいてい、入力特徴量と出力の組を分析することで機能します。
+定義より、これらの手法は重みや構造の情報といったモデル内部へはアクセスできません。
 
+<!--
 **Local or global?**
 Does the interpretation method explain an individual prediction or the entire model behavior? 
 Or is the scope somewhere in between?
 Read more about the scope criterion in the next section.
+-->
+**局所的か大局的か**
+解釈方法が個々の予測を説明するか、モデル全体の挙動を説明するか、はたまたその中間でしょうか。
+この分類に関しては次節で説明します。
 
 <!--{pagebreak}-->
 
+<!--
 ## Scope of Interpretability
 An algorithm trains a model that produces the predictions. 
 Each step can be evaluated in terms of transparency or interpretability.
+--> 
+## 解釈可能性の範囲
+アルゴリズムは予測をするためにモデルを学習します。
+各段階において、透明性や解釈可能性に関して評価できます。
 
+<!--
 ###  Algorithm Transparency
 *How does the algorithm create the model?*
+-->
+ ### アルゴリズムの透明性
+*アルゴリズムはどのようにしてモデルを作成するか。*
 
+<!-- 
 Algorithm transparency is about how the algorithm learns a model from the data and what kind of relationships it can learn.
 If you use convolutional neural networks to classify images, you can explain that the algorithm learns edge detectors and filters on the lowest layers.
 This is an understanding of how the algorithm works, but not for the specific model that is learned in the end, and not for how individual predictions are made.
@@ -248,11 +465,19 @@ Algorithms such as the least squares method for linear models are well studied a
 They are characterized by a high transparency.
 Deep learning approaches (pushing a gradient through a network with millions of weights) are less well understood and the inner workings are the focus of ongoing research.
 They are considered less transparent.
+--> 
+　アルゴリズムの透明性とは、アルゴリズムがどのようにデータからモデルを学習させるか、どのような関係性を見出せるかについてです。画像の分類にCNNを用いる場合、低階層のレイヤーにおいてはエッジの検出及び抽出が行われている、と説明できます。これはアルゴリズムがどのように動くかということに対する理解であり、モデルが最終的に何を学習したのか、個々の予測に対してどのように予測をしたのかとは関係がありません。
+アルゴリズムの透明性はデータや学習済みのモデルへの知識ではなく、アルゴリズムに対する理解のみを必要とします。
+なお、この本ではアルゴリズムの透明性よりもモデルの解釈可能性に焦点を当てています。線形モデルに対する最小二乗法のようなアルゴリズムは既に広範にわたって研究され理解が深められていることから、アルゴリズムの透明性は高いといえます。対して、深層学習で何百万もの重みを勾配降下法を用いて求める手法は動作が詳細には理解されておらず、この内部の動作は現在研究の対象となっています。このようなアルゴリズムは透明性が低いといえます。
 
-
+<!--
 ### Global, Holistic Model Interpretability
 *How does the trained model make predictions?*
+-->
+### 全体的なモデルの解釈可能性
+*学習済みのモデルはどのようにして予測するか。*
 
+<!--
 You could describe a model as interpretable if you can comprehend the entire model at once (Lipton 2016[^Lipton2016]).
 To explain the global model output, you need the trained model, knowledge of the algorithm and the data.
 This level of interpretability is about understanding how the model makes decisions, based on a holistic view of its features and each of the learned components such as weights, other parameters, and structures.
@@ -263,11 +488,18 @@ Any model that exceeds a handful of parameters or weights is unlikely to fit int
 I argue that you cannot really imagine a linear model with 5 features, because it would mean drawing the estimated hyperplane mentally in a 5-dimensional space.
 Any feature space with more than 3 dimensions is simply inconceivable for humans.
 Usually, when people try to comprehend a model, they consider only parts of it, such as the weights in linear models.
+--> 
+もしモデルが一目見て概要を掴めるようなものだった場合、そのモデルは解釈可能だといえるでしょう(Lipton 2016[^Lipton2016])。モデルの出力の全体を説明しようとするならば、学習済みモデル、アルゴリズムに対する知識、及びデータが必要となります。このレベルの解釈可能性は、特徴量や重みなど学習可能なパラメータ、その他のハイパーパラメータ、モデルの構造など、全ての要素から、モデルの決定がいかにしてなされるのか、ということを理解することだといえます。
+どの特徴量が重要で、どのような相互作用が発生しているのでしょうか。このような問いに対し、モデルの全体的な解釈可能性は特徴量に基づいた出力の分布の理解の助けとなります。しかし、モデルの全体的な理解をすることは実際は困難です。パラメータや重みの多いモデルは人間の短い記憶には収まりません。個人的な見解ですが、人間は線形回帰モデルですら特徴量が5つもあれば、5次元の空間に超平面を想像することとなり、頭の中にイメージできなくなるでしょう。そもそも3次元以上の空間は人間には想像できません。このため、モデルの理解には線形モデルの重みなどモデルの一部のみを考えることが一般的です。
 
+<!--
 ### Global Model Interpretability on a Modular Level
 *How do parts of the model affect predictions?*
+--> 
+### モジュールレベルのモデルの全体的な解釈可能性
+*モデルの一部はどのように予測に影響しているのか*
 
-
+<!--
 A Naive Bayes model with many hundreds of features would be too big for me and you to keep in our working memory. 
 And even if we manage to memorize all the weights, we would not be able to quickly make predictions for new data points. 
 In addition, you need to have the joint distribution of all features in your head to estimate the importance of each feature and how the features affect the predictions on average.
@@ -283,10 +515,17 @@ It can happen because there is already the highly correlated house size feature.
 In a market where people prefer larger rooms, a house with fewer rooms could be worth more than a house with more rooms if both have the same size. 
 The weights only make sense in the context of the other features in the model.
 But the weights in a linear model can still be interpreted better than the weights of a deep neural network.
+--> 
+　何百もの特徴量を持つナイーブベイズモデルは大きすぎて、すべてを頭の中に記憶することは困難です。たとえ、全ての重みを記憶できたとしても、新しいデータに対して、どのように判断されるか素早く答えることはできないでしょう。それに加えて、特徴量の重要度や各特徴量が平均して予測に与える影響を測るため全ての特徴量に対する同時確率分布も把握しておく必要もあります。このようなことは不可能です。しかし、1つの重みならば簡単に理解できるでしょう。
+モデルを全体的に見て解釈することは通常不可能ですが、モジュール単位で見たときに、いくつかのモデルは理解できます。全てのモデルがパラメータを用いて解釈できるわけではありません。線形回帰モデルでは重みが解釈可能な要素であり、決定木ならば分岐において選ばれた特徴量と分岐点、及び葉での予測が解釈可能な要素となるでしょう。ただし、線形モデルなどの場合、一見これらは要素レベルで完全に解釈ができるように思えますが、この重みは他の全ての重みと連動しています。重みの解釈は他の特徴量が常に同じ値であることを前提としていますが、これは多くの現実のタスクには当てはまりません。例として、家のサイズ及び部屋の数を特徴量として家の価値を予測する線形モデルを考えます。このとき、線形モデルは部屋の数に対する重みとして負の値を持つかもしれません。これは家の大きさと部屋の数の相関が大きいときに起こりえます。人々が大きい部屋を好む場合、同じ大きさの家では部屋の数が少ないほうが価値があると言えます。このように、重みはモデルの他の特徴量を考慮に入れて初めて意味を成します。ただし、それでも線形モデルの重みはニューラルネットの重みよりもはるかに解釈しやすいでしょう。
 
-### Local Interpretability for a Single Prediction 
-*Why did the model make a certain prediction for an instance?*
+<!-- ### Local Interpretability for a Single Prediction -->
+### 単一の予測に対する局所的な解釈
 
+<!-- *Why did the model make a certain prediction for an instance?* -->
+*あるインスタンスに対して、なぜモデルがそのような予測をしたのか*
+
+<!--
 You can zoom in on a single instance and examine what the model predicts for this input, and explain why.
 If you look at an individual prediction, the behavior of the otherwise complex model might behave more pleasantly.
 Locally, the prediction might only depend linearly or monotonically on some features, rather than having a complex dependence on them.
@@ -295,50 +534,104 @@ But if you are looking at only one particular 100 square meters house, there is 
 You can find this out by simulating how the predicted price changes when you increase or decrease the size by 10 square meters.
 Local explanations can therefore be more accurate than global explanations.
 This book presents methods that can make individual predictions more interpretable in the [section on model-agnostic methods](#agnostic).
+-->
+単一のインスタンスに対して注目して、この入力に対してモデルが何を予測するのかを調査することで、その理由を説明できます。
+個々の予測についてみてみると、他の複雑なモデルの振る舞いもすっきりとするかもしれません。予測は、複雑な依存関係があったとしても、局所的にはいくつかの特徴量の線形、もしくは単調な関係に従うとみなすことができます。
+例えば、住宅の価格は家のサイズに対して非線形に従うかもしれません。
+ただし、100平方メートルの家に限定してみると、その付近のデータでは、予測が家のサイズに線形に従っている可能性があります。これは、サイズを10平方メートル増減させたときに予測価格がどのように変化するかをシミュレーションすることで明らかにできます。
+それゆえ、局所的な説明は大域的な説明よりも、より正確になります。
+この本では、[モデル非依存(model-agnostic)の方法](#agnostic)の章で、個々の予測をより解釈可能にするための手法を紹介しています。
 
-### Local Interpretability for a Group of Predictions
-*Why did the model make specific predictions for a group of instances?*
+<!-- ### Local Interpretability for a Group of Predictions -->
+### 予測のグループに対する局所的な解釈
 
+<!-- *Why did the model make specific predictions for a group of instances?* -->
+*インスタンスのグループに対して、なぜモデルがそのような予測をしたのか*
+
+<!--
 Model predictions for multiple instances can be explained either with global model interpretation methods (on a modular level) or with explanations of individual instances.
 The global methods can be applied by taking the group of instances, treating them as if the group were the complete dataset, and using the global methods with this subset.
 The individual explanation methods can be used on each instance and then listed or aggregated for the entire group.
+-->
+複数のインスタンスに対するモデルの予測は、大域的なモデル解釈の方法（モジュールレベル）または、個々のインスタンスの説明によって説明可能です。
 
 <!--{pagebreak}-->
 
-## Evaluation of Interpretability
+<!-- ## Evaluation of Interpretability -->
+## 解釈可能性の評価
 
+<!--
 There is no real consensus about what interpretability is in machine learning.
 Nor is it clear how to measure it.
 But there is some initial research on this and an attempt to formulate some approaches for evaluation, as described in the following section.
+-->
+機械学習における解釈性に関しての総意はありません。
+それを測定する方法も明確ではありません。
+しかし、これに関するいくつかの先行研究や、評価のための定式化の試みが行われているため、以下ではそれについて紹介します。
 
+<!--
 Doshi-Velez and Kim (2017) propose three main levels for the evaluation of interpretability:
+-->
+Doshi-Velez と Kim (2017) は解釈可能性を評価するための3つの主要なレベルを提案しています。
 
+<!--
 **Application level evaluation (real task)**:
+
 Put the explanation into the product and have it tested by the end user.
 Imagine fracture detection software with a machine learning component that locates and marks fractures in X-rays.
 At the application level, radiologists would test the fracture detection software directly to evaluate the model.
 This requires a good experimental setup and an understanding of how to assess quality.
 A good baseline for this is always how good a human would be at explaining the same decision.
+-->
+**アプリケーションレベルの評価 (真の作業)**
 
+製品に説明書を同梱して、エンドユーザーに試用してもらいます。
+機械学習によってX線画像から骨折箇所を見つけて印をつける骨折検出ソフトウェアを想像してください。
+アプリケーションレベルでは、放射線科医が骨折検出ソフトウェアを直接試用してモデルを評価します。
+これには優れた実験設定と品質評価の方法に関する理解が必要とされます。
+そのための適切な基準は、同様の決定を人間が説明する際に毎回どのくらい優れているかということです。
+
+<!--
 **Human level evaluation (simple task)** is a  simplified application level evaluation.
 The difference is that these experiments are not carried out with the domain experts, but with laypersons.
 This makes experiments cheaper (especially if the domain experts are radiologists) and it is easier to find more testers.
 An example would be to show a user different explanations and the user would choose the best one.
+-->
+**人間レベルの評価 (単純な作業)** は単純化されたアプリケーションレベルの評価です。
+これらの実験間の違いは、人間レベルの評価実験が分野の専門家によってではなく、素人によって行われることです。
+これによって実験が(分野の専門家が放射線科医の場合は特に)安価になり、さらに多くの試験車を探しやすくなります。
+実験の例としては、ユーザーにそれぞれ異なるいくつかの説明を見せて、一番良いものを選んでもらう方法があります。
 
+<!--
 **Function level evaluation (proxy task)** does not require humans.
 This works best when the class of model used has already been evaluated by someone else in a human level evaluation.
 For example, it might be known that the end users understand decision trees.
 In this case, a proxy for explanation quality may be the depth of the tree.
 Shorter trees would get a better explainability score.
 It would make sense to add the constraint that the predictive performance of the tree remains good and does not decrease too much compared to a larger tree.
+-->
+**機能レベルの評価 (代理的な作業)** は人間を必要としません。
+これは、使用されるモデルのクラスがすでに誰かによって、人間レベルで評価されている場合に最もいい方法です。
+例えば、エンドユーザーが決定木を理解していると分かっている場合があります。
+この場合、評価の質を表すのは木の深さかもしれません。
+より短い木はより説明可能性の数値を高めるでしょう。
+木の予測性能が良好なままで、より大きな木と比較してもそれほど性能が低下しないという制約を追加することには意味があるでしょう。
 
+<!--
 The next chapter focuses on the evaluation of explanations for individual predictions on the function level.
 What are the relevant properties of explanations that we would consider for their evaluation?
+-->
+次の章では、機能レベルでの個々の予測に対する説明の評価に焦点を当てます。
+説明に対する評価を検討する上で関連する性質は何でしょうか？
 
 <!--{pagebreak}-->
 
-## Properties of Explanations {#properties}
+<!-- 
+## Properties of Explanations {#properties} 
+--> 
+## 説明に関する性質 {#properties}
 
+<!--
 We want to explain the predictions of a machine learning model.
 To achieve this, we rely on some explanation method, which is an algorithm that generates explanations.
 **An explanation usually relates the feature values of an instance to its model prediction in a humanly understandable way.**
@@ -346,14 +639,25 @@ Other types of explanations consist of a set of data instances (e.g in the case 
 For example, we could predict cancer risk using a support vector machine and explain predictions using the [local surrogate method](#lime), which generates decision trees as explanations.
 Or we could use a linear regression model instead of a support vector machine.
 The linear regression model is already equipped with an explanation method (interpretation of the weights).
+-->
+　機械学習モデルの予測を説明するために、いくつかの説明を生成するためのアルゴリズムに頼る必要があります。
+**一般的に、説明とは、インスタンスの特徴量とモデルの予測結果を人間にわかりやすい形で関連づけることをいいます。**
+他には、k近傍法などのように、いくつかのデータを用いて解釈する手法もあります。
+例えば、がんのリスクをSVMを用いて予測し、[local surrogate method](#lime)を用いて決定木を構築することで予測の解釈する方法や、サポートベクタマシンの代わりに線形回帰モデルを用いる方法があります。線形回帰モデルは重みから予測結果の解釈できます。
 
+<--
 We take a closer look at the properties of explanation methods and explanations (Robnik-Sikonja and Bohanec, 2018[^human-ml]).
 These properties can be used to judge how good an explanation method or explanation is.
 It is not clear for all these properties how to measure them correctly, so one of the challenges is to formalize how they could be calculated.
+-->
+　予測の説明及び、説明方法の性質について、もう少し詳しく見てみましょう(Robnik-Sikonja and Bohanec, 2018[^human-ml])。これらの性質はモデルの解釈手法とその解釈の良し悪しを決めるために用いることができます。ただし、これらの性質をどのように算出するかは定まっておらず、これらを計算可能とするための定式化が1つの課題となっています。
 
-
+<--
 **Properties of Explanation Methods**
+-->
+**説明方法の性質**
 
+<--
 - **Expressive Power** is the "language" or structure of the explanations the method is able to generate.
 An explanation method could generate IF-THEN rules, decision trees, a weighted sum, natural language or something else.
 - **Translucency** describes how much the explanation method relies on looking into the machine learning model, like its parameters.
@@ -368,9 +672,23 @@ Surrogate models might be the explanation method with the highest portability.
 Methods that only work for e.g. recurrent neural networks have low portability.
 - **Algorithmic Complexity** describes the computational complexity of the method that generates the explanation.
 This property is important to consider when computation time is a bottleneck in generating explanations.
+-->
+- **表現力 (Expressive Power)**は、その手法が生成できる「言語」や説明の構造を指します。
+説明方法は、IF-THEN規則や、決定木、加重和、自然言語を生成できます。
+- **透光性 (Translucency)**は、その手法がどの程度モデルのパラメータなどを参照しているかを表します。
+説明手法が、線形回帰モデルのような本質的に解釈可能なモデルに対する特有の方法であるとき、透光性が高いと言えます。逆に、説明がモデルへの入力と出力の変化のみに基づいている場合、その説明手法は透光性がないといえます。
+状況によって、求められる透光性のレベルは異なります。
+高い透光性のメリットは、より多くの乗法をもとに説明を生成することが可能になる一方で、低い透光性のメリットは、モデルの種類にかかわらず、その説明手法を適用することが可能になることです。
+- **汎用性 (Portability)**は、説明手法が適用可能なモデルの範囲を表します。
+透光性の低い説明手法はモデルをブラックボックスのように扱うため、汎用性が高くなります。サロゲートモデルは説明手法の中でもかなり高い汎用性があり、一方で、再帰型ニューラルネットワークなど特定のモデルにのみ適用できる手法は汎用性は低いと言えます。
+- **アルゴリズムの複雑さ (Algorithmic Complexity)**はモデルの説明を計算する際の計算量を表します。これは説明の生成の計算時間がボトルネックになるような場合に重要な性質となります。
 
+<!--
 **Properties of Individual Explanations**
+--> 
+**個々の説明に対する性質**
 
+<!--
 - **Accuracy**: How well does an explanation predict unseen data?
 High accuracy is especially important if the explanation is used for predictions in place of the machine learning model. 
 Low accuracy can be fine if the accuracy of the machine learning model is also low, and if the goal is to explain what the black box model does.
@@ -413,73 +731,165 @@ The concept of novelty is related to the concept of certainty.
 The higher the novelty, the more likely it is that the model will have low certainty due to lack of data.
 - **Representativeness**: How many instances does an explanation cover?
 Explanations can cover the entire model (e.g. interpretation of weights in a linear regression model) or represent only an individual prediction (e.g. [Shapley Values](#shapley)).
+--> 
+- **正確性 (Accuracy)**：見たことのないデータに対する予測がどの程度うまく説明できるか？
+高い正確性は、機械学習のモデルの代わりに説明自体が予測のために用いられる場合に特に重要とです。ただし、モデルの精度自体がそれほど高くない場合や、ブラックボックスモデルを説明することが目的である場合、正確性はそれほど重要ではありません。
+このような場合は、次の忠実さが重要となります。
+- **忠実性 (Fidelity)**：その説明が、ブラックボックスモデルの予測をどの程度近似しているか？
+忠実性の高さは最も重要な指標の1つです。なぜなら忠実性の低い説明は機械学習モデルを説明する上で意味を為さないためです。正確性と忠実性は密接に関係しています。ブラックボックスモデルの精度が高く、かつ説明の忠実性も高い場合、その説明は正確性も高いと言えます。いくつかの説明には、局所的に忠実性を持つもの、つまりデータの一部においてモデルの予測をよく近似しているもの(e.g. [local surrogate models](#lime)) や、個々のインスタンスに対してのみ忠実である場合(e.g. [Shapley Values](#shapley))があります。
+- **一貫性 (Consistency)**：同じ問題に対し学習され、同じような予測をする複数のモデルに対し、説明がどの程度異なるか？
+例えば、サポートベクタマシンと線形回帰モデルを同じタスクに対し学習し、それらがとても似た予測をするとしましょう。これらに対して、何らかの手法で説明を与え、得られた説明がどの程度異なっているのかを計算します。このとき、説明がとても似ているのであれば、その説明は高い一貫性を持つと言います。
+ただしこの指標には注意点があり、これらのモデルが異なる特徴に基づいて同じ予測をしているような場合があります (["Rashomon Effect"](https://en.wikipedia.org/wiki/Rashomon_effect) )。このとき、解釈は全く異なったものになるべきであり、一貫性は低い方が望ましいです。逆に複数のモデルの予測が同じ特徴に基づいている場合、一貫性は高いことが望ましいです。
+- **安定性 (Stability)**：似たインスタンスに対して、説明がどの程度似たものになるか？
+一貫性がモデルごとの説明を比較するのに対し、安定性は同じモデルの似たインスタンスごとの説明を比較します。安定性が高いとは、あるデータの特徴が多少変化した場合においても、予測に大きな影響がなければ説明が大きく変化しないことを言います。安定性に欠ける場合、説明の方法が大きく異なるでしょう。
+言い換えれば、説明の方法は説明されるインスタンスの特徴量のわずかな変化に強く影響されてしまいます。
+安定性の欠如は、[local surrogate method](#lime)で使われているようなデータをサンプリングするステップなどの、非決定性（ランダム性）に基づく説明の手法によって起こされます。
+高い安定性は常に求められています。
+- **理解しやすさ (Comprehensibility)**：説明が人間にとってどの程度理解可能か？
+この指標は多くの指標の中の1つに思えますが、定義や計算することが困難でありながら、正しく求めることが極めて重要であるという点で、非常に面倒な指標です。理解のしやすさは、長袖に依存するという点は多くの人が同意するところでしょう。
+理解のしやすさを測る方法として、説明のサイズ（線形モデルでの非ゼロの重みの数、決定規則の数など）を測る方法や、説明からモデルの振る舞いをどの程度予測できるかを測る方法などが考えられます。また、説明で使用されている特徴量の理解度も考慮する必要があります。
+特徴量に複雑な変換を施してしまうと、元の特徴量よりも理解が難しくなってしまいます。
+- **確信度 (Certainty)**：モデルの確信度がどの程度説明に反映されているか？
+機械学習モデルの多くは予測のみを出力し、その予測が正しいと確信している度合いについては何も出力しません。モデルがある患者に対しがんの可能性が4％であると予測した場合、これは特徴量の値の異なる別の患者の4%と同じくらい正しいと考えられるでしょうか。モデルの予測の確信度を含む説明はとても有用です。
+- **重要度 (Degree of Importance)**：特徴量の重要度、または、説明の一部を、どの程度説明に反映できているか？
+例えば、決定規則による説明が個々の予測から生成された場合、どの規則が最も重要が明白でしょうか。
+- **新規性 (Novelty)**：説明されるべきインスタンスが学習データの分布から遠く離れた新しい領域からのものであるかを説明に反映しているか？
+このような場合、モデル自体があまり正確でなく、説明も役に立たなくなる場合があります。新規性の概念は確信度と関連しています。新規性が高くなるほど、データ不足によりモデルの確信度は低くなります。
+- **表現力 (Representativeness)**：説明はどれほどのインスタンスをカバーしているか？
+説明はモデル全体をカバー (例: 線形回帰モデルの重みの解釈)するものや、個々の予測にのみ(例:  [Shapley Values](#shapley)) しか行えないものもあります。
 
 <!--{pagebreak}-->
 
+<!--
 ## Human-friendly Explanations {#explanation}
+-->
+## 人間に優しい説明 {#explanation}
 
-Let us dig deeper and discover what we humans see as "good" explanations and what the implications are for interpretable machine learning.
-Humanities research can help us find out.
-Miller (2017) has conducted a huge survey of publications on explanations, and this chapter builds on his summary.
+<!-- Let us dig deeper and discover what we humans see as "good" explanations and what the implications are for interpretable machine learning.
+Humanities research can help us find out. -->
+私たち人間にとっての「良い」説明についてや、解釈可能な機械学習との密接な関係についてさらに深く掘り下げてみましょう。
+それには人文科学が参考になるでしょう。
 
-In this chapter, I want to convince you of the following:
-As an explanation for an event, humans prefer short explanations (only 1 or 2 causes) that contrast the current situation with a situation in which the event would not have occurred.
-Especially abnormal causes provide good explanations.
-Explanations are social interactions between the explainer and the explainee (recipient of the explanation) and therefore the social context has a great influence on the actual content of the explanation.
+<!-- Miller (2017) has conducted a huge survey of publications on explanations, and this chapter builds on his summary. -->
+Miller(2017)は、{explanations}についての出版物に対して、膨大な調査をしました。この章はその要約に基づいています。
 
-When you need explanations with ALL factors for a particular prediction or behavior, you do not want a human-friendly explanation, but a complete causal attribution.
-You probably want a causal attribution if you are legally required to specify all influencing features or if you debug the machine learning model.
+<!-- In this chapter, I want to convince you of the following:
+As an explanation for an event, humans prefer short explanations (only 1 or 2 causes) that contrast the current situation with a situation in which the event would not have occurred. -->
+この章では、以下のことを説明します。
+ある出来事の説明として、人間はその出来事が起こらなかったであろう状況と対比するような、1つか2つの要因でできた端的な説明を好みます。
+
+<!-- Especially abnormal causes provide good explanations.
+Explanations are social interactions between the explainer and the explainee (recipient of the explanation) and therefore the social context has a great influence on the actual content of the explanation. -->
+特に、異常の原因は良い説明となります。
+説明は、説明する人と説明を受ける人の間の社会的な相互作用なので、社会的な文脈は実際の説明の内容に大きな影響を与えます。
+
+<!-- When you need explanations with ALL factors for a particular prediction or behavior, you do not want a human-friendly explanation, but a complete causal attribution. -->
+特定の予測や行動に対して全ての要因を用いた説明をする必要がある場合は、人間に分かりやすい説明が求められている時ではなく、完全な因果関係が求められる場合です。
+
+<!-- You probably want a causal attribution if you are legally required to specify all influencing features or if you debug the machine learning model.
 In this case, ignore the following points.
-In all other cases, where lay people or people with little time are the recipients of the explanation, the following sections should be interesting to you.
+In all other cases, where lay people or people with little time are the recipients of the explanation, the following sections should be interesting to you. -->
+例えば、機械学習モデルをデバッグする場合や、特徴量の全ての影響を特定することが法的に求められている場合、おそらく因果属性が必要になるでしょう。このような場合は、以下のことは無視してください。そうでない場合、つまり一般の人々や時間のない人々へ説明する場合、次のセクションはきっと興味深いものとなります。
 
+<!-- ### What Is an Explanation? -->
+### 説明とはなにか
 
-### What Is an Explanation?
+<!-- An explanation is the **answer to a why-question** (Miller 2017). -->
+説明とは**原因を問う疑問への解答**です。(Miller 2017)
 
-An explanation is the **answer to a why-question** (Miller 2017).
-
+<!--
 - Why did not the treatment work on the patient?
 - Why was my loan rejected?
 - Why have we not been contacted by alien life yet?
+-->
+- どうして治療が患者に効かなかったのか？
+- どうして私のローン申請は却下されたのか？
+- どうして私たちはまだエイリアンからコンタクトを受けていないのか？
 
-The first two questions can be answered with an "everyday"-explanation, while the third one comes from the category "More general scientific phenomena and philosophical questions".
-We focus on the "everyday"-type explanations, because those are relevant to interpretable machine learning.
+<!-- The first two questions can be answered with an "everyday"-explanation, while the third one comes from the category "More general scientific phenomena and philosophical questions". -->
+はじめの２つの疑問は「日常」の説明で答えることができる一方、３つ目の疑問は、より一般的な科学現象と哲学的疑問のカテゴリーから生じています。
+
+<!-- We focus on the "everyday"-type explanations, because those are relevant to interpretable machine learning.
 Questions that start with "how" can usually be rephrased as "why" questions:
-"How was my loan rejected?" can be turned into "Why was my loan rejected?".
+"How was my loan rejected?" can be turned into "Why was my loan rejected?". -->
+ここでは、解釈可能な機械学習に関係している「日常」タイプの質問に絞って考えます。
+「どのように」で始まる疑問は、「なぜ」で始まる疑問に言い換えることができます。
+例えば、「どのように私のローン申請は却下されましたか？は「なぜ私のローン申請は却下されたのですか？」に変換できます。
+
+<!-- In the following, the term "explanation" refers to the social and cognitive process of explaining, but also to the product of these processes.
+The explainer can be a human being or a machine. -->
+以降では、「説明」という用語は説明の社会的、及び認知的なプロセスだけでなく、これらのプロセスの産物も含まれます。
+説明をする人は、人間の場合も機械の場合もありえます。
+
+<!-- ### What Is a Good Explanation? {#good-explanation} -->
+<!-- ### よい説明とは何か? {#good-explanation} -->
+
+<!-- This section further condenses Miller's summary on "good" explanations and adds concrete implications for interpretable machine learning. -->
+このセクションでは、「良い」説明に関するMillerの要約をさらに凝縮し、解釈可能な機械学習に対する具体的な意味を付け加えます。
 
 
-In the following, the term "explanation" refers to the social and cognitive process of explaining, but also to the product of these processes.
-The explainer can be a human being or a machine.
+<!-- **Explanations are contrastive** (Lipton 1990[^lipton2]).
+Humans usually do not ask why a certain prediction was made, but why this prediction was made *instead of another prediction*. -->
+**説明は対照的です**(Lipton 1990[^lipton2])。
+人間は普段、ある予測をした理由について尋ねませんが、その予測が他の予測の代わりにされた理由を尋ねます。
 
-
-### What Is a Good Explanation? {#good-explanation}
-
-This section further condenses Miller's summary on "good" explanations and adds concrete implications for interpretable machine learning.
-
-**Explanations are contrastive** (Lipton 1990[^lipton2]).
-Humans usually do not ask why a certain prediction was made, but why this prediction was made *instead of another prediction*.
-We tend to think in counterfactual cases, i.e. "How would the prediction have been if input X had been different?".
+<!-- We tend to think in counterfactual cases, i.e. "How would the prediction have been if input X had been different?".
 For a house price prediction, the house owner might be interested in why the predicted price was high compared to the lower price they had expected.
-If my loan application is rejected, I do not care to hear all the factors that generally speak for or against a rejection.
-I am interested in the factors in my application that would need to change to get the loan.
+If my loan application is rejected, I do not care to hear all the factors that generally speak for or against a rejection. -->
+私たち人間は、事実に反する事例、つまり「もし入力Xが違っていたら、予測はどうなっていたか」を考える傾向があります。
+例えば、住宅価格の予測については、住宅所有者は予測価格が予想よりも高かった場合、その理由に興味があるでしょう。
+もしローン申請が却下されたなら、却下の原因に対する一般論ではなく、自分がローンを獲得するために変える必要がある申請の要素に興味があるでしょう。
+
+<!-- I am interested in the factors in my application that would need to change to get the loan.
 I want to know the contrast between my application and the would-be-accepted version of my application.
 The recognition that contrasting explanations matter is an important finding for explainable machine learning.
-From most interpretable models, you can extract an explanation that implicitly contrasts a prediction of an instance with the prediction of an artificial data instance or an average of instances.
-Physicians might ask: "Why did the drug not work for my patient?".
+From most interpretable models, you can extract an explanation that implicitly contrasts a prediction of an instance with the prediction of an artificial data instance or an average of instances. -->
+ただ単に、却下された申請と、おそらく通るであろう申請の違いについて知りたいのです。
+こうした対照的な説明が重要であるという認識は、説明可能な機械学習にとっても重要な発見です。
+ほとんどの解釈可能なモデルは、１つのデータに対する予測と、人工的なデータもしくはデータの平均に対する予測とを暗黙的に対比する説明をするが出来ます。
+
+
+<!-- Physicians might ask: "Why did the drug not work for my patient?".
 And they might want an explanation that contrasts their patient with a patient for whom the drug worked and who is similar to the non-responding patient.
-Contrastive explanations are easier to understand than complete explanations.
+Contrastive explanations are easier to understand than complete explanations. -->
+医師は、「どうして薬は患者に効かなかったのか」と尋ねるかもしれません。
+この場合は、医師が必要とするのは、薬が効いた患者と、似た状況で薬が効かなかった患者との比較による説明です。
+比較による説明は完全な説明よりも理解が簡単です。
+
+<!--
 A complete explanation of the physician's question why the drug does not work might include:
 The patient has had the disease for 10 years, 11 genes are over-expressed, the patients body is very quick in breaking the drug down into ineffective chemicals, ...
 A contrastive explanation might be much simpler:
-In contrast to the responding patient, the non-responding patient has a certain combination of genes that make the drug less effective.
-The best explanation is the one that highlights the greatest difference between the object of interest and the reference object.  
-**What it means for interpretable machine learning**:
-Humans do not want a complete explanation for a prediction, but want to compare what the differences were to another instance's prediction (can be an artificial one).
-Creating contrastive explanations is application-dependent because it requires a point of reference for comparison.
-And this may depend on the data point to be explained, but also on the user receiving the explanation.
-A user of a house price prediction website might want to have an explanation of a house price prediction contrastive to their own house or maybe to another house on the website or maybe to an average house in the neighborhood.
-The solution for the automated creation of contrastive explanations might also involve finding prototypes or archetypes in the data.
+-->
+なぜ薬が効かないのかという医師の質問への完全な説明には次のようなものがあります。
+「患者は10年間この病気にかかっていて、11の遺伝子が過剰発現しているため、体内で薬が非常に素早く効果のない化学物質に分解してしまい...」
+比較による説明は、より簡潔です。
 
+<!-- In contrast to the responding patient, the non-responding patient has a certain combination of genes that make the drug less effective.
+The best explanation is the one that highlights the greatest difference between the object of interest and the reference object.   -->
+「薬の効く患者と対照的に、薬の効かない患者は薬の効果を下げる特定の遺伝子の組み合わせを持っています。」
+最良の説明というのは、興味のある対象と、参照する対象の最も大きな違いを強調できるものです。
+
+<!-- **What it means for interpretable machine learning**: -->
+**解釈可能な機械学習の意味**:
+
+<!-- Humans do not want a complete explanation for a prediction, but want to compare what the differences were to another instance's prediction (can be an artificial one). -->
+人間は予測についての完璧な説明は求めませんが、違いが何であったかを他のインスタンスの予測（これは人工的でもかまいません）と比較したいと考えます。
+
+<!-- Creating contrastive explanations is application-dependent because it requires a point of reference for comparison.
+And this may depend on the data point to be explained, but also on the user receiving the explanation.
+A user of a house price prediction website might want to have an explanation of a house price prediction contrastive to their own house or maybe to another house on the website or maybe to an average house in the neighborhood. -->
+対照的な説明をするには、比較のためのデータ点が必要となるため、アプリケーションに依存します。また、これは説明されるデータ点だけでなく、説明を受けるユーザーにも依存する可能性があります。
+
+<!-- The solution for the automated creation of contrastive explanations might also involve finding prototypes or archetypes in the data. -->
+対照的な説明を自動的に生み出すための手法として、データ内にプロトタイプ、または、典型を見つける方法もあります。
+
+<!--
 **Explanations are selected**.
+-->
+**説明は選択的です**。
+
+<!--
 People do not expect explanations that cover the actual and complete list of causes of an event.
 We are used to selecting one or two causes from a variety of possible causes as THE explanation.
 As proof, turn on the TV news:
@@ -494,8 +904,22 @@ But it also means that there is more than one selective explanation why a certai
 **What it means for interpretable machine learning**:
 Make the explanation very short, give only 1 to 3 reasons, even if the world is more complex.
 The [LIME method](#lime) does a good job with this.
+-->
+人々は、イベントの原因の完全なリストを網羅するような説明は期待していません。
+むしろ人間は、考慮され得る様々な原因から1つまたは2つを説明として選択することに慣れています。
+その証拠として、テレビニュースを考えてください。
+「株価の下落は、最新のソフトウェアアップデートの問題によって同社の製品に対する反発が高まっていることが原因です。」
+「Tsubasaと彼のチームはディフェンスが弱かったので試合に負けました。対戦相手が戦略を実行する余地を与え過ぎたのです。」
+「国立機関と政府に対する不信の高まりが原因で、投票率が下落しました。」
+ある出来事がさまざまな原因で説明できることを羅生門効果と呼びます。
+羅生門は、武士の死について別の矛盾した物語（説明）を伝える日本の映画です。
+機械学習モデルの場合、別の特徴量を用いたとしても適切な予測ができれば有利です。
+異なる特徴（異なる説明）を持つ複数のモデルを組み合わせるアンサンブル学習は、これらの「物語」を平均化してよりロバストかつ正確に予測するため、ほとんどの場合で性能が よくなります。しかし、それは特定の予測が行われた理由の説明となる選択肢が複数あることも意味してます。
+**解釈可能な機械学習に対する意味**：
+世界がより複雑であっても、1つから3つの理由だけを用いて端的な説明をしてください。
+[LIME]（＃lime）という手法を用いると、上記のことができます。
 
-
+<!--
 **Explanations are social**.
 They are part of a conversation or interaction between the explainer and the receiver of the explanation.
 The social context determines the content and nature of the explanations.
@@ -507,7 +931,20 @@ But to my grandmother I would say:
 Pay attention to the social environment of your machine learning application and the target audience.
 Getting the social part of the machine learning model right depends entirely on your specific application.
 Find experts from the humanities (e.g. psychologists and sociologists) to help you.
+-->
+**説明は社会的です**。
+説明は説明する人と説明を受ける人との会話や相互作用の一部です。
+社会的な文脈が説明の内容と性質を決定します。
+デジタル暗号通貨がなぜそれほど価値があるのか​​を技術者に説明したい場合、次のように説明するでしょう：
+「中央のエンティティでは制御できない非中央集権的な分散型ブロックチェーンを基盤とした台帳は、富を安全に保持したい人々の共感を呼んでいます。これによって、需要と価格が高くなるのです。」
+しかし、祖母に説明する場合には：
+「ほら、おばあちゃん：暗号通貨はコンピューター上の金のようなものなんだ。みんな金が好きで、金のためにお金を払うけれど、若い人はコンピュータ上の金が好きでお金を払っているんだ。」
+**解釈可能な機械学習に対する意味**：
+機械学習アプリケーションの社会的な位置付けと対象とする利用者に注意を払ってください。
+機械学習モデルの社会的な部分を正しく把握することは、アプリケーションに完全に依存します。
+人文科学の専門家（心理学者や社会学者など）を見つけて支援を受けてください。
 
+<!--
 **Explanations focus on the abnormal**.
 People focus more on abnormal causes to explain events (Kahnemann and Tversky, 1981[^Kahnemann]).
 These are causes that had a small probability but nevertheless happened.
@@ -538,7 +975,39 @@ It was unlikely that the teacher would test, so the teacher behaved abnormally.
 If one of the input features for a prediction was abnormal in any sense (like a rare category of a categorical feature) and the feature influenced the prediction, it should be included in an explanation, even if other 'normal' features have the same influence on the prediction as the abnormal one.
 An abnormal feature in our house price prediction example might be that a rather expensive house has two balconies.
 Even if some attribution method finds that the two balconies contribute as much to the price difference as the above average house size, the good neighborhood or the recent renovation, the abnormal feature "two balconies" might be the best explanation for why the house is so expensive.
+-->
+**異常に焦点を当てた説明**
+人々は出来事を説明するために、より正常でない原因に焦点を当てます (Kahnemann and Tversky, 1981[^Kahnemann])。
+これらは、確率が低いにも関わらず発生してしまった原因です。
+これらの正常でない原因を排除することで、結果は大きく変わるでしょう（反事実的説明）。
+人々はこれらの「異常な」原因を良い説明とみなします。
+Štrumbelj と Kononenko (2011)[^Strumbelj2011]の次のような例があります：
+先生と生徒間のテストに関するデータセットがあると仮定します。
+生徒は授業に出席し、プレゼンテーションに成功するとその授業に合格できます。
+先生は、生徒の知識をテストする試験を追加で行う選択肢があります。
+これら試験の質問に答えられない生徒はその授業に落第します。
+生徒はさまざまなレベルで準備できます。これは、先生の試験に正しく答えるための様々な確率へと変換できます（テストを実施する場合）。
+生徒が授業に合格するかどうかを予測し、その予測の理由も説明してみましょう。
+先生が追加の試験を実施しなければ合格率は100％です。そうでなければ、合格率は生徒の準備レベルと質問に正しく答える結果の確率に依存します。
+シナリオ1：
+先生は、100回のうち95回というように、常に生徒に対して追加の試験を実施するとしましょう。
+（質問の部分に合格する可能性が10％の）勉強しなかった生徒は、幸運な生徒ではなく、正解できない追加の試験を受けます。
+なぜ生徒は授業に落第したのでしょうか？
+それは、生徒が勉強しなかったからです。
+シナリオ2：
+先生は、100回のうち2回というように、稀にしか試験を実施しないとしましょう。
+試験の勉強をしていない生徒でも、試験が実施される可能性が低いため、授業に合格する可能性が高いと予測されます。
+ある生徒は試験の準備をしていないので、10％の確率でしか試験に合格できません。
+そして、不運にも、先生は彼が答えられない追加の試験を実施したので、授業に落第しました。
+彼はなぜ落第してしまったのでしょうか？
+この場合、より適した説明は「先生が生徒に対して試験を実施したから」だと言えます。
+先生が試験を実施する可能性は低いので、先生は普通ではない行動をしたと言えます。
+**解釈可能な機械学習に対する意味**：
+予測の入力特徴の1つが（カテゴリ特徴のうち、ごく稀なカテゴリなど）何らかの意味で異常であり、その特徴が予測に影響を与えた場合、たとえ他の「正常な」特徴が予測に対して同じ影響を与えたとしても、説明に含めるべきです。
+住宅価格予測の例の異常な特徴として、極めて高価な家には2つのバルコニーがあることかもしれません。
+2つのバルコニーがあるということが、いくつかの方法で、家の大きさ、良好な近隣住民、または最近リフォームされたことが同じくらい価格差に寄与していることがわかったとしても、異常な特徴である「2つのバルコニー」という特徴は、その家が高価格となっている理由の最良の説明となるでしょう。
 
+<!--
 **Explanations are truthful**.
 Good explanations prove to be true in reality (i.e. in other situations).
 But disturbingly, this is not the most important factor for a "good" explanation.
@@ -550,7 +1019,18 @@ It is not true that only one or two factors, for example, have caused a stock ma
 The explanation should predict the event as truthfully as possible, which in machine learning is sometimes called **fidelity**.
 So if we say that a second balcony increases the price of a house, then that also should apply to other houses (or at least to similar houses).
 For humans, fidelity of an explanation is not as important as its selectivity, its contrast and its social aspect.
+-->
+**説明は真実**。
+適切な説明は実際に（他の状況で）真実であることを証明します。
+しかし気がかりなことに、これは「適切な」説明にとって最も重要な要素ではありません。
+例えば、選択性は真実性よりも重要であると考えられます。
+たった1つか2つの原因のみによる説明が、関連する原因全てを網羅することはめったにありません。選択性は一部の真実を省略します。
+例として、1つか2つの要因だけで株式市場の暴落を引き起こすことはありません。真実としては、何百万もの人々が最終的に暴落を引き起こす行動をとるように影響を与えた何百万もの原因があるのです。
+**解釈可能な機械学習に対する意味**：
+説明は出来事をできるだけ正確に説明する必要があります。これは、機械学習において**忠実性 (fidelity)**と呼ばれることがあります。したがって、2つのバルコニーが家の価格を上げると主張する場合、それは他の家（あるいは少なくとも同じような家）にも当てはまるべきです。
+人間にとって、説明の忠実性は、その選択性、対照性、社会的側面ほど重要ではありません。
 
+<!--
 **Good explanations are consistent with prior beliefs of the explainee**.
 Humans tend to ignore information that is inconsistent with their prior beliefs.
 This effect is called confirmation bias (Nickerson 1998[^Nickerson]).
@@ -564,7 +1044,22 @@ Our prior belief for the effect of house size on predicted price is that the lar
 Let us assume that a model also shows a negative effect of house size on the predicted price for a few houses.
 The model has learned this because it improves predictive performance (due to some complex interactions), but this behavior strongly contradicts our prior beliefs.
 You can enforce monotonicity constraints (a feature can only affect the prediction in one direction) or use something like a linear model that has this property.
+-->
+**よい説明は、説明対象者の事前の信念と一貫している**。
+人間は、自分が信じていることと矛盾する情報を無視する傾向があります。
+この効果は確証バイアスと呼ばれます (Nickerson 1998[^Nickerson])。
+説明はこの種の偏見から免れることができません。
+人間は自分の信念と矛盾する説明を軽んじたり無視したりする傾向があります。
+信念は人によって異なりますが、政治的世界観など集団に基づくものもあります。
+**解釈可能な機械学習に対する意味**：
+よい説明は人間が信じていることと一貫しています。
+これを機械学習に統合するのは難しく、統合できたとしても、おそらく予測性能を大幅に損なうことになります。
+家の大きさが予測価格に与える影響について、我々は家が大きいほど価格が高くなると信じています。
+いくつかの家の予測価格に対して、家のサイズがマイナスの影響を与えていたとモデルが示していたとします。
+モデルは予測性能を向上させるために、（いくつかの複雑な相互作用の影響によって）このように学習しましたが、この振る舞いは我々が信じていることと強く矛盾しています。
+（特徴量が一方向の予測にのみ影響を与えるような）単調性制約を適用するか、この性質を持つ線形モデルなどを使用できます。
 
+<!--
 **Good explanations are general and probable**.
 A cause that can explain many events is very general and could be considered a good explanation.
 Note that this contradicts the claim that abnormal causes make good explanations.
@@ -576,6 +1071,18 @@ Also remember that people tend to misjudge probabilities of joint events.
 A good example is "The house is expensive because it is big", which is a very general, good explanation of why houses are expensive or cheap.  
 **What it means for interpretable machine learning**:
 Generality can easily be measured by the feature's support, which is the number of instances to which the explanation applies divided by the total number of instances.
+-->
+**適切な説明は一般的でもっともらしいものである**
+多くの出来事を説明できる原因は非常に一般的であり、よい説明と見なされます。
+ただし、これは普通でない原因がよい説明であるという主張と矛盾していることに注意してください。
+著者の考えでは、異常な原因による説明は一般的な原因による説明を上回っています。
+異常な原因は定義上、特定の文脈や状況において稀なものです。
+異常な出来事がない場合、一般的な説明はよい説明であると見なされます。
+人間は同時に起こる出来事の確率を誤解する傾向があることを忘れないでください。
+（Joeは司書です。彼は恥ずかしがり屋である可能性が高いですか、それとも本を読むのが好きな恥ずかしがり屋である可能性が高いですか？）
+「家が大きいのでその価格は高い」というのは分かりやすい例です。これは非常に一般的で、家が高いあるいは安い理由をよく説明しています。
+**解釈可能な機械学習に対する意味**：
+一般性は、特徴量のサポートによって簡単に測定できます。これは、説明が適用されるインスタンスの数をインスタンスの総数で割ったものです。
 
 [^Miller2017]: Miller, Tim. "Explanation in artificial intelligence: Insights from the social sciences." arXiv Preprint arXiv:1706.07269. (2017).
 

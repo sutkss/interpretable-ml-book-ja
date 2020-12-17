@@ -3,15 +3,17 @@ devtools::load_all()
 is.html = !is.null(output) && output == "html"
 only.in.html = "*This chapter is currently only available in this web version. ebook and print will follow.*"
 
-devtools::install_github("viadee/anchorsOnR")
-install.packages("../pkg/sbrl_1.2.tar.gz", repos = NULL, type = "source")
+#devtools::install_github("viadee/anchorsOnR")
+#install.packages("../pkg/sbrl_1.2.tar.gz", repos = NULL, type = "source")
 ```
+# 要約{-}
 
-
-# Summary {-}
 ```{r cover, cache=FALSE, eval = is.html, out.width=500, fig.align="center"}
 knitr::include_graphics('images/title_page.jpg', dpi = NA)
 ```
+
+<!--
+# Summary {-}
 
 Machine learning has great potential for improving products, processes and research.
 But **computers usually do not explain their predictions** which is a barrier to the adoption of machine learning.
@@ -28,12 +30,33 @@ This book will enable you to select and correctly apply the interpretation metho
 
 The book focuses on machine learning models for tabular data (also called relational or structured data) and less on computer vision and natural language processing tasks.
 Reading the book is recommended for machine learning practitioners, data scientists, statisticians, and anyone else interested in making machine learning models interpretable.
+-->
+機械学習は、製品や処理、研究を改善するための大きな可能性を秘めています。
+しかし、**コンピュータは通常、それら予測を説明しません**。これが機械学習を採用する障壁となっています。
+本書は、機械学習モデルとその決定を解釈可能なものにすることについて書かれています。
 
+解釈可能性の概念を探求した後、決定木、決定規則、線形回帰などの単純で**解釈可能モデル**について学びます。
+その後の章では、特徴量の重要性や累積局所効果のような**ブラックボックスモデルを解釈し**、シャープレイ値やLIMEを用いて個々の予測を説明するための一般的なモデルにとらわれない手法へ焦点を当てています。
 
+すべての解釈手法は、深く説明され、批判的に議論されます。
+それらの手法はどのように機能しているのか？
+それらの長所と短所は何か？
+それらの出力はどのように解釈できるのか？
+この本を読めば、機械学習プロジェクトに最も適した解釈手法を選択し、正しく適用できるようになります。
+
+本書では、表形式データ（リレーショナルデータや構造化データとも呼ばれる）の機械学習モデルに焦点を当てており、コンピュータビジョンや自然言語処理のタスクにはあまり焦点を当てていません。
+機械学習の実務家、データサイエンティスト、統計学者、その他機械学習モデルを解釈可能なものとすることに興味のある人は、本書を読むことをお勧めします。
+
+<!--
 `r if(is.html){"You can buy the PDF and e-book version (epub, mobi) [on leanpub.com](https://leanpub.com/interpretable-machine-learning)."}`
 
 `r if(is.html){"You can buy the print version [on lulu.com](http://www.lulu.com/shop/christoph-molnar/interpretable-machine-learning/paperback/product-24036234.html)."}`
+-->
+`r if(is.html){"PDFと電子書籍版（epub、mobi）を購入することができます。 [on leanpub.com](https://leanpub.com/interpretable-machine-learning)."}`
 
+`r if(is.html){"印刷版を購入することができます [on lulu.com](http://www.lulu.com/shop/christoph-molnar/interpretable-machine-learning/paperback/product-24036234.html)."}`
+
+<!--
 **About me:** My name is Christoph Molnar, I'm a statistician and a machine learner.
 My goal is to make machine learning interpretable.
 
@@ -49,9 +72,27 @@ Cover by [\@YvonneDoinel](https://twitter.com/YvonneDoinel)
 `r if(is.html){"![Creative Commons License](images/by-nc-sa.png)"}`
 
 `r if(is.html){"This book is licensed under the [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-nc-sa/4.0/)."}`
+-->
+**私について:** 私の名前はChristoph Molnar、統計学者であり機械学習者です。
+私の目標は、機械学習を解釈可能なものにすることです。
+
+Mail：christoph.molnar.ai@gmail.com
+
+Website: [https://christophm.github.io/](https://christophm.github.io/)
+
+Follow me on Twitter! [\@ChristophMolnar](https://twitter.com/ChristophMolnar)
+
+Cover by [\@YvonneDoinel](https://twitter.com/YvonneDoinel)
 
 
+`r if(is.html){"![クリエイティブ・コモンズ・ライセンス](images/by-nc-sa.png)"}`
 
+`r if(is.html){"この本は、以下の条件でライセンスされています。
+
+[Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-nc-sa/4.0/)."}`
+
+
+<!--
 # Preface by the Author {-}
 
 This book started as a side project when I was working as a statistician in clinical research.
@@ -65,8 +106,23 @@ No books, no tutorials, no overview papers, nothing.
 This gap inspired me to start this book.
 I ended up writing the book I wished was available when I began my study of interpretable machine learning.
 My intention with this book was twofold: to learn for myself and to share this new knowledge with others.
+-->
+# 著者による序文 {-}
+
+本書は、私が臨床研究で統計学者として働いていたときに、サイドプロジェクトとして始めたものです。
+週に4日働き、「休みの日」にはサイドプロジェクトに取り組んでいました。
+最終的に解釈可能な機械学習は私のサイドプロジェクトの1つになりました。
+最初は本を書くつもりはありませんでした。
+その代わり、私は単に解釈可能な機械学習についてもっと理解したいと思っていて、学ぶための良いリソースを探していました。
+機械学習の成功と解釈可能性の重要性を考えると、このトピックに関する書籍やチュートリアルはたくさんあるだろうと予想していました。
+しかし、私が見つけたのは関連する研究論文と、インターネット上に散らばっているわずかなブログ記事だけで、概要がよくわかるものはありませんでした。
+本、チュートリアル、概要の論文は何もありませんでした。
+このギャップに触発されて、この本を書き始めました。
+私は結局、解釈可能な機械学習の研究を始めたときに利用できることを願っていた本を書くことになりました。
+私がこの本を書いた意図は2つあります。それは自分自身のために学ぶためと、この新しい知識を他の人と共有するためです。
 
 <!-- Introduction to Author -->
+<!--
 I received my bachelor's and master's degree in statistics at the LMU Munich, Germany.
 Most of my knowledge about machine learning was self-taught through online courses, competitions, side projects and professional activities.
 My statistical background was an excellent basis for getting into machine learning, and especially for interpretability.
@@ -76,7 +132,19 @@ Writing just stressed me out too much.
 So I took jobs as data scientist in a Fintech start-up and as statistician in clinical research.
 After these three years in industry I started writing this book and a few months later I started a PhD in interpretable machine learning.
 By starting this book, I regained the joy of writing and it helped me to develop a passion for research.
+-->
+私はドイツのミュンヘン大学（LMU Munich）で統計学の学士号と修士号を取得しました。
+機械学習に関する私の知識のほとんどは、オンラインコース、コンペティション、サイドプロジェクト、専門的な活動を通じて独学で習得しました。
+私の統計学のバックグラウンドは、機械学習、特に解釈可能性の分野に入るための優れた基礎となりました。
+統計学では、解釈可能な回帰モデルを構築することに主に焦点を当てています。
+統計学の修士号を取得した後、私は博士号を取得しないことにしました。 
+修士論文を書くのが好きではなかったからです。
+書くことがものすごくストレスだったのです。
+そこで私は、Fintechのスタートアップ企業でデータサイエンティストとして、また臨床研究の統計学者として仕事をしました。
+この3年間の業界での仕事の後、私はこの本を書き始め、数ヶ月後には解釈可能な機械学習の博士号を取得しました。
+この本を書き始めることで、書くことの楽しさを取り戻し、研究への情熱をもつことができるようになりました。
 
+<!--
 This book covers many techniques of interpretable machine learning.
 In the first chapters I introduce the concept of interpretability and motivate why interpretability is necessary.
 There are even some short stories!
@@ -91,7 +159,23 @@ Here we learn about the partial dependence plot, accumulated local effects, perm
 A special category are example-based methods that produce data points as explanations.
 Counterfactual explanations, prototypes, influential instances and adversarial examples are example-based methods that are discussed in this book.
 The book concludes with some reflections on what the future of interpretable machine learning might look like.
+-->
+本書は、解釈可能な機械学習の多くの手法を網羅しています。
+最初の章では、解釈可能性の概念を紹介し、なぜ解釈可能性が必要なのかを動機付けています。
+短い話もあります!
+この本では、説明の性質の違いや、人間が考える良い説明とは何かを論じています。
+そして、本質的に解釈可能な機械学習モデル、例えば回帰モデルや決定木などについて論じます。
+この本の主な焦点は、モデル不可知的な解釈可能性の手法にあります。
+モデル不可知的とは、これらの手法がどのような機械学習モデルにも適用可能であり、モデルが訓練された後に適用されることを意味します。
+モデルが独立しているため、モデル不可知的な手法は非常に柔軟で強力です。
+いくつかの技法は、局所的に解釈可能なモデル不可知的説明（LIME）やシャプリー値のように、個々の予測がどのように行われたかを説明します。
+他の手法は、データセット全体のモデルの平均的な振る舞いを説明する。
+ここでは、部分依存性プロット、蓄積された局所効果、順列特徴重要度、その他多くの手法について学びます。
+特別なカテゴリとして、データ点を説明として生成する例示ベースの手法があります。
+対事実説明、プロトタイプ、影響力のあるインスタンス、対立する例は、本書で議論されている例題ベースの方法です。
+本書は、解釈可能な機械学習の将来がどのようなものになるかについての考察で締めくくられています。
 
+<!--
 You do not have to read the book from cover to cover, you can jump back and forth and concentrate on the techniques that interest you most.
 I only recommend that you start with the introduction and the chapter on interpretability.
 Most chapters follow a similar structure and focus on one interpretation method.
@@ -105,7 +189,22 @@ Some people say that statistician are very critical people.
 For me, this is true, because each chapter contains critical discussions about advantages and disadvantages of the respective interpretation method.
 This book is not an advertisement for the methods, but it should help you decide whether a method works well for your application or not.
 In the last section of each chapter, available software implementations are discussed.
+-->
+最初から最後まで読まなくても、前後にジャンプして、自分が最も興味を持ったテクニックに集中できます。
+私がお勧めするのは、序章と解釈可能性の章から始めることだけです。
+ほとんどの章は似たような構成で、1つの解釈手法に焦点を当てています。
+最初の段落でその手法を要約します。
+そして、数式に頼らず、その方法を直感的に説明するようにしています。
+それから、その手法の理論を見て、その方法がどのように機能しているのかを深く理解します。
+理論には数式が含まれているでしょうから、ここでは惜しむことはありません。
+私は、新しい方法は例を使って理解するのが一番だと考えています。
+そのため、それぞれの手法を実際のデータに当てはめていきます。
+統計学者は非常に批判的な人だと言う人がいます。
+私にとっては、各章にそれぞれの解釈法の長所と短所について批判的な議論が含まれているので、その通りだと思います。
+本書は手法の宣伝ではありませんが、ある手法が自分の応用に適しているかどうかの判断材料にはなるはずです。
+各章の最後のセクションでは、利用可能なソフトウェアの実装が議論されています。
 
+<!--
 Machine learning has received great attention from many people in research and industry.
 Sometimes machine learning is overhyped in the media, but there are many real and impactful applications.
 Machine learning is a powerful technology for products, research and automation.
@@ -119,7 +218,22 @@ I received e-mails from various master and doctoral students who told me that th
 The book has helped applied researchers in the field of ecology, finance, psychology, etc.  who use machine learning to understand their data.
 Data scientists from industry told me that they use the "Interpretable Machine Learning" book for their work and recommend it to their colleagues.
 I am happy that many people can benefit from this book and become experts in model interpretation.
+-->
+機械学習は、研究や産業界の多くの人々から大きな注目を集めています。
+機械学習はメディアで過剰に宣伝されることもありますが、実際には影響力のあるアプリケーションがたくさんあります。
+機械学習は、製品、研究、自動化のための強力な技術です。
+今日、機械学習は、例えば、詐欺的な金融取引を検出したり、視聴する映画をおすすめしたり、画像を分類したりするために使用されています。
+機械学習モデルが解釈可能であることはしばしば非常に重要です。
+解釈可能性は、開発者がモデルをデバッグして改善し、モデルの信頼を築き、モデルの予測を正当化し、洞察を得るのに役立ちます。
+機械学習の解釈可能性の必要性が高まっているのは、機械学習の利用が増えたことによる自然な結果です。
+本書は多くの人にとって貴重なリソースとなっています。
+教職の先生方は、本書を使って、生徒に解釈可能な機械学習の概念を紹介しています。
+私は、様々な修士課程や博士課程の学生から、この本が論文の出発点であり、最も重要な参考文献であることを教えてくれるメールを受け取りました。
+この本は、生態学、金融、心理学などの分野で機械学習を使ってデータを理解する応用研究者に役立ってきました。
+産業界のデータサイエンティストは、『解釈可能な機械学習』の本を仕事に使っていて、同僚にも勧めていると話してくれました。
+多くの人がこの本の恩恵を受け、モデル解釈の専門家になれることを嬉しく思います。
 
+<!--
 I would recommend this book to practitioners who want an overview of techniques to make their machine learning models more interpretable.
 It is also recommended to students and researchers (and anyone else) who is interested in the topic.
 To benefit from this book, you should already have a basic understanding of machine learning.
@@ -127,4 +241,133 @@ You should also have a mathematical understanding at university entry level to b
 It should also be possible, however, to understand the intuitive description of the method at the beginning of each chapter without mathematics.
 
 I hope you enjoy the book!
+-->
+機械学習モデルをより解釈しやすくするための技術の概要を知りたい実務家の方にお勧めしたい一冊です。
+また、このトピックに興味を持っている学生や研究者（他の誰にでも）にもお勧めします。
+本書の恩恵を受けるためには、機械学習の基本的な理解をすでに持っている必要があります。
+加えて、本書の理論と公式を理解できるように、大学入学レベルの数学的理解を持っている必要があります。
+しかし、各章の冒頭にある手法の直感的な説明は数学なしで理解できるはずです。
 
+ぜひ本書をお楽しみください。
+
+
+# Preface by the Translator {-}
+Each section is translated by following collaborators:
+
+* 00.0
+    * Translators:Satoshi Taniuchi 
+    * Editor:
+* 01
+    * Translators: Shohei Mishima
+    * Editor: 
+* 01.2
+    * Translators: 
+    * Editor:
+* 01.3
+    * Translators: 
+    * Editor:
+* 02
+    * Translators: 
+    * Editor:
+* 03
+    * Translators: Yushiro Yamashita, Yuya Sumie, Nagisa Hara, Ryutaro Furutani, Ryuji Masui
+    * Editor: Ryuji Masui
+* 04.1
+    * Translators: 
+    * Editor:
+* 04.2
+    * Translators: 
+    * Editor:
+* 04.3
+    * Translators: Genki Takahashi, Ryoya Yuasa, Shion Sasaki, Yuta Katai, Yuki Nishimura
+    * Editor: Yuki Nishimura
+* 04.4
+    * Translators: 
+    * Editor:
+* 04.5
+    * Translators: Yuya Sumie, Nagisa Hara, Ryutaro Furutani, Ryuji Masui
+    * Editor: Ryuji Masui
+* 04.6
+    * Translators: 
+    * Editor:
+* 04.7
+    * Translators: 
+    * Editor:
+* 04.8
+    * Translators: 
+    * Editor:
+* 05.1
+    * Translators: 
+    * Editor:
+* 05.2
+    * Translators: Yuya Sumie, Ryutaro Furutani, Ryuji Masui
+    * Editor: Ryuji Masui
+* 05.3
+    * Translators: Yuya Sumie, Ryutaro Furutani, Ryuji Masui
+    * Editor: Ryuji Masui
+* 05.4
+    * Translators: 
+    * Editor:
+* 05.5
+    * Translators: 
+    * Editor:
+* 05.6
+    * Translators: 
+    * Editor:
+* 05.7
+    * Translators: 
+    * Editor:
+* 05.8
+    * Translators: 
+    * Editor:
+* 05.9
+    * Translators: 
+    * Editor:
+* 05.9b
+    * Translators: 
+    * Editor:
+* 06.0
+    * Translators: 
+    * Editor:
+* 06.1
+    * Translators: 
+    * Editor:
+* 06.2
+    * Translators: 
+    * Editor:
+* 06.3
+    * Translators: 
+    * Editor:
+* 06.4
+    * Translators: 
+    * Editor:
+* 06.5
+    * Translators: 
+    * Editor:
+* 07.0
+    * Translators: 
+    * Editor:
+* 07.1
+    * Translators: 
+    * Editor:
+* 07.2
+    * Translators: 
+    * Editor:
+* 07.3
+    * Translators: 
+    * Editor:
+* 07.4
+    * Translators: 
+    * Editor:
+* 08
+    * Translators: 
+    * Editor:
+* 09
+    * Translators: 
+    * Editor:
+* 09b
+    * Translators: 
+    * Editor:
+* 10
+    * Translators: 
+    * Editor:

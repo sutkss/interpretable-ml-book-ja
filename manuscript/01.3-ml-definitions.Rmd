@@ -1,21 +1,61 @@
-
 <!--{pagebreak}-->
 
+## 機械学習とは何か？
+<!-- 
 ## What Is Machine Learning?
+ -->
 
+<!--
 Machine learning is a set of methods that computers use to make and improve predictions or behaviors based on data.
+-->
+機械学習とは、コンピュータがデータから予測や動作をしたり、それらを改善するために用いる手法全般のことを指します。
 
+<!-- 
 For example, to predict the value of a house, the computer would learn patterns from past house sales.
-The book focuses on supervised machine learning, which covers all prediction problems where we have a dataset for which we already know the outcome of interest (e.g. past house prices) and want to learn to predict the outcome for new data.
-Excluded from supervised learning are for example clustering tasks (= unsupervised learning) where we do not have a specific outcome of interest, but want to find clusters of data points.
-Also excluded are things like reinforcement learning, where an agent learns to optimize a certain reward by acting in an environment (e.g. a computer playing Tetris).
-The goal of supervised learning is to learn a predictive model that maps features of the data (e.g. house size, location, floor type, ...) to an output (e.g. house price).
-If the output is categorical, the task is called classification, and if it is numerical, it is called regression.
-The machine learning algorithm learns a model by estimating parameters (like weights) or learning structures (like trees).
-The algorithm is guided by a score or loss function that is minimized.
-In the house value example, the machine minimizes the difference between the estimated house price and the predicted price.
-A fully trained machine learning model can then be used to make predictions for new instances.
+ -->
+例えば、家の価値を予測するためには、コンピュータは過去の家の売値からパターンを学習するでしょう。
 
+<!-- 
+The book focuses on supervised machine learning, which covers all prediction problems where we have a dataset for which we already know the outcome of interest (e.g. past house prices) and want to learn to predict the outcome for new data.
+-->
+この本は機械学習の中でも、教師あり学習に焦点を当てています。
+教師あり学習は、関心のある結果(過去の住宅価格など)が既知のデータセットがある状況で新しいデータに対する予測の仕方を学習したいというような場合の全ての予測問題に相当します。
+
+<!--
+Excluded from supervised learning are for example clustering tasks (= unsupervised learning) where we do not have a specific outcome of interest, but want to find clusters of data points.
+-->
+教師あり学習以外のものは、例えば、クラスタリング問題 (= 教師なし学習)があります。
+これは、関心のある結果が手元にない状況で、データ点の集まり (クラスタ)を知りたいという問題設定です。
+
+<!--
+Also excluded are things like reinforcement learning, where an agent learns to optimize a certain reward by acting in an environment (e.g. a computer playing Tetris).
+-->
+
+強化学習という、テトリスをプレイするコンピュータなど、ある環境下での行動に対して、得られる報酬を最大化するように学習する方法も扱わないこととします。
+
+<!--
+The goal of supervised learning is to learn a predictive model that maps features of the data (e.g. house size, location, floor type, ...) to an output (e.g. house price).
+-->
+教師あり学習の目的は、データの特徴量(敷地面積、場所、床の種類など）と結果（家の価格など）を対応させる予測モデルを学習することです。
+
+<!--
+If the output is categorical, the task is called classification, and if it is numerical, it is called regression.
+-->
+予測対象がカテゴリカルな場合、それはクラス分類と呼ばれ、予測対象が連続の数値である場合は回帰と呼ばれます。
+
+<!--
+The machine learning algorithm learns a model by estimating parameters (like weights) or learning structures (like trees).
+-->
+機械学習アルゴリズムにおける学習とは、重みのようなパラメータを推定するか、グラフの木のような構造を決定することをいいます。
+
+<!-- The algorithm is guided by a score or loss function that is minimized.
+In the house value example, the machine minimizes the difference between the estimated house price and the predicted price.
+A fully trained machine learning model can then be used to make predictions for new instances. -->
+そのアルゴリズムはスコアまたは損失関数を最小化するように動きます。
+住宅価格の例では、機械は予測した住宅価格と実際の住宅価格の差を最小化します。
+こうして訓練された機械学習モデルを用いることで、新しいインスタンスに対して予測できるようになります。
+
+<!--
 Estimation of house prices, product recommendations, street sign detection, credit default prediction and fraud detection:
 All these examples have in common that they can be solved by machine learning.
 The tasks are different, but the approach is the same:  
@@ -27,15 +67,39 @@ For a credit default predictor, you need past data on actual loans, information 
 For an automatic house value estimator program, you could collect data from past house sales and information about the real estate such as size, location, and so on.  
 Step 2: Enter this information into a machine learning algorithm that generates a sign detector model, a credit rating model or a house value estimator.  
 Step 3: Use model with new data.
-Integrate the model into a product or process, such as a self-driving car, a credit application process or a real estate marketplace website.
+Integrate the model into a product or process, such as a self-driving car, a credit application process or a real estate marketplace website. 
+-->
 
-Machines surpass humans in many tasks, such as playing chess (or more recently Go) or predicting the weather.
+住宅価格予測、商品のレコメンド、道路標識検出、債務不履行予測、不正検知：
+これらのすべての例は機械学習で解決できるという共通した点があります。
+それぞれのタスクは異なりますが、アプローチは一緒です：
+ステップ1：データを収集します。
+多ければ多いほど良いです。
+データには予測したい結果と予測するための追加情報が含まれていなければなりません。
+道路標識検出の場合（「画像に道路標識はあるのか？」）、道路の画像を集めて標識が含まれているか否かのラベルを付けます。
+債務不履行予測の場合、過去の債務情報、顧客が債務不履行をしたかの情報、及び収入や債務不履行歴など予測に役立つデータが必要です。
+住宅価格自動予測プログラムの場合、過去の住宅売買情報や広さ・立地など不動産に関する情報が収集可能です。
+ステップ2：これらの情報を道路標識検出モデル、債務評価モデル、住宅価格予測モデルなどを生成する機外学習のアルゴリズムに入力します。
+ステップ3：新しいデータに対してモデルを使用します。
+モデルを自動運転、債務申請手続き、不動産市場のウェブサイト、などの商品や手続きに統合します。
+
+<!-- Machines surpass humans in many tasks, such as playing chess (or more recently Go) or predicting the weather.
 Even if the machine is as good as a human or a bit worse at a task, there remain great advantages in terms of speed, reproducibility and scaling.
 A once implemented machine learning model can complete a task much faster than humans, reliably delivers consistent results and can be copied infinitely.
 Replicating a machine learning model on another machine is fast and cheap.
 The training of a human for a task can take decades (especially when they are young) and is very costly.
 A major disadvantage of using machine learning is that insights about the data and the task the machine solves is hidden in increasingly complex models.
 You need millions of numbers to describe a deep neural network, and there is no way to understand the model in its entirety.
+-->
+機械は、チェス（または最近では囲碁）、天気予測など多くのタスクにおいて人間を上回っています。
+機械が人間と同じくらい優れている、もしくは少し劣っていた場合でも、スピード、再現性、スケールの観点で大きな利点があります。
+一度導入された機械学習のモデルは、人間よりもはるかに速くタスクを完遂でき、一貫した結果を確実に提供し、複製も無限にできます。
+機械学習モデルを別の機械に複製するのはとても早くて安価です。
+あるタスクのために人間を訓練させるために数十年かかることがあり（特に若い人）、多くの費用がかかります。
+機械学習を使用する時の大きな欠点は、データや機械が解決する問題に関する洞察が、ますます複雑になるモデルの中に隠されてしまうことです。
+ディープニューラルネットワークを説明するためには数百万の数値が必要であり、モデル全体を理解する方法はないのです。
+
+<!--
 Other models, such as the random forest, consist of hundreds of decision trees that "vote" for predictions.
 To understand how the decision was made, you would have to look into the votes and structures of each of the hundreds of trees.
 That just does not work no matter how clever you are or how good your working memory is.
@@ -43,60 +107,99 @@ The best performing models are often blends of several models (also called ensem
 If you focus only on performance, you will automatically get more and more opaque models.
 Just take a look at [interviews with winners on the kaggle.com machine learning competition platform](http://blog.kaggle.com/):
 The winning models were mostly ensembles of models or very complex models such as boosted trees or deep neural networks.
+-->
+ランダムフォレストのような他のモデルでは、多数の決定木を用いて”多数決”を行うことで予測します。このとき、どのように意思決定がなされたかを理解するためには、投票がどのように行われたかと、それぞれの決定木の構造を調べる必要があります。しかし、それはあなたがどんなに賢くて、記憶力が優れていてもうまくいかないでしょう。
+最も性能のいいモデルは大抵、いくつかのモデルをブレンドしたもの (アンサンブル)であり、たとえ個々のモデルが解釈可能なものであったとしても全体として解釈ができないものとなってしまいます。もし、あなたが性能のみに注目するのであれば、自動的により不透明なモデルとなるでしょう。
+機械学習コンペティションプラットフォーム kaggle.com の[優勝者インタビュー](http://blog.kaggle.com/)をご覧ください。
+優勝したモデルは、ほとんど boosted trees やディープニューラルネットワークのような、とても複雑なモデルのアンサンブルモデルです。
 
 <!--{pagebreak}-->
 
+<!--
 ## Terminology {#terminology}
+-->
+## 専門用語 {#terminology}
 
+<!--
 To avoid confusion due to ambiguity, here are some definitions of terms used in this book:
+-->
+曖昧さによる混乱を避けるために、この本で使用する用語の定義をいくつか紹介します。
 
+<!--
 An **Algorithm** is a set of rules that a machine follows to achieve a particular goal[^algorithm].
 An algorithm can be considered as a recipe that defines the inputs, the output and all the steps needed to get from the inputs to the output.
 Cooking recipes are algorithms where the ingredients are the inputs, the cooked food is the output, and the preparation and cooking steps are the algorithm instructions.  
+-->
+**アルゴリズム** とは、特定のゴール[^algorithm]を達成するために機械が従うルールの集まりのことです。アルゴリズムは、入力と出力、および入力から出力を得るために必要な全てのステップを定義するレシピのようなものと見なすことができます。
+料理のレシピは、食材を入力、調理された食品を出力、準備や調理手順がアルゴリズムの指示であるようなアルゴリズムと言えます。
 
-
+<!--
 **Machine Learning** is a set of methods that allow computers to learn from data to make and improve predictions (for example cancer, weekly sales, credit default).
 Machine learning is a paradigm shift from "normal programming" where all instructions must be explicitly given to the computer to "indirect programming" that takes place through providing data.
+-->
+**機械学習** はコンピュータがデータから学習して予測 (例えば、がん、売り上げ、債務不履行) を行い、改善することを可能にする手法の集まりのことです。
+機械学習によって、全ての命令を明示的にコンピュータに与える必要がある”従来のプログラミング”から、データを提供することで行われる”間接的なプログラミング”へのパラダイムシフトが起こりました。
+
 
 ```{r programing-vs-ml, echo = FALSE, fig.cap = "", width = 400}
 knitr::include_graphics("images/programing-ml.png")
 ```
-
+<!--
 A **Learner** or **Machine Learning Algorithm** is the program used to learn a machine learning model from data.
 Another name is "inducer" (e.g. "tree inducer").
+-->
+**学習者 (Learner)** または **機械学習アルゴリズム** はデータから機械学習モデルを学習するためのプログラムのことを言います。別の名前は、”inducer” (例えば, “tree inducer”)とも言います。
 
-
+<!--
 A **Machine Learning Model** is the learned program that maps inputs to predictions.
 This can be a set of weights for a linear model or for a neural network.
 Other names for the rather unspecific word "model" are "predictor" or - depending on the task - "classifier" or "regression model".
 In formulas, the trained machine learning model is called $\hat{f}$ or $\hat{f}(x)$.
+-->
+**機械学習モデル**とは、入力に対して予測を対応づける学習されたプログラムのことを言います。これは、線形モデルやニューラルネットワークの重みの集合とも言えます。
+この曖昧な単語である“モデル”の別の言い方として、”predictor” または、タスクに応じて “classifier” や “regression model” と言うこともあります。
 
 ```{r learner-definition, fig.cap = "A learner learns a model from labeled training data. The model is used to make predictions.", echo = FALSE, width = 500}
 knitr::include_graphics("images/learner.png")
 ```
 
-
+<!--
 A **Black Box Model** is a system that does not reveal its internal mechanisms.
 In machine learning, "black box" describes models that cannot be understood by looking at their parameters (e.g. a neural network).
 The opposite of a black box is sometimes referred to as **White Box**, and is referred to in this book as [interpretable model](#simple).
 [Model-agnostic methods](#agnostic) for interpretability treat machine learning models as black boxes, even if they are not.
+-->
+**ブラックボックスモデル**とは、内部の機構が明らかになっていないシステムのことを言います。機械学習の文脈では、”black box”は、例えばニューラルネットワークのような、学習された重みを見ても人間が理解できないモデルのことを指しています。
+ブラックボックスの反対は”ホワイトボックス”であり、この本では [interpretable model](#simple) として紹介されています。
 
 ```{r black-box, echo = FALSE, fig.cap  = "", width = 1500}
 knitr::include_graphics("images/iml.png")
 ```
 
-
+<!--
 **Interpretable Machine Learning** refers to methods and models that make the behavior and predictions of machine learning systems understandable to humans.
+-->
+**解釈可能な機械学習 (Interpretable Machine Learning)** は、機械学習システムの振る舞いや予測を人間にとって理解可能なものにするための手法やモデルのことを言います。
 
-
+<!--
 A **Dataset** is a table with the data from which the machine learns.
 The dataset contains the features and the target to predict.
 When used to induce a model, the dataset is called training data.
+-->
+**データセット** は機械が学習するデータを含むテーブルのこととします。
+データセットは特徴量 (features) と予測の目的値を持っています。
+モデルを学習する際に使われたデータセットのことを学習データと呼びます。
 
+<!--
 An **Instance** is a row in the dataset. 
 Other names for 'instance' are: (data) point, example, observation.
 An instance consists of the feature values $x^{(i)}$ and, if known, the target outcome $y_i$.
+-->
+**インスタンス** はデータセットの行のことを言います。
+インスタンスの別の言い方は、データ点 (data point)、例 (example)、観測 (observation)です。
+インスタンスは特徴量の値$x^{(i)}$と、もし既知なら、目的値の$y_i$からなります。
 
+<!--
 The **Features** are the inputs used for prediction or classification.
 A feature is a column in the dataset.
 Throughout the book, features are assumed to be interpretable, meaning it is easy to understand what they mean, like the temperature on a given day or the height of a person.
@@ -104,16 +207,34 @@ The interpretability of the features is a big assumption.
 But if it is hard to understand the input features, it is even harder to understand what the model does.
 The matrix with all features is called X and $x^{(i)}$ for a single instance.
 The vector of a single feature for all instances is $x_j$ and the value for the feature j and instance i is $x^{(i)}_j$.
+-->
+**特徴量** は予測やクラス分類に使われる入力のことです。
+特徴量はデータセットの列に対応します。
+この本を通して、特徴量そのものは解釈可能、つまり、気温や日、人間の身長など、意味が簡単に理解可能なものであるとします。
+なぜなら、仮に入力特徴量の理解が困難であれば、学習されたモデルの理解もまた難しくなるからです。
+全ての特徴量からなる行列をXと呼び、$x^{(i)}$は1つのインスタンスのこととします。
+すべてのインスタンスに対する1つの特徴量を並べたベクトルを$x_j$として、インスタンス i に対する特徴量 j の値は $x^{(i)}_j$ とします。
 
+<!--
 The **Target** is the information the machine learns to predict. 
 In mathematical formulas, the target is usually called y or $y_i$ for a single instance.
+-->
+**目標値 (Target)** とは機械が学習する予測の情報 のことです。
+数式の中では、目標値は y や 1つのインスタンスに対しては $y_i$ と呼ばれます。
 
+<!--
 A **Machine Learning Task** is the combination of a dataset with features and a target.
 Depending on the type of the target, the task can be for example classification, regression, survival analysis, clustering, or outlier detection.
+-->
+**機械学習タスク (Machine Learning Task) ** はデータセットの特徴量と目標値の組み合わせのことです。目標値のタイプにしたがって、タスクは例えばクラス分類、回帰、生存分析、クラスタリング、異常検知となります。
 
+<!--
 The **Prediction** is what the machine learning model "guesses" what the target value should be based on the given features.
 In this book, the model prediction is denoted by $\hat{f}(x^{(i)})$ or $\hat{y}$.
-
-
+-->
+**予測 (Prediction) ** は、与えられた特徴量に対して、機械学習モデルが 目標値がどうあるべきか“推測” した結果のことを言います。
+この本では、モデルの予測は $\hat{f}(x^{(i)})$ または $\hat{y}$ と表記します。
 
 [^algorithm]: "Definition of Algorithm."  https://www.merriam-webster.com/dictionary/algorithm. (2017).
+
+

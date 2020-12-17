@@ -1,8 +1,11 @@
-
 <!--{pagebreak}-->
 
+## 物語の時間 {#storytime}
+<!--
 ## Story Time {#storytime}
+-->
 
+<!--
 We will start with some short stories.
 Each story is an admittedly exaggerated call for interpretable machine learning.
 If you are in a hurry, you can skip the stories.
@@ -10,15 +13,30 @@ If you want to be entertained and (de-)motivated, read on!
 
 The format is inspired by Jack Clark's Tech Tales in his [Import AI Newsletter](https://jack-clark.net/).
 If you like this kind of stories or if you are interested in AI, I recommend that you sign up.
+-->
+まずは短い物語をいくつか紹介しましょう。
+それぞれの物語は解釈可能な機械学習のためにいささか誇張されたものです。
+もし急いでいるなら、これらの物語は読み飛ばしても大丈夫です。
+もし楽しみたいとか、やる気を出したい（ときに失くしたい）ならば、ぜひ読んでみてください！
 
+話の構成は Jack Clark の [Import AI Newsletter](https://jack-clark.net/) に掲載されている技術小話から影響を受けています。
+もしこれらの物語が気に入って、AI に興味を持ったならば、そのニュースレターに登録しておくことをオススメします。
+
+<!-
 ### Lightning Never Strikes Twice {-}
+->
+### 稲妻は二度と打たない {-}
+
+<!-
 **2030: A medical lab in Switzerland**
+->
+**2030年：スイスの医療ラボ**
 
 ```{r hospital, echo = FALSE, fig.cap = "",width=500}
 knitr::include_graphics("images/hospital.png")
 ```
 
-
+<!--
 "It's definitely not the worst way to die!" Tom summarised, trying to find something positive in the tragedy.
 He removed the pump from the intravenous pole.   
 "He just died for the wrong reasons," Lena added.  
@@ -28,7 +46,18 @@ After removing all the screws, he lifted the plate and put it aside.
 He plugged a cable into the diagnostic port.   
 "You didn't just complain about having a job, did you?" Lena gave him a mocking smile.  
 "Of course not. Never!" he exclaimed with a sarcastic undertone.
+-->
+「絶対に、医療ミスなんかじゃありませんでしたよ！」トムは起こった悲劇の中から少しでもマシなことがないか探すかのように言った。
+彼は患者の静脈からポンプを引き抜いた。
+「彼は医療ミスのせいで亡くなったんじゃないわ」レナが言った。
+「この狂ったモルヒネポンプのせいですよ！
+余計な仕事を増やしやがって！」トムはポンプの裏板のネジを外しながら不平を言った。
+ネジをすべて外し終えると、彼はその板を持ち上げて脇に置いた。
+彼はケーブルを診断装置に繋いだ。
+「仕事自体に文句を言ったわけじゃないわよね？」レナは彼にからかうような笑みを向けた。
+「違いますよ。えぇ違いますとも！」彼は皮肉っぽい低い声で言い返した。
 
+<!--
 He booted the pump's computer.  
 Lena plugged the other end of the cable into her tablet.
 "All right, diagnostics are running," she announced.
@@ -54,6 +83,33 @@ She continued to swipe through the diagnostics report.
 Tom stared captivated at the screen.
 It was his first investigation of a real device failure.
 
+-->
+彼はポンプのコンピュータを起動した。
+レナはケーブルのもう一方の端を彼女のタブレットに接続した。
+「いいわ。診断装置は動作してる」彼女は言った。
+「なにがいけなかったのかすごく興味がある」
+「John Doe 氏は完全に御陀仏ですね。
+この高濃度のモルヒネです。
+なんてこった。なんというか……こんなこと初めてです。そうですよね？
+普通、壊れたポンプというのはほんのちょっとしか供給しないか、何もしないものです。
+決して、いや起こったけど、こんな狂った量の投与はしません」トムは説明した。
+「ええ、言わなくてもわかってるわ……ねぇ、これを見て」レナは彼女のタブレットを持ち上げた。
+「ここにピークがあるのが見える？これが鎮痛剤を打った効能よ。
+見て！このラインは基準値を示してる。
+このかわいそうな男性は、彼を17回以上殺せる量の鎮痛剤を血管系に注入されたの。
+この私たちのポンプによって。
+それに……」彼女は画面をスワイプした。「ここに患者が亡くなった瞬間が記録されてる」
+「それで、何が起こったかわかりそうですか、ボス？」トムは彼の上司に尋ねた。
+「うーん……センサーは正常なようね。
+脈拍、血中酸素濃度、血糖値……データは正常に記録されている。
+血中酸素濃度のデータにいくらか欠損値が見受けられるけど、めずらしいことじゃない。
+ここを見て。
+センサーはモルヒネ誘導体やその他の鎮痛剤によって引き起こされる脈拍の低下とコルチゾール濃度の極端な低下を検知してる」
+彼女は診断レポートを次々とスワイプした。
+トムは食い入るように画面をじっと見つめた。
+それは彼にとって初めての機材故障の調査だった。
+
+<!--
 "Ok, here is our first piece of the puzzle.
 The system failed to send a warning to the hospital's communication channel.
 The warning was triggered, but rejected at protocol level.
@@ -81,7 +137,36 @@ That means that in the same situation the pump would behave exactly the same way
 Our patient would die again.
 A combination or undesired interaction of the sensory inputs must have triggered the erroneous behavior of the pump.
 That is why we have to dig deeper and find out what happened here," Lena explained.
+-->
+「オーケー。これがパズルの最初のピースね。
+システムは病院の通信チャンネルに警告を送信するのに失敗している。
+警告は発動したのに、プロトコルレベルで拒否された。
+それは私たちの落ち度かもしれないけど、病院側の落ち度でもありうるわ。
+そのログをITチームに送って」レナはトムに言った。
+トムは画面をじっと見つめたまま頷いた。
+レナは続けた。
+「奇妙ね。
+その警告を受けてポンプのシャットダウンも実行されるはずだった。
+でも明らかにシャットダウンに失敗している。
+きっとバグに違いないわ。
+品質管理チームが見逃した。
+それもめちゃくちゃ酷いやつ。
+多分、プロトコルの問題に関係あるわね」
+「それで、ポンプの緊急停止システムがどうにかして故障したのはいいとして、なぜポンプは John Doe 氏にこんなにたくさんの鎮痛剤を注入したのですか？」トムは疑問に思った。
+「いい質問ね。
+あなたの言う通りよ。
+プロトコルの不慮の失敗はさておき、そんなに大量の薬物を投与すべきではまったくなかった。
+コルチゾール濃度の低下や他の警告を受けて、アルゴリズムはもっと早くに自分自身で停止するはずだった」レナは説明した。
+「雷に打たれるような、万に1つの不運だったかもしれない、ということですか？」トムは彼女に尋ねた。
+「いいえ、トム。
+もし私が送ったドキュメントに目を通していたなら、このポンプが、センサーからの入力に基づいて完璧な量の鎮痛剤を注入できるよう、最初は動物実験、次に人間で訓練されたことを知っていたかもしれないわね。
+ポンプのアルゴリズムは不透明で複雑かもしれないけど、ランダムではない。
+それはつまり、同じ状況に遭遇したらポンプは再びまったく同じように動作するということ。
+私たちの患者がまた死ぬかもしれない。
+センサーからの入力の組み合わせか、望ましくない相互作用かが、ポンプの誤作動を引き起こしたに違いないわ。
+だからこそ、私たちはもっと深く掘り下げて、ここで何が起こったのかを明らかにする必要があるの」レナは説明した。
 
+<!--
 "I see ...," Tom replied, lost in thought.
 "Wasn't the patient going to die soon anyway? Because of cancer or something?"  
 Lena nodded while she read the analysis report.  
@@ -99,15 +184,39 @@ He kept looking at something outside.
 Both were silent for a few moments.   
 Lena lowered her head again and continued the analysis.
 "No, Tom. It's a bug... Just a damn bug."
+-->
+「そうですねぇ……」トムは深く考え込みながら応えた。
+「どの道、この患者はそう長くなかったんですよね？ガンかなにかで」
+レナは分析レポートを読みながら頷いた。
+トムは立ち上がって窓に寄った。
+彼は外の、遠くの一点を見つめた。
+「おそらく、その機械は彼の痛みから解放されたいという願いを聞いてやったんでしょう。
+もう苦しまないように。
+雷に打たれるようなものだったかもしれませんが、むしろ幸運だったのかも。
+宝くじみたいなもので、ランダムじゃない。
+なにか意味があったんです。
+もし僕がポンプだったら、同じことをしたでしょう」
+彼女はようやく顔を上げ、彼を見た。
+彼はまだ外のなにかを見ている。
+少しの間、二人は何も言わなかった。
+レナは再び画面に目を落とし、解析を続けた。
+「いいえ、トム。これはバグよ……ただのクソッタレなバグ」
 
+<!--
 ### Trust Fall {-}
+-->
+### 信用失墜 {-}
 
+<!--
 **2050: A subway station in Singapore**
+-->
+**2050年：シンガポールの地下鉄駅で**
 
 ```{r access-denied, echo = FALSE, fig.cap = "", width=500}
 knitr::include_graphics("images/access-denied.jpg")
 ```
 
+<!--
 She rushed to the Bishan subway station.
 With her thoughts she was already at work.
 The tests for the new neural architecture should be completed by now.
@@ -118,12 +227,31 @@ One day, the government could even integrate the predictions into the Civic Trus
 The Civic Trust Score estimates how trustworthy a person is. 
 The estimate affects every part of your daily life, such as getting a loan or how long you have to wait for a new passport.
 As she descended the escalator, she imagined how an integration of her team's system into the Civic Trust Score System might look like.
+-->
+彼女は地下鉄Bishan駅に駆け込んだ。
+頭の中ではとっくに仕事を始めていた。
+新しいニューラルアーキテクチャのテストはもうできたはずだ。
+彼女は政府の納税義務者の脱税を予測するシステムの再設計に着手した。
+彼女のチームはみごとな実装を考案していた。
+うまくいけば、システムは税務署だけではなく、テロリスト対策用警鐘システムや、営利法人の登記などさまざまな場面に導入されるだろう。
+ゆくゆくはそういった予測を市民の信用度計算システムに統合できるかもしれない。
+市民の信用度計算システムは文字通り、それぞれの人が信用できるか判定するものだ。
+ローンの採否からパスポート発行までにかかる時間まで、人々の生活のあらゆる面に影響を及ぼすだろう。
+エスカレーターをおりる途中で、彼女はチームで開発しているシステムを信用度を計算にいかに統合するか考えていた。
 
+<!--
 She routinely wiped her hand over the RFID reader without reducing her walking speed.
 Her mind was occupied, but a dissonance of sensory expectations and reality rang alarm bells in her brain.
+-->
+彼女はいつも通り、歩みを緩めることなく、RFID読み取り機に手をかざした。
+良い気分だったが、期待と現実の不一致が彼女の中で警鐘を鳴らした。
 
+<!--
 Too late.
+-->
+遅かった。
 
+<!--
 Nose first she ran into the subway entrance gate and fell with her butt first to the ground.
 The door was supposed to open, ... but it did not.
 Dumbfounded, she stood up and looked at the screen next to the gate.
@@ -137,15 +265,39 @@ She tried to open the door, but was rejected again.
 It was strange.
 Maybe her public transport account did not have sufficient tokens.
 She looked at her smartwatch to check the account balance.
+-->
+彼女は地下鉄の改札に向かったが、鼻をぶつけて尻餅をついてこけた。
+開くはずのドアは開かなかった。
+驚きながら立ち上がり、改札脇のスクリーンに目をやった。
+スクリーンには笑顔のキャラクターと「もう一度お試し下さい」の一言。
+彼女のことなど気にせず、他の人は読み取り機に手をかざしてすり抜けていく。
+ドアは開いて行ってしまった。
+また閉じた。
+彼女は鼻をこすった。痛むが出血はない。
+彼女はもう一度ドアを開けようとしたが、またしても拒否されてしまった。
+おかしい。
+公共交通機関を利用するための預金が不足しているのかもしれない。
+彼女はスマートウォッチで残高を確認してみる。
 
+<!--
 "Login denied. Please contact your Citizens Advice Bureau!" her watch informed her.
+-->
+「ログインに失敗しました。市民相談所にお問い合わせください」と彼女の腕時計に表示されていた。
 
+<!--
 A feeling of nausea hit her like a fist to the stomach.
 She suspected what had happened.
 To confirm her theory, she started the mobile game "Sniper Guild", an ego shooter.
 The app was directly closed again automatically, which confirmed her theory.
 She became dizzy and sat down on the floor again.
+-->
+お腹を殴られでもしたかのような吐き気が彼女を襲った。
+何が起きているのか考えた。
+試しに「スナイパーギルド」という携帯ゲームを始めた。
+すると予想通りにアプリは自動終了してしまった。
+眩暈がして彼女は床にへたりこんだ。
 
+<!--
 There was only one possible explanation:
 Her Civic Trust Score had dropped. 
 Substantially.
@@ -156,7 +308,19 @@ The government restricted the financial transactions of subjects with low Civic 
 They also began to actively monitor your behavior on social media and even went as far as to restrict certain content, such as violent games.
 It became exponentially more difficult to increase your Civic Trust Score the lower it was.
 People with a very low score usually never recovered.
+-->
+この状況を説明できる方法は1つしかない。
+市民の信用度が落ちたのだ。
+がっくりと。
+ちょっと落ちたくらいなら、飛行機でファーストクラスに乗れないとか、公的文書の取り寄せに通常より時間がかかるとか、少々の不便で済むのだ。
+信用度が低いということは、彼女が社会的に危険な存在として認識されたということだ。
+そういった人への対策の1つは、地下鉄のような公共施設からの締め出しだ。
+政府は信用度が低い人の金銭取引も制限する。
+更にはソーシャルメディアでの活動を監視し始め、暴力的なゲームなど一部のコンテンツの利用制限すら課す。
+一度落ちた信用度は急激に回復が難しくなってしまう。
+どん底まで落ちると這い上がれない。
 
+<!--
 She could not think of any reason why her score should have fallen.
 The score was based on machine learning.
 The Civic Trust Score System worked like a well-oiled engine that ran society.
@@ -164,7 +328,16 @@ The performance of the Trust Score System was always closely monitored.
 Machine learning had become much better since the beginning of the century.
 It had become so efficient that decisions made by the Trust Score System could no longer be disputed.
 An infallible system.
+-->
+彼女には信用度が落ちた理由がわからなかった。
+信用度は機械学習に基づいて計算されている。
+このシステムは、よくオイルを行きわたらせたエンジンのように社会を動かしている。
+信用度計算システムの性能は常にモニタリングされていた。
+今世紀初頭に比べて機械学習は非常に発展している。
+市民の信用度に基づく判断はとても効率的で議論の余地はなかった。
+完全無欠なシステムなのだ。
 
+<!--
 She laughed in despair.
 Infallible system.
 If only.
@@ -178,31 +351,67 @@ It was too integrated into the government, into society itself, to be questioned
 In the few remaining democratic countries it was forbidden to form anti-democratic movements, not because they where inherently malicious, but because they would destabilize the current system.
 The same logic applied to the now more common algocraties.
 Critique in the algorithms was forbidden because of the danger to the status quo.
+-->
+彼女は悲嘆にくれて笑うしかなかった。
+完全無欠なシステム。
+そうならよかった。
+ほとんど失敗しない。
+でも失敗した。
+彼女は自分がそんな特別な一例だと思った。
+システムのエラーだ。
+おかげで、社会から見捨てられてしまった。
+誰もシステムを疑おうなどとしない。
+システムは政府と密に連携していて、社会にまで溶け込んでいて、疑う余地なんてない。
+民主主義国家の中には、反民主主義的な活動を禁じている国が少数ながらある。
+それは別に危険性が高いからではなく、今あるシステムを不安定にしてしまう可能性があるからだ。
+同じ理屈が、今では一般的になった人工知能による統治にも適用される。
+現状を危機にしてしまうようなアルゴリズムへの敵対は禁止されているのだ。
 
+<!--
 Algorithmic trust was the fabric of the social order.
 For the common good, rare false trust scorings were tacitly accepted.
 Hundreds of other prediction systems and databases fed into the score, making it impossible to know what caused the drop in her score.
 She felt like a big dark hole was opening in and under her.
 With horror she looked into the void.
+-->
+アルゴリズムによる信頼度の算出は、社会的に要請されて生まれた。
+公益のため、稀な信頼度の誤判定はそれとなく許容された。
+スコアの算出には何百もの予測システムやデータベースが利用されていて、彼女のスコアがなぜ落ちたのか説明できなくなっていた。
+彼女は自分の足元に大きくて真っ暗な穴が開いたように感じた。
+彼女は恐れ、虚空を見つめていた。
 
+<!--
 Her tax affinity system was eventually integrated into the Civic Trust Score System, but she never got to know it.
+-->
+彼女の脱税者予測システムが市民の信用度計算システムに取り込まれた、しかし、彼女はそれについて知ることはなかった。
 
-
-
+<!--
 ### Fermi's Paperclips {-}
+-->
+### フェルミのペーパー・クリップ {-}
 
+<!--
 **Year 612 AMS (after Mars settlement): A museum on Mars**
+-->
+**AMS（火星定住歴）612年の火星の博物館で**
 
 ```{r burnt-earth, echo = FALSE, fig.cap = "", width=500}
 knitr::include_graphics("images/burnt-earth.jpg")
 ```
 
+<!--
 "History is boring," Xola whispered to her friend.
 Xola, a blue-haired girl, was lazily chasing one of the projector drones humming in the room with her left hand.
 "History is important," the teacher said with an upset voice, looking at the girls.
 Xola blushed.
 She did not expect her teacher to overhear her.
+-->
+「歴史って面白くないな」、Xolaは友達にこぼした。
+青い髪をした少女のXolaは、屋内で彼女の左側を飛ぶプロジェクタ搭載のドローンにだらだらとついていった。
+先生は彼女を見て「歴史は重要ですよ」と取り乱し気味に言った。
+彼女はまさか先生に聞かれていると思っていなかった。
 
+<!--
 "Xola, what did you just learn?" the teacher asked her. 
 "That the ancient people used up all resources from Earther Planet and then died?" she asked carefully.
 "No. They made the climate hot and it wasn't people, it was computers and machines. And it's Planet Earth, not Earther Planet," added another girl named Lin.
@@ -211,7 +420,17 @@ With a touch of pride, the teacher smiled and nodded.
 "You are both right. Do you know why it happened?" 
 "Because people were short-sighted and greedy?" Xola asked.
 "People could not stop their machines!" Lin blurted out.
+-->
+「Xola、今、何を学びましたか？」と先生は尋ねた。
+彼女は慎重に「昔の人は惑星Eartherの資源を使い尽して死んだんでしたっけ？」と聞き返した。Linという名の女の子が続いた。
+「違うよ。彼らは気候温暖化を招いたの。正確には人ではなくコンピューターと機械がね。で、その惑星の名前はEarth（地球）よ。Eartherじゃないよ」
+Xolaはなるほどと頷いた。
+先生は少し誇らしげな様子で微笑みながら頷いた。
+「どちらも正しいです。ではなぜそんなことが起きたのでしょうか？」
+Xolaは「人が短絡的で強欲だったからかな？」と首をかしげた。
+「機械を止められなかったからよ！」とLinは思わず言ってしまった。
 
+<!--
 "Again, you are both right," the teacher decided,
 "but it's much more complicated than that.
 Most people at the time were not aware of what was happening.
@@ -219,13 +438,26 @@ Some saw the drastic changes, but could not reverse them.
 The most famous piece from this period is a poem by an anonymous author.
 It best captures what happened at that time.
 Listen carefully!"
+-->
+先生は「今度の答えも両方あってます」と断じた。
+「ですが、事態はもう少し複雑だったのです。
+当時のほとんどの人は何が起きているか理解していませんでした。
+急激な変化に気付いた人もいましたが、取り返しがつきませんでした。
+この時代を理解する最も有名な鍵として、書き手不明の詩があります。
+この事態に起きていたことを最も明瞭に記しているので、よく聞いていてくださいね。」
 
-
+<!--
 The teacher started the poem.
 A dozen of the small drones repositioned themselves in front of the children and began to project the video directly into their eyes.
 It showed a person in a suit standing in a forest with only tree stumps left.
 He began to talk:
+-->
+先生は詩を読み始めました。
+たくさんのドローンが子供たちの前に移動して、それぞれの目に映像を投影し始めた。
+映像の中には、切り株だけが残された森の中に立つスーツを着た人がいた。
+彼はこう語り始めました。
 
+<!--
 *The machines compute; the machines predict.* 
 
 *We march on as we are part of it.* 
@@ -278,6 +510,60 @@ He began to talk:
 
 *Embracing entropy.*
 
+-->
+
+*機械は計算し、予測した*
+
+*人々は予測の結果に基づいて前進した* 
+
+*人々は機械が学んだ最適解を辿った*
+
+*最適解は1次元で、局所的で、制約がないものだった*
+
+*シリコンと人類は指数関数を追い求めた* 
+
+*発展こそ我らが本懐*
+
+*すべての報酬が得られたとき、* 
+
+*副作用は無視される* 
+
+*すべてのコインが採掘されたとき* 
+
+*自然は置き去りにされる* 
+
+*そして災厄が訪れる*
+
+*指数的な成長は水泡に帰す泡沫となって弾ける* 
+
+
+*コモンズの悲劇が繰り広げられる* 
+
+*爆発する*
+
+*目前で* 
+
+
+*冷淡な計算と容赦ない強欲が* 
+
+*地球を熱で満たす* 
+
+*何もかもを襲う死に* 
+
+*我々はなす術はない* 
+
+
+*目隠しされた馬のように、我々は自ら生んだレースの中で競争する*
+
+*限界に向かって*
+
+*だから我々は執拗に行進する*
+
+*機械の一部のように*
+
+*崩壊も受け入れて*
+
+<!--
 "A dark memory," the teacher said to break the silence in the room.
 "It will be uploaded to your library.
 Your homework is to memorise it until next week."
@@ -285,3 +571,11 @@ Xola sighed.
 She managed to catch one of the little drones.
 The drone was warm from the CPU and the engines.
 Xola liked how it warmed her hands.
+-->
+「暗い過去ですね」と呟き、先生は静寂を破った。
+「みなさんのライブラリにあげておきますね。
+宿題として来週までに暗記しておいてください。」
+Xolaは溜息をついた。
+彼女は小型ドローンを1機つかまえた。
+ドローンはCPUとエンジンのおかげで熱を持っていた。
+Xolaは自身の手に伝わる熱を心地良く感じていた。

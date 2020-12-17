@@ -5,8 +5,12 @@ set.seed(42)
 
 <!--{pagebreak}-->
 
+## 決定木 {#tree}
+<!--
 ## Decision Tree {#tree}
+-->
 
+<!--
 Linear regression and logistic regression models fail in situations where the relationship between features and outcome is nonlinear or where features interact with each other.
 Time to shine for the decision tree!
 Tree based models split the data multiple times according to certain cutoff values in the features.
@@ -14,14 +18,30 @@ Through splitting, different subsets of the dataset are created, with each insta
 The final subsets are called terminal or leaf nodes and the intermediate subsets are called internal nodes or split nodes.
 To predict the outcome in each leaf node, the average outcome of the training data in this node is used.
 Trees can be used for classification and regression.
+-->
+線形回帰とロジスックモデルは特徴量と出力が非線形の時や特徴量が相互作用する時に失敗します。
+この状況こそ決定木が輝く時です！
+木をベースにしたモデルは、特徴量のうち、あるカットオフ値によって、データを複数回分岐します。
+この分岐を通して、データセットは異なる部分集合に分岐され、それぞれのインスタンスはこのうちの1つに属します。
+この最後の部分集合は終端ノードまたは葉と呼ばれていて、中間の部分集合は内部ノード、または、分岐ノードと呼ばれています。それぞれの葉で出力を予測するためには、ノードの中の学習データの出力の平均値が使用されます。決定木は、分類でも回帰でも使われています。
 
+<!--
 There are various algorithms that can grow a tree.
 They differ in the possible structure of the tree (e.g. number of splits per node), the criteria how to find the splits, when to stop splitting and how to estimate the simple models within the leaf nodes.
 The classification and regression trees (CART) algorithm is probably the most popular algorithm for tree induction.
 We will focus on CART, but the interpretation is similar for most other tree types.
 I recommend the book 'The Elements of Statistical Learning' (Friedman, Hastie and Tibshirani 2009)[^Hastie] for a more detailed introduction to CART.
+-->
+決定木を成長させるためのさまざまなアルゴリズムが知られています。
+これらのアルゴリズムでは、決定木の構造（例:ノードあたりの分岐数）、分岐を見つけるための指標、いつ分岐を止めるか、そしてどのようにして葉の中で簡単なモデルを予測するかが異なっています。
+CART(Classification And Regression Trees)アルゴリズムは、おそらく決定木を構築するためのもっとも有名なアルゴリズムです。
+本章ではCARTに焦点をあてますが、他の木も同様に解釈可能です。
+CARTに関して、より詳細を知りたいのであれは、’The Elements of Statistical Learning' (Friedman, Hastie and Tibshirani 2009)[^Hastie] の本をお勧めします。
 
-```{r tree-artificial, fig.cap="Decision tree with artificial data. Instances with a value greater than 3 for feature x1 end up in node 5. All other instances are assigned to node 3 or node 4, depending on whether values of feature x2  exceed 1.", dev.args = list(pointsize = 15)}
+<!--
+fig.cap="Decision tree with artificial data. Instances with a value greater than 3 for feature x1 end up in node 5. All other instances are assigned to node 3 or node 4, depending on whether values of feature x2  exceed 1."
+-->
+```{r tree-artificial, fig.cap="人工データに対する決定木 特徴量 x1 が 3 より大きいとき、ノード 5 に割り当てられる。それ以外のインスタンスは特徴量 x2 が 1 を超えるかどうかでのノード3かノード4に割り当てられる。", dev.args = list(pointsize = 15)}
 library("partykit")
 set.seed(42)
 n = 100
@@ -33,45 +53,89 @@ plot(ct, inner_panel = node_inner(ct, pval = FALSE, id = FALSE),
   terminal_panel = node_boxplot(ct, id = FALSE))
 ```
 
+<!--
 The following formula describes the relationship between the outcome y and features x.
-
+-->
+下記の方程式は特徴量 x と出力 y の関係を記述しています。
 $$\hat{y}=\hat{f}(x)=\sum_{m=1}^Mc_m{}I\{x\in{}R_m\}$$
 
+<!--
 Each instance falls into exactly one leaf node (=subset $R_m$).
 $I_{\{x\in{}R_m\}}$ is the identity function that returns 1 if $x$ is in the subset $R_m$ and 0 otherwise.
 If an instance falls into a leaf node $R_l$, the predicted outcome is $\hat{y}=c_l$, where $c_l$ is the average of all training instances in leaf node $R_l$.
+-->
+それぞれのインスタンスは1つの葉(=subset $R_m$)に対応します.
+$I_{\{x\in{}R_m\}}$ は、$x$が$R_m$の部分集合に属していれば1を、そうでないなら0を返す指示関数です。もし、インスタンスが葉$R_l$対応したとすると、予測による出力は$\hat{y}=c_l$となります。ただし、$c_l$は葉$R_l$に対応する全ての学習データのインスタンスの出力の平均値です。
 
+<!--
 But where do the subsets come from?
 This is quite simple:
 CART takes a feature and determines which cut-off point minimizes the variance of y for a regression task or the Gini index of the class distribution of y for classification tasks.
 The variance tells us how much the y values in a node are spread around their mean value.
 The Gini index tells us how "impure" a node is, e.g. if all classes have the same frequency, the node is impure, if only one class is present, it is maximally pure.
 Variance and Gini index are minimized when the data points in the nodes have very similar values for y.
+-->
+しかし、これらの部分集合はどこからきたのでしょうか？
+これはとても簡単です:
+CARTは回帰であればyの分散を、分類であれば y のクラス分布のジニ係数を最小にするように、特徴量を選び、カットオフ点を決定します。
+分散はノード内のyの値が平均からどの程度広がっているかを教えてくれます。
+ジニ係数はノードがどれだけ不純かを教えてくれます。例えば、ノード内に全てのクラスが同じ数あるとき、ノードは不純になります。一方で、ノードのクラスが1つだけの場合、純度が最大になります。
+ノードの中のデータ点がとても似た y の値を持つとき、分散やジニ係数は最小化されます。
+
+<!--
 As a consequence, the best cut-off point makes the two resulting subsets as different as possible with respect to the target outcome.
 For categorical features, the algorithm tries to create subsets by trying different groupings of categories.
 After the best cutoff per feature has been determined, the algorithm selects the feature for splitting that would result in the best partition in terms of the variance or Gini index and adds this split to the tree.
 The algorithm continues this search-and-split recursively in both new nodes until a stop criterion is reached.
 Possible criteria are:
 A minimum number of instances that have to be in a node before the split, or the minimum number of instances that have to be in a terminal node.
+-->
+結果として、最適なカットオフポイントは、目標値に関して、2つの結果の部分集合が出来る限り異なる値となるように選ばれます。
+カテゴリカルデータに対して、アルゴリズムは各カテゴリーごとにまとめる様にして部分集合を作成します。
+特徴量ごとの最適なカットオフが決まったあと、アルゴリズムは、その中から分散やジニ係数に関して最適な分岐を与える特徴量を選び、この分岐を木に追加します。
+アルゴリズムは、両方の新しいノードに対して、この探索と分岐を停止の基準に到達するまで再帰的に繰り返します。
+考えられる停止基準:
+分岐の前にノードの中に存在するべきインスタンスの最小の数、または、終端点に含まれるインスタンスの最小の数。
 
+
+<!-- 
 ### Interpretation
+-->
+### 決定木の解釈
 
+<!--
 The interpretation is simple:
 Starting from the root node, you go to the next nodes and the edges tell you which subsets you are looking at.
 Once you reach the leaf node, the node tells you the predicted outcome.
 All the edges are connected by 'AND'.
 
 Template: If feature x is [smaller/bigger] than threshold c AND ... then the predicted outcome is the mean value of y of the instances in that node.
+-->
+決定木の解釈は単純です:
+根のノードから始めて、辺を辿って次のノードへと移っていきます。
+葉に到達すると、そのノードから予測結果を得ることができます。
+すべての枝は ’AND’ で繋がっています。
 
+例: 特徴量 x が しきい値 c より[小さい/大きい] かつ … 、このとき、予測結果は対応するノードに含まれるインスタンスの y の平均値になります。
+
+<!-- **Feature importance** -->
 **Feature importance**
 
+<!--
 The overall importance of a feature in a decision tree can be computed in the following way:
 Go through all the splits for which the feature was used and measure how much it has reduced the variance or Gini index compared to the parent node.
 The sum of all importances is scaled to 100.
 This means that each importance can be interpreted as share of the overall model importance.
+-->
+決定木での特徴量の全体の重要度は次のように計算されます。
+その特徴が使われた全ての分岐を見て、それが親のノードに比べてどのくらい分散やジニ係数を減少させているかを計算します。
+全部の重要度の和を100にスケールします。
+これはそれぞれの重要度がモデル全体に対する重要度からの寄与率として解釈できることを意味します。
 
-**Tree decomposition**
+<!-- **Tree decomposition** -->
+**木の分解**
 
+<!--
 Individual predictions of a decision tree can be explained by decomposing the decision path into one component per feature.
 We can track a decision through the tree and explain a prediction by the contributions  added at each decision node.
 
@@ -81,18 +145,45 @@ With the next split, we either subtract or add a term to this sum, depending on 
 To get to the final prediction, we have to follow the path of the data instance that we want to explain and keep adding to the formula.
 
 $$\hat{f}(x)=\bar{y}+\sum_{d=1}^D\text{split.contrib(d,x)}=\bar{y}+\sum_{j=1}^p\text{feat.contrib(j,x)}$$
+-->
+決定木の個々の予測は決定経路を特徴量ごとに1つの要素に分解することで説明可能です。
+木に沿って決定を追うことができ、それぞれの決定ノードに与えられた寄与度によって予測を説明できます。
 
+根のノードは始点となります。
+根のノードを最終的な予測をするために使うならば、学習データの結果の平均を出力することになります。
+次の分岐では、経路上の次のノードによって、この和に項を減らしたり加えたりします。
+最終的な結果を得るためには、説明したいデータの経路に従って、式に加え続ける必要があります。
+
+$$\hat{f}(x)=\bar{y}+\sum_{d=1}^D\text{split.contrib(d,x)}=\bar{y}+\sum_{j=1}^p\text{feat.contrib(j,x)}$$
+
+<!--
 The prediction of an individual instance is the mean of the target outcome plus the sum of all contributions of the D splits that occur between the root node and the terminal node where the instance ends up.
 We are not interested in the split contributions though, but in the feature contributions.
 A feature might be used for more than one split or not at all.
 We can add the contributions for each of the p features and get an interpretation of how much each feature has contributed to a prediction.
+-->
+それぞれのデータの予測は、目的の結果の平均値に、根のノードとそのデータの予測が終わる終端ノードの間で起こる D回の分岐の寄与度の和を足したものになります。
+我々は分岐の寄与度ではなく特徴量の寄与度に関心があります。
+1つの特徴量は2回以上使われるかもしれないし全く使われないかもしれません。
+p個の特徴量それぞれに寄与度をつけることができ、それぞれの特徴量がどれだけ予測に寄与してるかの解釈を得ることができます。
 
+<!--
 ### Example
+-->
+### 例
+
+<!--
 Let us have another look at the [bike rental data](#bike-data).
 We want to predict the number of rented bikes on a certain day with a decision tree.
 The learned tree looks like this:
+-->
+[自転車レンタルデータ](#bike-data)をみてみましょう。
+決定木を用いて、特定の日の自転車レンタル数を予測してみましょう。学習した決定木は以下の通りです。
 
-```{r tree-example, fig.cap="Regression tree fitted on the bike rental data. The maximum allowed depth for the tree was set to 2. The trend feature (days since 2011) and the temperature (temp) have been selected for the splits. The boxplots show the distribution of bicycle counts in the terminal node.", dev.args = list(pointsize = 13)}
+<!--
+fig.cap="Regression tree fitted on the bike rental data. The maximum allowed depth for the tree was set to 2. The trend feature (days since 2011) and the temperature (temp) have been selected for the splits. The boxplots show the distribution of bicycle counts in the terminal node."
+-->
+```{r tree-example, fig.cap="自転車レンタルデータセットで学習された回帰木 木の最大深さは 2 に設定されている。トレンド特徴量(2011年からの経過日数)と気温(temp)が分割に選ばれている。箱ひげ図は終端ノードにおける自転車レンタル数の分布を示している。", dev.args = list(pointsize = 13)}
 data(bike)
 X = bike[bike.features.of.interest]
 y = bike[,'cnt']
@@ -104,17 +195,32 @@ plot(xp, digits = 0, id = FALSE, terminal_panel = node_boxplot(xp, id = FALSE),
   inner_panel = node_inner(xp, id = FALSE, pval = FALSE)
   )
 ```
+
+<!--
 The first split and one of the second splits were performed with the trend feature, which counts the days since  data collection began and covers the trend that the bike rental service has become more popular over time.
 For days prior to the 105th day, the predicted number of bicycles is around 1800, between the 106th and 430th day it is around 3900.
 For days after the 430th day, the prediction is either 4600 (if temperature is below 12 degrees) or 6600 (if temperature is above 12 degrees).
+-->
+１段目と２段目のひとつの分岐は、時間のトレンドの特徴量によって行われていますが、データ収集を開始してからの日数を考慮に入れているので、レンタルサービスがだんだんと人気になっていった様子が表現されています。
+105日目より前のとき、自転車の数の予測は約1800台で、106 ~ 430日目の間は約3900台となりました。430日以降については、予測は4600台(気温が12度以下のとき)、または、6600台(気温が12度以上のとき)となりました。
 
+<!--
 The feature importance tells us how much a feature helped to improve the purity of all nodes.
 Here, the variance was used, since predicting bicycle rentals is a regression task.
+-->
+feature importanceを見ると、ある特徴量がノードの純度をどの程度向上させるかが分かります。ここでは、自転車レンタル数の予測は回帰問題であるので、分散が使用されています。
 
+<!--
 The visualized tree shows that both temperature and time trend were used for the splits, but does not quantify which feature was more important.
 The feature importance measure shows that the time trend is far more important than temperature.
+-->
+可視化された決定木によって、温度と時間のトレンドの両方が分岐に使われていることはわかりますが、どの特徴量がどれほど重要かは定量化できていません。
+feature importanceは時間のトレンドが温度よりも需要であることを示しています。
 
-```{r tree-importance, fig.cap = "Importance of the features measured by how much the node purity is improved on average."}
+<!--
+fig.cap = "Importance of the features measured by how much the node purity is improved on average."
+-->
+```{r tree-importance, fig.cap = "平均的にノードの不純度がどの程度改善されたかによって計算された特徴量の重要度"}
 imp = round(100 * x$variable.importance / sum(x$variable.importance),0)
 imp.df = data.frame(feature = names(imp), importance = imp)
 imp.df$feature = factor(imp.df$feature, levels = as.character(imp.df$feature)[order(imp.df$importance)])
@@ -122,15 +228,28 @@ ggplot(imp.df) + geom_point(aes(x = importance, y = feature)) +
   scale_y_discrete("")
 ```
 
+<!--
 ### Advantages
+-->
+### 長所
 
+<!--
 The tree structure is ideal for **capturing interactions** between features in the data.
+-->
+決定木の構造は、データの特徴量間の**相互作用を捉える**ために理想的です。
 
+<!--
 The data ends up in **distinct groups** that are often easier to understand than points on a multi-dimensional hyperplane as in linear regression.
 The interpretation is arguably pretty simple.
+-->
+データは最終的に**個別のグループ**に分かれるので、線型回帰のような多次元の超平面上の点として理解するよりも簡単です。
 
+<!--
 The tree structure also has a **natural visualization**, with its nodes and edges.
+-->
+決定木の構造は、ノードと辺により**自然な描画**が可能です。
 
+<!--
 Trees **create good explanations** as defined in the [chapter on "Human-Friendly Explanations"](#good-explanation).
 The tree structure automatically invites to think about predicted values for individual instances as counterfactuals:
 "If a feature had been greater / smaller than the split point, the prediction would have been y1 instead of y2."
@@ -139,19 +258,39 @@ If the tree is short, like one to three splits deep, the resulting explanations 
 A tree with a depth of three requires a maximum of three features and split points to create the explanation for the prediction of an individual instance.
 The truthfulness of the prediction depends on the predictive performance of the tree.
 The explanations for short trees are very simple and general, because for each split the instance falls into either one or the other leaf, and binary decisions are easy to understand.
+-->
+決定木は[chapter on "Human-Friendly Explanations"](#good-explanation)で定義されているように、**よい説明**を与えることができます。
+決定木の構造は、自動的に個々のインスタンスに対して反事実的に予測値を考えるように誘導します。:
+「この特徴量が分岐点より、大きい(小さい)なら、予測値はy2ではなくてy1であったのに。」
+決定木の説明は対照的です。なぜなら、いつでも予測値と、決定木によって定められたwhat ifシナリオ(他のノードの葉)と比べられるからです。
+もし、木の深さが1から3のように短かったら、最終的な説明は選択的です。
+深さが3の決定木は、個々のインスタンスの予測の説明を得るために、最大3つの特徴量と分岐点を必要とします。
+予測値の真実性は、決定木の予測性能に依存します。
+短い木の説明は非常に単純かつ一般的です。なぜなら、それぞれの分岐において、インスタンスは左右いずれかのノードに分かれていくので、このような二者択一は理解しやすいからです。
 
+<!--
 There is no need to transform features. 
 In linear models, it is sometimes necessary to take the logarithm of a feature. 
 A decision tree works equally well with any monotonic transformation of a feature.
+-->
+特徴量を変換する必要はありません。
+線型モデルでは、特徴量の対数をとる必要があることがあります。
+決定木は、特徴量の任意の単調変換に対して等価な動きをします。
 
-
-
+<!--
 ### Disadvantages
+-->
+### 短所
 
+<!--
 **Trees fail to deal with linear relationships**.
 Any linear relationship between an input feature and the outcome has to be approximated by splits, creating a step function.
 This is not efficient.
+-->
+**木は線形な関係をうまく扱うことができない**
+任意の入力特徴量と出力の間の線形な関係は、分岐されて作られたステップ関数で近似されるため、これは効率的ではない。
 
+<!--
 This goes hand in hand with **lack of smoothness**.
 Slight changes in the input feature can have a big impact on the predicted outcome, which is usually not desirable.
 Imagine a tree that predicts the value of a house and the tree uses the size of the house as one of the split feature.
@@ -162,13 +301,25 @@ The users notice that they have forgotten to measure a small storage room with 2
 The storage room has a sloping wall, so they are not sure whether they can count all of the area or only half of it.
 So they decide to try both 100.0 and 101.0 square meters.
 The results: The price calculator outputs 200 000 Euro and 205 000 Euro, which is rather unintuitive, because there has been no change from 99 square meters to 100.
+-->
+これは、**滑らかさの欠如**と密接に関係しています。入力特徴量のわずかな変化が、予測結果に大きな影響を与える場合がありますが、これは望ましくありません。家のサイズを特徴量の1つとした決定木で住宅の価格を予測する場合を考えてみましょう。
+100.5平方メートルで分岐が発生したとします。
+この決定木の予測モデルを使ってユーザが家の価格を見積もるとどうなるでしょうか。
+家のサイズは99平方メートルだったとして、それを入力すると200, 000 ユーロという予測結果を得ました。ユーザは2平方メートルの倉庫部屋の計算を忘れていたことに気がつきました。また、その倉庫には斜めの壁があったため、全ての面積を計算するべきか、半分にするべきか確証を持てませんでした。なので、100.0平方メートルと101.0平方メートルの場合のどちらもを試すことに決めました。結果として、200, 000ユーロと205, 000ユーロという予測結果が得られましたが、これはユーザの直感に反します。なぜなら、99平方メートルが100平方メートルになっても価格に変化が生じなかったためです。
 
+<!--
 Trees are also quite **unstable**.
 A few changes in the training dataset can create a completely different tree.
 This is because each split depends on the parent split.
 And if a different feature is selected as the first split feature, the entire tree structure changes.
 It does not create confidence in the model if the structure changes so easily.
+-->
+決定木は、かなり**不安定**でもあります。
+学習データがわずかに変わっただけで、全く異なった決定木が作られることがあります。
+これはそれぞれの分岐が親の分岐に依存しているためです。
+そのため、もし最初の分岐で異なる特徴が選択されたとすると、全体の木構造に違いが生じます。このように、構造が容易に変化するため、モデルに信頼性があるとは言えません。
 
+<!--
 Decision trees are very interpretable -- as long as they are short.
 **The number of terminal nodes increases quickly with depth.**
 The more terminal nodes and the deeper the tree, the more difficult it becomes to understand the decision rules of a tree.
@@ -176,10 +327,24 @@ A depth of 1 means 2 terminal nodes.
 Depth of 2 means max. 4 nodes. 
 Depth of 3 means max. 8 nodes.
 The maximum number of terminal nodes in a tree is 2 to the power of the depth.
+-->
+決定木は木の深さが小さいときは非常に解釈しやすいです。
+**終端点の数は深さにともなって急激に増加します**
+終端点の数と木の深さが増加するにつれて、木の決定規則を理解することがより難しくなります。深さが1のときは2つの終端点、深さが2のときは最大4つ、深さが3のときは最大8つと、最大の終端点の数は、2の(木の深さ)乗となります。
 
+<!--
 ### Software
+-->
+### ソフトウェア
 
+<!--
 For the examples in this chapter, I used the `rpart` R package that implements CART (classification and regression trees).
 CART is implemented in many programming languages, including [Python](https://scikit-learn.org/stable/modules/tree.html).
 Arguably, CART is a pretty old and somewhat outdated algorithm and there are some interesting new algorithms for fitting trees.
 You can find an overview of some R packages for decision trees in the [Machine Learning and Statistical Learning CRAN Task View](https://cran.r-project.org/web/views/MachineLearning.html) under the keyword "Recursive Partitioning".
+-->
+この章の例では、CART (Classification And Regression Tree) の実装は `rpart` というRパッケージを用いました。
+CART は[Python](https://scikit-learn.org/stable/modules/tree.html)を含む多くのプログラミング言語で実装されています。
+間違いなく、CARTはかなり古く、やや時代遅れのアルゴリズムであり、木を学習するためのいくつかの興味深い新しいアルゴリズムがあります。
+決定木に関するいくつかのRパッケージの概要は[Machine Learning and Statistical Learning CRAN Task View](https://cran.r-project.org/web/views/MachineLearning.html)の"Recursive Partitioning"の項目のところに書かれています。
+

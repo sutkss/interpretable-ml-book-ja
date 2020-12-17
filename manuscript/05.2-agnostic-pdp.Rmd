@@ -6,63 +6,119 @@ set.seed(42)
 <!--{pagebreak}-->
 
 ## Partial Dependence Plot (PDP) {#pdp}
+<!--
+## Partial Dependence Plot (PDP) {#pdp}
+-->
 
+<!--
 The partial dependence plot (short PDP or PD plot) shows the marginal effect one or two features have on the predicted outcome of a machine learning model (J. H. Friedman 2001[^Friedman2001]). 
 A partial dependence plot can show whether the relationship between the target and a feature is linear, monotonic or more complex.
 For example, when applied to a linear regression model, partial dependence plots always show a linear relationship.
+-->
+Partial dependence plot (PDP, PD plot) は 1 つ、または 2 つの特徴量が機械学習モデルの予測結果に与える限界効果を示します。(J. H. Friedman 2001[^Friedman2001])
+Partial dependence plot は入力と出力の関係が線形か、単調か、より複雑かどうかを表現できます。
+例えば、線形回帰モデルに適用した場合、partial dependence plot は常に線形の関係を示します。
 
-<!-- *Keywords: partial dependence plots, PDP, PD plot, marginal means, predictive margins, marginal effects* -->
+<!-- 以下は元からコメントアウトだった -->
+<!-- *Keywords: partial dependence plots, PDP, PD plot, marginal means, predictive margins, marginal effects* --> 
 
+<!--
 The partial dependence function for regression is defined as:
+-->
+回帰に対する Partial dependence function は以下のように定義されます。
 
 $$\hat{f}_{x_S}(x_S)=E_{x_C}\left[\hat{f}(x_S,x_C)\right]=\int\hat{f}(x_S,x_C)d\mathbb{P}(x_C)$$
 
+<!--
 The $x_S$ are the features for which the partial dependence function should be plotted and $x_C$ are the other features used in the machine learning model $\hat{f}$.
 Usually, there are only one or two features in the set S.
 The feature(s) in S are those for which we want to know the effect on the prediction.
 The feature vectors $x_S$ and $x_C$ combined make up the total feature space x.
 Partial dependence works by marginalizing the machine learning model output over the distribution of the features in set C, so that the function shows the relationship between the features in set S we are interested in and the predicted outcome.
 By marginalizing over the other features, we get a function that depends only on features in S, interactions with other features included.
+-->
+$x_S$ は partial dependence function をプロットするべき特徴量で、$x_C$ は機械学習モデル  $\hat{f}$ のそのほかの特徴量を表します。
+通常、集合 S の中には、1つか2つの特徴量が含まれます。
+S の中の特徴量が、私たちが予測に与える効果を知りたい対象となります。
+特徴ベクトル $x_S$ と $x_C$ を組み合わせて、特徴空間 x を構成します。
+Partial dependence は、集合 C の中の特徴量の分布に対して機械学習モデルの出力を周辺化することで機能します。これによって、この関数は集合 S の中の関心のある特徴量と予測結果の関係を示すことができます。
+他の特徴量に対して周辺化することによって、Sの中の特徴量にのみ依存する関数を得ることができ、他の特徴量との相互作用も含まれます。
 
+<!--
 The partial function $\hat{f}_{x_S}$ is estimated by calculating averages in the training data, also known as Monte Carlo method:
+-->
+Partial function $\hat{f}_{x_S}$ は学習データの平均として計算されます。これはモンテカルロ法として知られています。
 
+<!--
 $$\hat{f}_{x_S}(x_S)=\frac{1}{n}\sum_{i=1}^n\hat{f}(x_S,x^{(i)}_{C})$$
 The partial function tells us for given value(s) of features S what the average marginal effect on the prediction is.
 In this formula, $x^{(i)}_{C}$ are actual feature values from the dataset for the features in which we are not interested, and n is the number of instances in the dataset.
 An assumption of the PDP is that the features in C are not correlated with the features in S. 
 If this assumption is violated, the averages calculated for the partial dependence plot will include data points that are very unlikely or even impossible (see disadvantages).
+-->
+$$\hat{f}_{x_S}(x_S)=\frac{1}{n}\sum_{i=1}^n\hat{f}(x_S,x^{(i)}_{C})$$
+Partial function は 特徴量 S の与えられた値に対して、予測に対する平均的な限界効果が何であるかを示しています。
+この式中の、$x^{(i)}_{C}$ は関心のない特徴量に対するデータセットからの実際の値であり、 n はデータセットに含まれるインスタンスの数を表しています。
+PDPの仮定は、Cの中の特徴量は、Sの中の特徴量と相関していないということです。もし、この仮定が成り立たなければ、PDPに対して計算された平均は、とても起こりそうにない、もしくは不可能なデータ点が含まれてしまいます。（短所を参照）
 
+<!--
 For classification where the machine learning model outputs probabilities, the partial dependence plot displays the probability for a certain class given different values for feature(s) in S.
 An easy way to deal with multiple classes is to draw one line or plot per class.
+-->
+機械学習モデルが確率を出力する分類の場合、partial dependence plot は、Sの特徴量に異なる値が与えられた特定のクラスの確率を表示します。
+複数のクラスを扱うときの簡単な方法は、クラスごとに1本の線またはプロットを描くことです。
 
-
+<!--
 The partial dependence plot is a global method:
 The method considers all instances and gives a statement about the global relationship of a feature with the predicted outcome.
+-->
+PDPはグローバルな方法です:
+この方法は全てのインスタンスを考慮し、特徴量と予測結果のグローバルな関係についてのステートメントを提供します。
 
-
-
+<!--
 **Categorical features**
+-->
+**カテゴリカル特徴量**
 
+<!--
 So far, we have only considered numerical features.
 For categorical features, the partial dependence is very easy to calculate.
 For each of the categories, we get a PDP estimate by forcing all data instances to have the same category.
 For example, if we look at the bike rental dataset and are interested in the partial dependence plot for the season,  we get 4 numbers, one for each season.
 To compute the value for "summer", we replace the season of all data instances with "summer" and average the predictions.
+-->
+これまでは、数値の特徴量のみを想定していました。
+カテゴリカル特徴量に対しては、partial dependence はとても簡単に計算できます。
+カテゴリのそれぞれに対して、全て同じカテゴリとすることで、PDP を計算できます。
+例えば、自転車レンタルのデータセットに関して、季節に関する partial dependence plot に興味があるとすると、季節 1 つずつで、合計 4 つの数値が得られます。
+“夏”の値を計算するためには、全てのデータの季節を”夏”に置き換えて、予測の平均を求めます。
 
-
-
+### 例
+<!--
 ### Examples
+-->
 
+<!--
 In practice, the set of features S usually only contains one feature or a maximum of two, because one feature produces 2D plots and two features produce 3D plots.
 Everything beyond that is quite tricky.
 Even 3D on a 2D paper or monitor is already challenging.
+-->
+演習では、特徴量セット S は通常ただ 1 つ、もしくは多くても 2 つの特徴量のみを含みます。なぜなら、1 つの特徴量は 2 次元プロットを、 2 つの特徴量は 3 次元プロットを作るからです。
+それ以上ではいかなる場合も、非常に扱いにくくなります。
 
+<!--
 Let us return to the regression example, in which we predict the number of [bikes that will be rented on a given day](#bike-data).
 First we fit a machine learning model, then we analyze the partial dependencies.
 In this case, we have fitted a random forest to predict the number of bicycles and use the partial dependence plot to visualize the relationships the model has learned.
 The influence of the weather features on the predicted bike counts is visualized in the following figure.
+-->
+[ある日に借りられる自転車の数](#bike-data)を予測する回帰の例に戻りましょう。
+今回は、自転車の数を予測するためにランダムフォレストに学習をさせ、モデルが学習した関係性を可視化するために partial dependence plot を利用しました。
 
-```{r pdp-bike, fig.cap = 'PDPs for the bicycle count prediction model and temperature, humidity and wind speed. The largest differences can be seen in the temperature. The hotter, the more bikes are rented. This trend goes up to 20 degrees Celsius, then flattens and drops slightly at 30. Marks on the x-axis indicate the data distribution.'}
+<!--
+fig.cap = 'PDPs for the bicycle count prediction model and temperature, humidity and wind speed. The largest differences can be seen in the temperature. The hotter, the more bikes are rented. This trend goes up to 20 degrees Celsius, then flattens and drops slightly at 30. Marks on the x-axis indicate the data distribution.'
+-->
+```{r pdp-bike, fig.cap = '自転車レンタル予測モデルの気温、湿度、風速に対するPDP。 気温で最も違いが見られ、暑くなればなるほど、自転車はレンタルされる。この傾向は20度まで上昇し、平坦になり、30度で少し現象する。x軸上のマークはデータの分布を示している。'}
 data(bike)
 library("mlr")
 library("iml")
@@ -88,15 +144,28 @@ p3 = pdp$plot() +
 gridExtra::grid.arrange(p1, p2, p3, ncol = 3)
 ```
 
+<!--
 For warm but not too hot weather, the model predicts on average a high number of rented bicycles.
 Potential bikers are increasingly inhibited in renting a bike when humidity exceeds 60%.
 In addition, the more wind the fewer people like to cycle, which makes sense.
 Interestingly, the predicted number of bike rentals does not fall when wind speed increases from 25 to 35 km/h, but there is not much training data, so the machine learning model could probably not learn a meaningful prediction for this range.
 At least intuitively, I would expect the number of bicycles to decrease with increasing wind speed, especially when the wind speed is very high.
+-->
+暖かいが暑すぎない場合、モデルは平均して、多くの自転車がレンタルされると予測します。
+湿度が 60% を超えると、自転車のレンタルは抑制されます。
+それに加えて、風が吹けば吹くほど自転車に乗りたがる人は少なくなり、これは理にかなっています。
+興味深いことに、風速が 25km/h から 35km/h へ増加する間は、自転車の利用予測数は下降していません。しかし、これは十分な学習データが無いために、この範囲において機械学習モデルが意味のある予測を学習できなかったためかもしれません。
+少なくとも直感的には、特に風速が非常に高い場合は、自転車の数が減ると考えられます。
 
+<!--
 To illustrate a partial dependence plot with a categorical feature, we examine the effect of the season feature on the predicted bike rentals.
+-->
+カテゴリカルデータの partial dependence plot を例示するために、自転車レンタルにおける季節という特徴量の効果を調べます。
 
-```{r pdp-bike-cat, fig.cap = 'PDPs for the bike count prediction model and the season. Unexpectedly all seasons show similar effect on the model predictions, only for spring the model predicts less bicycle rentals.'}
+<!--
+fig.cap = 'PDPs for the bike count prediction model and the season. Unexpectedly all seasons show similar effect on the model predictions, only for spring the model predicts less bicycle rentals.'
+-->
+```{r pdp-bike-cat, fig.cap = '季節に関する自転車レンタル予測モデルのPDP。 予想外にも全ての季節で同様の効果があることがわかった。ただし、春は自転車レンタル数のモデルの予測結果が小さかった。'}
 
 pdp = FeatureEffect$new(pred.bike, "season", method = "pdp") 
 ggplot(pdp$results) + 
@@ -105,11 +174,19 @@ ggplot(pdp$results) +
   scale_y_continuous('', limits = c(0, 5500))
 ```
 
+<!--
 We also compute the partial dependence for [cervical cancer classification](#cervical).
 This time we fit a random forest to predict whether a woman might get cervical cancer based on risk factors. 
 We compute and visualize the partial dependence of the cancer probability on different features for the random forest:
+-->
+partial dependence を[子宮頸がん分類](#cervical)についても計算してみます。
+今回は、リスク要因に基づき女性が子宮頸がんにかかりそうか否かを予測するためにランダムフォレストに学習させました。
+ランダムフォレストでのがんにかかる確率と様々な特徴量との関係について、partial dependenceを計算し可視化します。
 
-```{r pdp-cervical, fig.cap = 'PDPs of cancer probability based on age and years with hormonal contraceptives. For age, the PDP shows that the probability is low until 40 and increases after. The more years on hormonal contraceptives the higher the predicted cancer risk, especially after 10 years. For both features not many data points with large values were available, so the PD estimates are less reliable in those regions.', dev.args = list(pointsize = 5.5)}
+<!--
+fig.cap = 'PDPs of cancer probability based on age and years with hormonal contraceptives. For age, the PDP shows that the probability is low until 40 and increases after. The more years on hormonal contraceptives the higher the predicted cancer risk, especially after 10 years. For both features not many data points with large values were available, so the PD estimates are less reliable in those regions.'
+-->
+```{r pdp-cervical, fig.cap = '年齢とホルモン避妊薬の使用年数に基づいたがん確率のPDP。年齢に対して、40歳まで確率が低く、それ以降は確率が増加することをPDPは示している。ホルモン避妊薬の使用年数が増加すればするほど、特に、10年を境に、予測されたがんのリスクも高くなる。どちらの特徴量も大きな値の付近では十分な数のデータ点を使用することができなかったので、この付近におけるPDの推定結果の信頼性は低い。', dev.args = list(pointsize = 5.5)}
 data(cervical)
 cervical.task = makeClassifTask(data = cervical, target = "Biopsy")
 mod = mlr::train(mlr::makeLearner(cl = 'classif.randomForest', id = 'cervical-rf', predict.type = 'prob'), cervical.task)
@@ -128,71 +205,144 @@ p2 = pdp$plot() +
 gridExtra::grid.arrange(p1, p2, ncol = 2)
 ```
 
+<!--
 We can also visualize the partial dependence of two features at once:
+-->
+2 つの特徴量について、一度にpartial dependenceを可視化できます。
 
-```{r pdp-cervical-2d, fig.cap = 'PDP of cancer probability and the interaction of age and number of pregnancies. The plot shows the increase in cancer probability at 45. For ages below 25, women who had 1 or 2 pregnancies have a lower predicted cancer risk, compared with women who had 0 or more than 2 pregnancies. But be careful when drawing conclusions: This might just be a correlation and not causal!'}
+<!--
+fig.cap = 'PDP of cancer probability and the interaction of age and number of pregnancies. The plot shows the increase in cancer probability at 45. For ages below 25, women who had 1 or 2 pregnancies have a lower predicted cancer risk, compared with women who had 0 or more than 2 pregnancies. But be careful when drawing conclusions: This might just be a correlation and not causal!'
+-->
+```{r pdp-cervical-2d, fig.cap = '年齢と妊娠回数の相互作用とがんの確率のPDP。図は45のときにがんの確率が増加することを示している。25歳以下で妊娠回数が1または2回のときは、0回もしくは2回より多い場合と比較して予測されたがんのリスクは低かった。しかし、結論を出すときは注意してください: これは因果ではなく、単なる相関関係である可能性があります!'}
 pd = FeatureEffect$new(pred.cervical, c("Age", "Num.of.pregnancies"), method = "pdp") 
 pd$plot() +
   scale_fill_viridis(option = "D")
 ```
 
 
-
-
-
+<!--
 ### Advantages 
+--!>
+### 長所
 
+<!--
 The computation of partial dependence plots is **intuitive**: 
 The partial dependence function at a particular feature value represents the average prediction if we force all data points to assume that feature value. 
 In my experience, lay people usually understand the idea of PDPs quickly.
+--!>
 
+partial dependence plotの計算は直感的です。
+特定の特徴量においてのpartial dependence 関数は、もし、私たちが全てのデータポイントにその特徴量を推測する事をしいた時、予測の平均を表します。
+私の経験上、専門家ではない人たちもPDPsのアイデアをすぐに理解できます。
+
+<!--
 If the feature for which you computed the PDP is not correlated with the other features, then the PDPs perfectly represent how the feature influences the prediction on average.
 In the uncorrelated case, the **interpretation is clear**: 
 The partial dependence plot shows how the average prediction in your dataset changes when the j-th feature is changed. 
-It is more complicated when features are correlated, see also disadvantages.
+It is more complicated when features are correlated, see also disadvantages.-
+--!>
 
+もし、あなたがPDPを計算した特徴量が他の特徴量と相関していなかったのなら、PDPsは完璧に、どの様に特徴量が平均で、予測に影響を与えているかを表しています。
+相関関係がない場合、説明は明快です。
+partial dependence plotは、j番目の特徴量が変わった時に、あなたのデータセット内の予測値の平均が変化するのかを示します。
+これは、特徴量が相関している時、もっと複雑です。短所の方もみてください。
+
+
+<!--
 Partial dependence plots are **easy to implement**.
 
 The calculation for the partial dependence plots has a **causal interpretation**. 
 We intervene on a feature and measure the changes in the predictions. 
 In doing so, we analyze the causal relationship between the feature and the prediction.[^pdpCausal]
 The relationship is causal for the model -- because we explicitly model the outcome as a function of the features -- but not necessarily for the real world!
+--!>
+partial dependence plot は、**実装が簡単です**。
 
+partial dependence plot の計算には、**因果関係の解釈**があります。
+特徴量に介入を行い、予測の変化を計算しています。
+これは、特徴量と予測結果の因果関係を分析していることになります。[^pdpCausal]
+この関係は、出力を特徴量の関数として明示的にモデル化していることから、モデルに関する因果関係であるが、必ずしも現実世界の因果関係とは言えないことに注意してください。
+
+<!--
 ### Disadvantages
+--!>
+### 短所
 
+<!--
 The realistic **maximum number of features** in a partial dependence function is two.
 This is not the fault of PDPs, but of the 2-dimensional representation (paper or screen) and also of our inability to imagine more than 3 dimensions.
+--!>
+Partial dependence function で確かめることができる現実的な**最大特徴量の数** は2です。
+これは PDP が悪いというわけではなく、2次元の表現(紙やスクリーン)と我々が3次元以上をうまく想像できないためです。
 
+<!--
 Some PD plots do not show the **feature distribution**. 
 Omitting the distribution can be misleading, because you might overinterpret regions with almost no data.
 This problem is easily solved by showing a rug (indicators for data points on the x-axis) or a histogram.
+--!>
+PDP の中には **特徴分布** を示さないものもあります。
+分布を省くのは誤解を招くおそれがあります、なぜならほとんどデータがない部分を深読みしすぎてしまう可能性があるからです。
+この問題は、ラグ（x軸上のデータ点を示す）またはヒストグラムを表示することで簡単に解決できます。
 
+<!--
 The **assumption of independence** is the biggest issue with PD plots. 
 It is assumed that the feature(s) for which the partial dependence is computed are not correlated with other features.
+--!>
+**独立性の仮定**が PDP の最大の問題です。
+pertial dependenceが計算される特徴量が他の特徴量と相関していないと仮定します。
+
+<!--
 For example, suppose you want to predict how fast a person walks, given the person's weight and height. 
 For the partial dependence of one of the features, e.g. height, we assume that the other features (weight) are not correlated with height, which is obviously a false assumption. 
 For the computation of the PDP at a certain height (e.g. 200 cm), we average over the marginal distribution of weight, which might include a weight below 50 kg, which is unrealistic for a 2 meter person. 
+--!>
+例えば、体重と身長が与えられ、ある人が歩く速さを予測したいとしましょう。
+その中の1つの特徴量(例えば身長)のpartial dependenceを調べるために、もう1つの特徴量(体重)が身長と相関がないと仮定しますが、それは明らかに間違った仮定です。
+特定の身長(例えば200cm)の PDP の計算のために、50kg以下を含む体重の周辺分布の平均を計算しますが、それは2メートルの人にとっては現実的ではありません。
+
+<!--
 In other words:
 When the features are correlated, we create new data points in areas of the feature distribution where the actual probability is very low (for example it is unlikely that someone is 2 meters tall but weighs less than 50 kg).
 One solution to this problem is [Accumulated Local Effect plots](#ale) or short ALE plots that work with the conditional instead of the marginal distribution.
+--!>
+言い換えると:
+特徴量同士が相関していると、実際の可能性が低い特徴分布の領域に新しいデータ点を作ってしまうことになる(例えば、誰かが2メーターの身長で 50kg 以下である可能性は低い)。
+この問題に対する1つの解決策は[Accumulated Local Effect plots](#ale) や short ALE plots で周辺分布の代わりに条件付き分布を使用します。
 
+<!--
 **Heterogeneous effects might be hidden** because PD plots only show the average marginal effects.
 Suppose that for a feature half your data points have a positive association with the prediction -- the larger the feature value the larger the prediction -- and the other half has a negative association -- the smaller the feature value the larger the prediction.
 The PD curve could be a horizontal line, since the effects of both halves of the dataset could cancel each other out. 
 You then conclude that the feature has no effect on the prediction. 
 By plotting the [individual conditional expectation curves](#ice) instead of the aggregated line, we can uncover heterogeneous effects.
+--!>
+PDP は平均的な限界効果のみを示すので **不均一な影響が隠れてしまう可能性がある**。
+半分のデータ点が予測と正の相関 --その特徴量の大きな値であれば予測結果も大きくなる-- 、もう半分のデータ点が負の相関 --その特徴量の小さな値であれば予測結果も小さくなる-- を持つ特徴量を考えてみましょう。
+PD 曲線は水平線のようになるでしょう、なぜなら両方の半分のデータセットが互いに打ち消し合うからです。
+そうするとその特徴量は予測には影響を与えないと結論づけてしまうでしょう。
+集計された線の代わりに、[individual conditional expectation curves](#ice) をプロットすることで、不均一な影響も明らかにできます。
 
-
+<!--
 ### Software and Alternatives
+--!>
+### ソフトウェアと代替手法
 
+<!--
 There are a number of R packages that implement PDPs. 
 I used the `iml` package for the examples, but there is also `pdp` or `DALEX`.
 In Python, partial dependence plots are built into `scikit-learn` and you can use `PDPBox`.
 
 Alternatives to PDPs presented in this book are [ALE plots](#ale) and [ICE curves](#ice).
+--!>
+PDP を実装した R のパッケージはたくさんあります。
+例えば著者は `iml` パッケージを使っていますが、`pdp` や `DALEX`もあります。
+Python では、partial dependence plots は `scikit-learn` に標準で実装されていますし `PDPBox` も使えます.
 
+この本で紹介されている PDP の代替手法には [ALE plots](#ale) や [ICE curves](#ice) があります.
 
 
 [^Friedman2001]: Friedman, Jerome H. "Greedy function approximation: A gradient boosting machine." Annals of statistics (2001): 1189-1232.
 
 [^pdpCausal]: Zhao, Qingyuan, and Trevor Hastie. "Causal interpretations of black-box models." Journal of Business & Economic Statistics, to appear. (2017).
+
+

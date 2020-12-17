@@ -2,26 +2,43 @@
 devtools::load_all()
 ```
 
-
+<!--
 # Datasets {#data}
+-->
+# データセット {#data}
 
+<!--
 Throughout the book, all models and techniques are applied to real datasets that are freely available online.
 We will use different datasets for different tasks:
 Classification, regression and text classification.
+-->
+この本を通して、全てのモデルや手法は、オンライン上に無料で公開されているデータセットに対して適用されています。
+それぞれのタスク(クラス分類、回帰、テキスト分類)で様々なデータセットを使用しています。
 
+<!--
 ## Bike Rentals (Regression) {#bike-data}
+-->
+## 自転車レンタル (回帰) {#bike-data}
+
+<!--
 This dataset contains daily counts of rented bicycles from the bicycle rental company [Capital-Bikeshare](https://www.capitalbikeshare.com/) in Washington D.C., along with weather and seasonal information.
 The data was kindly made openly available by Capital-Bikeshare.
 Fanaee-T and Gama (2013)[^Fanaee] added weather data and season information.
 The goal is to predict how many bikes will be rented depending on the weather and the day.
 The data can be downloaded from the [UCI Machine Learning Repository](http://archive.ics.uci.edu/ml/datasets/Bike+Sharing+Dataset).
+-->
+このデータセットには、ワシントンDCにある自転車レンタル会社の、日毎の自転車の貸し出し数が含まれていて、それに加え、天気と季節の情報があります。
+データは[Capital-Bikeshare](https://www.capitalbikeshare.com/)によって、親切にももすべての人が使用できるように作られました。Fanaee-T and Gama (2013)[^Fanaee]によって、天気と季節の情報が加えられました。目標は、季節や日毎に自転車がどれほど貸し出されるのかを予測することです。データは、 [UCI Machine Learning Repository](http://archive.ics.uci.edu/ml/datasets/Bike+Sharing+Dataset)からダウンロードできます。
 
-
+<!--
 New features were added to the dataset and not all original features were used for the examples in this book.
-Here is the list of features that were used:
+-->
+新しい特徴量がデータセットに追加されました、しかし、この本では全ての特徴量を例として使っている訳ではありません。
 
+<!--
+Here is the list of features that were used:
 - Count of bicycles including both casual and registered users.
-The count is used as the target in the regression task.
+　The count is used as the target in the regression task.
 - The season, either spring, summer, fall or winter.
 - Indicator whether the day was a holiday or not.
 - The year, either 2011 or 2012.
@@ -36,49 +53,99 @@ This feature was introduced to take account of the trend over time.
 - Temperature in degrees Celsius.
 - Relative humidity in percent (0 to 100).
 - Wind speed in km per hour.
+-->
+以下に今回使われた特徴量の一覧を記しておきます。
 
+- 自転車のレンタル台数は回帰の問題の中でターゲット（目標）として使われています。
+自転車のレンタル台数は未登録ユーザと登録されたユーザを含んでいます。
+- 季節(春、夏、秋、冬)
+- その日が祝日であったかどうか
+- 年(2011年または2012年)
+- 2011年の1月1日（この日がデータセットの中で最初の日）からの日数
+この特徴量は時間変化に関するトレンドを考慮するために導入されました。
+- その日が平日であったか週末であったか
+- その日の天候。下記の情報をそれぞれ1つずつ
+	- 晴天、少々曇り、少しだけ曇り、曇り
+	- 霧＋雲、霧＋所々曇り、霧＋少しの雲、小雨＋さざれ雲
+	- 豪雨＋凍雨＋雷雨＋霧、雪＋霧
+- 気温（摂氏）
+- 比較的温度（0 - 100％）
+- 風速（km/h）
 
+<!--
 For the examples in this book, the data has been slightly processed.
 You can find the processing R-script in the book's [Github repository](https://github.com/christophM/interpretable-ml-book/blob/master/R/get-bike-sharing-dataset.R) together with the [final RData file](https://github.com/christophM/interpretable-ml-book/blob/master/data/bike.RData).
+-->
+この本で使用する具体例のために、データは少し処理されています。データ処理のためのRのスクリプトは、[Githubのリポジトリ](https://github.com/christophM/interpretable-ml-book/blob/master/R/get-bike-sharing-dataset.R)で取得できます。処理後のデータは、[final RData file](https://github.com/christophM/interpretable-ml-book/blob/master/data/bike.RData)ここで手に入れられます。
 
+<!-- {pagebreak} -->
 
-<!--{pagebreak}-->
-
+<!--
 ## YouTube Spam Comments (Text Classification) {#spam-data}
+-->
+## YouTube スパムコメント (テキスト分類) {#spam-data}
+
+<!--
 As an example for text classification we work with 1956 comments from 5 different YouTube videos.
 Thankfully, the authors who used this dataset in an article on spam classification made the data  [freely available](https://archive.ics.uci.edu/ml/datasets/YouTube+Spam+Collection) (Alberto, Lochter, and Almeida (2015)[^Alberto]).
+-->
+テキスト分類の例として、5つのYouTubeビデオについた1956件のコメントを用います。ありがたいことに、このデータセットを使用したスパム分類に関する論文の著者が[データ](https://archive.ics.uci.edu/ml/datasets/YouTube+Spam+Collection)を自由に利用可能な状態にしてくれました。(Alberto, Lochter, and Almeida (2015)[^Alberto])
 
+<!--
 The comments were collected via the YouTube API from five of the ten most viewed videos on YouTube in the first half of 2015. 
 All 5 are music videos.
 One of them is "Gangnam Style" by Korean artist Psy. 
 The other artists were Katy Perry, LMFAO, Eminem, and Shakira.
+-->
+コメントは2015年の上半期の再生回数上位10件のうちの5つからYouTube APIを用いて収集されました。5件すべてはミュージックビデオで、そのうちの1つは、韓国のアーティスト Psy による ”カンナムスタイル” です。その他のアーティストは、Katy Perry, LMFAO, Eminem, Shakira です。
 
-
+<!--
 Checkout some of the comments. 
 The comments were manually labeled as spam or legitimate.
 Spam was coded with a "1" and legitimate comments with a "0".
+-->
+コメントのいくつかを見てみましょう。
+コメントは、手動でスパムかそうでないかラベルがつけられています。
+スパムは 1 というラベルで表され、スパムでない場合は 0 で表されます。
 
 ```{r show-dating-data-TubeSpam}
 data(ycomments)
 knitr::kable(ycomments[1:10, c('CONTENT', 'CLASS')])
 ```
 
+<!--
 You can also go to YouTube and take a look at the comment section.
 But please do not get caught in YouTube hell and end up watching videos of monkeys stealing and drinking cocktails from tourists on the beach.
 The Google Spam detector has also probably changed a lot since 2015.
+-->
+実際にYouTube にアクセスしてコメントを確認できます。
+しかし、YouTube の地獄に巻き込まれて、猿がビーチで観光客からカクテルを盗んで飲む動画を見ないようにしてください。
+Google のスパム検知は 2015 年から大きく変更されているかもしれません。
 
 [Watch the view-record breaking video "Gangnam Style" here](https://www.youtube.com/watch?v=9bZkp7q19f0&feature=player_embedded).
 
+<!--
 If you want to play around with the data, you can find the [RData file](https://github.com/christophM/interpretable-ml-book/blob/master/data/ycomments.RData) along with the [R-script](https://github.com/christophM/interpretable-ml-book/blob/master/R/get-SpamTube-dataset.R) with some convenience functions in the book's Github repository.
+-->
+もしこのデータで遊びたいのならば、この本のGithubレポジトリに [RData file](https://github.com/christophM/interpretable-ml-book/blob/master/data/ycomments.RData) があります。また、便利な関数はここ[R-script](https://github.com/christophM/interpretable-ml-book/blob/master/R/get-SpamTube-dataset.R) にあります。
 
-<!--{pagebreak}-->
+<!-- {pagebreak} -->
 
+<!--
 ## Risk Factors for Cervical Cancer (Classification) {#cervical}
+-->
+## 子宮頸がんのリスク要因(クラス分類) {#cervical}
 
+<!--
 The cervical cancer dataset contains indicators and risk factors for predicting whether a woman will get cervical cancer.
 The features include demographic data (such as age), lifestyle, and medical history.
 The data can be downloaded from the [UCI Machine Learning repository](https://archive.ics.uci.edu/ml/datasets/Cervical+cancer+%28Risk+Factors%29) and is described by Fernandes, Cardoso, and Fernandes (2017)[^Fernandes].
+-->
+子宮頸がんデータセットは、女性が子宮頸がんにかかるか否かを予測するための指標とリスク要因を含んでいます。
+特徴量は、人口統計データ(年齢など)、生活スタイル、病歴を含みます。
+データはFernandes, Cardoso, Fernandes(2017)[^Fernandes]によって作成されており、[UCI機械学習リポジトリ](https://archive.ics.uci.edu/ml/datasets/Cervical+cancer+%28Risk+Factors%29) からダウンロードできます。
 
+<!--
 The subset of data features used in the book's examples are:
 
 - Age in years
@@ -96,19 +163,51 @@ The subset of data features used in the book's examples are:
 - Time since first STD diagnosis
 - Time since last STD diagnosis
 - The biopsy results "Healthy" or "Cancer". Target outcome.
+-->
+この本で例として使われる特徴量のサブセットは以下のとおりです。
 
+- 年齢
+- 性交渉の相手の人数
+- 初めての性交渉の年齢
+- 妊娠の回数
+- 喫煙の有無
+- 喫煙の継続年数
+- ホルモン避妊薬の使用有無
+- ホルモン避妊薬の使用年数
+- 子宮内避妊器具(IUD)の使用有無
+- 子宮内避妊器具(IUD)の使用年数
+- 性感染症(STD)の感染歴の有無
+- STDの診断数
+- 最初にSTDと診断された時点
+- 最後にSTDと判断された時点
+- 生検結果「健康」または「がん」(目的変数)
+
+<!--
 The biopsy serves as the gold standard for diagnosing cervical cancer.
 For the examples in this book, the biopsy outcome was used as the target.
 Missing values for each column were imputed by the mode (most frequent value), which is probably a bad solution, since the true answer could be correlated with the probability that a value is missing.
 There is probably a bias because the questions are of a very private nature.
 But this is not a book about missing data imputation, so the mode imputation will have to suffice for the examples.
+-->
+生検は子宮頸がん診断において精度が高いため、広く容認された手法として用いられます。
+この本の例では、生検結果は目的変数として使われます。
+各列での欠損データは、値が無いということ自体が確率に相関性を持ち得るため良くない方法かもしれませんが、最頻値（最も頻繁に登場する値）で補完されます。
+質問は非常にプライベートな性質のものであるため、バイアスがあるかもしれません。
+しかしこの本は欠損値の補完に関する本ではないため、最頻値補完は例としては十分でしょう。
 
+<!--
 To reproduce the examples of this book with this dataset, find the
 [preprocessing R-script](https://github.com/christophM/interpretable-ml-book/blob/master/R/get-cervical-cancer-dataset.R) and the 
 [final RData file](https://github.com/christophM/interpretable-ml-book/blob/master/data/cervical.RData) in the book's Github repository.
+-->
+このデータセットのこの本での例を再現するには、この本のGithubリポジトリ内を探して下さい。
+[preprocessing R-script](https://github.com/christophM/interpretable-ml-book/blob/master/R/get-cervical-cancer-dataset.R)と[final RData file](https://github.com/christophM/interpretable-ml-book/blob/master/data/cervical.RData)
+
 
 [^Fanaee]: Fanaee-T, Hadi, and Joao Gama. "Event labeling combining ensemble detectors and background knowledge." Progress in Artificial Intelligence. Springer Berlin Heidelberg, 1–15. doi:10.1007/s13748-013-0040-3. (2013).
 
 [^Alberto]: Alberto, Túlio C, Johannes V Lochter, and Tiago A Almeida. "Tubespam: comment spam filtering on YouTube." In Machine Learning and Applications (Icmla), Ieee 14th International Conference on, 138–43. IEEE. (2015).
 
 [^Fernandes]: Fernandes, Kelwin, Jaime S Cardoso, and Jessica Fernandes. "Transfer learning with partial observability applied to cervical cancer screening." In Iberian Conference on Pattern Recognition and Image Analysis, 243–50. Springer. (2017).
+
+

@@ -6,34 +6,72 @@ set.seed(42)
 <!--{pagebreak}-->
 
 ## Individual Conditional Expectation (ICE) {#ice}
+<!--
+## Individual Conditional Expectation (ICE) {#ice}
+-->
 
+<!--
 Individual Conditional Expectation (ICE) plots display one line per instance that shows how the instance's prediction changes when a feature changes. 
+-->
+Individual Conditional Expectation (ICE) plots は1つのインスタンスにつき、ある特徴量が変化したときにそのインスタンスについての予測がどのように変化するかを示す1本の線を表示します。
 
+<!--
 The partial dependence plot for the average effect of a feature is a global method because it does not focus on specific instances, but on an overall average.
 The equivalent to a PDP for individual data instances is called individual conditional expectation (ICE) plot (Goldstein et al. 2017[^Goldstein2017]).
 An ICE plot visualizes the dependence of the prediction on a feature for *each* instance separately, resulting in one line per instance, compared to one line overall in partial dependence plots.
 A PDP is the average of the lines of an ICE plot.
 The values for a line (and one instance) can be computed by keeping all other features the same, creating variants of this instance by replacing the feature's value with values from a grid and making predictions with the black box model for these newly created instances.
 The result is a set of points for an instance with the feature value from the grid and the respective predictions.
+-->
+特徴量の平均的な効果に関する partial dependence plot は、特定のインスタンスではなく、全体的な平均に注目しているため、大域的な方法と言えます。
+個々のインスタンスに対するPDPと等価な手法は、individual conditional expectation (ICE) plot (Goldstein et al. 2017[^Goldstein2017])と呼ばれています。
+ICE plotは*インスタンスごと*の、ある特徴量に対して、予測の依存性を別々に可視化します。
+ICE plotは1つのインスタンスにつき1本の線で表現されるため、partial dependence plot が全体に対して1本の線を与えていたこととは対照的です。
+PDPはICE plotの線を平均化したものになります。
+ある線(とそれに対応するインスタンス)における値は、他の全ての特徴量を一定に保ったまま、ある特徴量の値をグリッドからの値に置き換えて、いくつかの新しいインスタンスを作成し、それらに対してブラックボックスのモデルで予測をすることで計算されます。
+その結果は、グリッドからの特徴量の値と、それぞれの予測値を持つインスタンスの点の集合です。
 
+<!--
 What is the point of looking at individual expectations instead of partial dependencies?
 Partial dependence plots can obscure a heterogeneous relationship created by interactions.
 PDPs can show you what the average relationship between a feature and the prediction looks like.
 This only works well if the interactions between the features for which the PDP is calculated and the other features are weak.
 In case of interactions, the ICE plot will provide much more insight.
+-->
+部分従属の代わりに個別の期待値を見るときは何が重要でしょうか？
+Partial dependence plotsは相互作用によって生まれる不均一な関係を見えなくしてしまうことがあります。PDPは特徴量と予測が平均的にどんな関係にあるように見えるかを示すことができます。
+これはPDPが計算される特徴量と他の特徴量との相互作用が弱い場合にのみ有効です。
+相互作用がある場合、ICE plotはより多くの洞察を与えてくれるでしょう。
 
+<!--
 A more formal definition:
 In ICE plots, for each instance in $\{(x_{S}^{(i)},x_{C}^{(i)})\}_{i=1}^N$ the curve $\hat{f}_S^{(i)}$ is plotted against $x^{(i)}_{S}$, while $x^{(i)}_{C}$ remains  fixed.
+-->
+より正式な定義は次のとおりです:
+ICE plotでは、$\{(x_{S}^{(i)},x_{C}^{(i)})\}_{i=1}^N$内のそれぞれのインスタンスにおいて、曲線$\hat{f}_S^{(i)}$は$x^{(i)}_{S}$, while $x^{(i)}_{C}$が固定されたままプロットされる。
 
+<!--
 ### Examples
+--!>
+### 例
 
+<!--
 Let's go back to the [cervical cancer dataset](#cervical) and see how the prediction of each instance is associated with the feature "Age".
 We will analyze a random forest that predicts the probability of cancer for a woman given risk factors.
 In the [partial dependence plot](#pdp) we have seen that the cancer probability increases around the age of 50, but is this true for every woman in the dataset?
 The ICE plot reveals that for most women the age effect follows the average pattern of an increase at age 50, but there are some exceptions:
 For the few women that have a high predicted probability at a young age, the predicted cancer probability does not change much with age.
+--!>
+[cervical cancer dataset](#cervical) に戻って、それぞれのインスタンスで「年齢」の特徴量がどれだけ影響を与えているかを見てみましょう.
+リスクのある要因が与えられたとき女性ががんになる確率を予測するランダムフォレストを分析してみます。
+[partial dependence plot](#pdp) では、50歳周辺でがんの確率が増加しているのが見受けられますが、データセット内のすべての女性に対して当てはまるのでしょうか？
+ICE plot は、ほとんどの女性にとって、年齢的な影響は50歳で確率が増加するという平均的なパターンに従っているが、例外もあるということを明らかにしています。
+若いときから高確率を予測されている女性は、予測されるがん確率は年齢によってあまり変わりません。
 
-```{r ice-cervical, fig.cap="ICE plot of cervical cancer probability by age. Each line represents one woman. For most women there is an increase in predicted cancer probability with increasing age. For some women with a predicted cancer probability above 0.4, the prediction does not change much at higher age."}
+<!-- 
+fig.cap="ICE plot of cervical cancer probability by age. Each line represents one woman. For most women there is an increase in predicted cancer probability with increasing age. For some women with a predicted cancer probability above 0.4, the prediction does not change much at higher age.
+-->
+```{r ice-cervical, fig.cap="年齢ごとの子宮頸がんの確率のICEプロット。それぞれの線は一人の女性を表す。ほとんどの女性は、年齢の増加に伴って、がんと予測される確率が増加する。予測の確率が0.4を超える女性に対しては、年齢が高くなっても予測はあまり変化しない。"}
 library("mlr")
 library("ggplot2")
 data(cervical)
@@ -49,10 +87,17 @@ ice = FeatureEffect$new(pred.cervical, "Age", method = "ice")$plot() +
 ice
 ```
 
+<!--
 The next figure shows ICE plots for the [bike rental prediction](#bike-data).
 The underlying prediction model is a random forest.
+-->
+次の図は、[自転車レンタル予測](#bike-data)に対するICEプロットです。
+ここで使われている予測モデルはランダムフォレストです。
 
-```{r ice-bike, fig.cap='ICE plots of predicted bicycle rentals by weather conditions. The same effects can be observed as in the partial dependence plots.'}
+<!--
+fig.cap='ICE plots of predicted bicycle rentals by weather conditions. The same effects can be observed as in the partial dependence plots.
+-->
+```{r ice-bike, fig.cap='天候ごとの自転車レンタル予測のICEプロット。PDPのときと同様の効果が見られる。'}
 set.seed(42)
 data("bike")
 bike.subset.index = sample(1:nrow(bike), size = 300)
@@ -67,28 +112,54 @@ p2 = FeatureEffect$new(pred.bike, "hum", method = "ice")$plot() + scale_x_contin
 p3 = FeatureEffect$new(pred.bike, "windspeed", method = "ice")$plot() + scale_x_continuous("Windspeed")+ scale_y_continuous("")
 gridExtra::grid.arrange(p1, p2, p3, ncol = 3)
 ```
-
+<!--
 All curves seem to follow the same course, so there are no obvious interactions.
 That means that the PDP is already a good summary of the relationships between the displayed features and the predicted number of bicycles
+-->
+全ての曲線は同じコースを辿っているように見えるので、明らかな相互作用はないと言えます。
+つまり、PDPは表示された特徴量と予測された自転車の数との関係の優れた要約となっていると言えます。
 
+<!--
+#### Centered ICE Plot
+-->
 #### Centered ICE Plot
 
+<!--
 There is a problem with ICE plots:
 Sometimes it can be hard to tell whether the ICE curves differ between individuals because they start at different predictions.
 A simple solution is to center the curves at a certain point in the feature and  display only the difference in the prediction to this point.
 The resulting plot is called centered ICE plot (c-ICE).
 Anchoring the curves at the lower end of the feature is a good choice.
 The new curves are defined as:
+-->
+ICEプロットには問題があります:
+ICE曲線は異なる予測から始まるため、個々の間でICE曲線が異なるかどうかを判断するのが難しい場合があります。
+簡単な解決策は、特徴量の特定の点で曲線を中央に配置し、この点と予測の差のみを表示することです。
+結果のプロットは、Centered ICEプロット（c-ICE）と呼ばれています。
+特徴量の下端にカーブを固定することをお勧めします。
+新しい曲線は次のように定義されます。
 
 $$\hat{f}_{cent}^{(i)}=\hat{f}^{(i)}-\mathbf{1}\hat{f}(x^{a},x^{(i)}_{C})$$
 
+<!--
 where $\mathbf{1}$ is a vector of 1's with the appropriate number of dimensions (usually one or two), $\hat{f}$ is the fitted model and x^a^ is the anchor point.
+-->
+ただし、$\mathbf{1}$ は適切な数(普通、1 か 2)だけ 1が並んだベクトルであり、$\hat{f}$ は学習されたモデルで、x^a^ はアンカーポイントです。
 
+<!--
 #### Example
+-->
+#### 例
 
+<!--
 For example, take the cervical cancer ICE plot for age and center the lines on the youngest observed age:
+-->
+例えば、年齢に対して子宮頸がんのICEプロットを作成し、観測された最も若い年齢を中心に線を引いてみましょう。
 
-```{r ice-cervical-centered, fig.cap=sprintf("Centered ICE plot for predicted  cancer probability by age. Lines are fixed to 0 at age %i. Compared to age %i, the predictions for most women remain unchanged until the age of 45 where the predicted probability increases.", min(cervical_subset$Age), min(cervical_subset$Age))}
+<!--
+fig.cap=sprintf("Centered ICE plot for predicted  cancer probability by age. Lines are fixed to 0 at age %i. Compared to age %i, the predictions for most women remain unchanged until the age of 45 where the predicted probability increases.
+-->
+```{r ice-cervical-centered, fig.cap=sprintf("年齢ごとに予測されたがんの確率に対するCentered ICEプロット。線は年齢 %i が0に固定されている。年齢 %i に比べ、ほとんどの女性の予測は、予測確率が増加する45歳まで変化しない。", min(cervical_subset$Age), min(cervical_subset$Age))}
 library("iml")
 predictor = Predictor$new(mod, data = cervical_subset, class = "Cancer")
 ice = FeatureEffect$new(predictor, feature = "Age", center.at = min(cervical_subset$Age), method = "pdp+ice")
@@ -96,12 +167,22 @@ ice$plot()  + scale_color_discrete(guide='none') +
     scale_y_continuous('Cancer probability difference to age 13')
 ```
 
+<!--
 The centered ICE plots make it easier to compare the curves of individual instances.
 This can be useful if we do not want to see the absolute change of a predicted value, but the difference in the prediction compared to a fixed point of the feature range.
+-->
+Centered ICEプロットでは、個々のインスタンスの曲線の比較を簡単にできます。
+これは、予測値の絶対的な変化ではなく、特徴量の範囲の固定点と比較した予測の差を確認したい場合に役立ちます。
 
+<!--
 Let's have a look at centered ICE plots for the bicycle rental prediction:
+-->
+自転車レンタル数予測の例で、centered ICEプロットをみてみましょう。
 
-```{r ice-bike-centered, fig.cap='Centered ICE plots of predicted number of bikes by weather condition. The lines show the difference in prediction compared to the prediction with the respective feature value at its observed minimum.'}
+<!--
+fig.cap='Centered ICE plots of predicted number of bikes by weather condition. The lines show the difference in prediction compared to the prediction with the respective feature value at its observed minimum.'
+-->
+```{r ice-bike-centered, fig.cap='天候による予測された自転車レンタル数のCentered ICEプロット。 線は、観測された特徴量の最小値を用いた予測と比較した予測の違いを示しています。'}
 data(bike)
 set.seed(43)
 bike.subset.index = sample(1:nrow(bike), size = 100)
@@ -114,8 +195,12 @@ ice3 = FeatureEffect$new(predictor, feature = "windspeed", center.at = min(bike$
 gridExtra::grid.arrange(ice1, ice2, ice3, nrow = 1)
 ```
 
+<!--
 #### Derivative ICE Plot
+-->
+####　Derivative ICE Plot
 
+<!--
 Another way to make it visually easier to spot heterogeneity is to look at the individual derivatives of the prediction function with respect to a feature.
 The resulting plot is called the derivative ICE plot (d-ICE).
 The derivatives of a function (or curve) tell you whether changes occur and in which direction they occur.
@@ -123,42 +208,89 @@ With the derivative ICE plot, it is easy to spot ranges of feature values where 
 If there is no interaction between the analyzed feature $x_S$ and the other features $x_C$, then the prediction function can be expressed as:
 
 $$\hat{f}(x)=\hat{f}(x_S,x_C)=g(x_S)+h(x_C),\quad\text{with}\quad\frac{\delta\hat{f}(x)}{\delta{}x_S}=g'(x_S)$$
+-->
+不均一性を簡単に視覚化するための別の方法は、特徴量に関して、予測関数の個々の微分を見ることです。
+結果のプロットは derivative ICE plot (d-ICE)と呼ばれています。
+関数の微分(または、曲線)は、変化が起きたのか、また、どの方向に起きたのかを教えてくれます。
+derivative ICE plot を用いると、（少なくとも一部の）インスタンスでブラックボックスの予測が変化する特徴値の範囲を簡単に見つけることができます。
+もし、注目している特徴量 $x_S$ と他の特徴量 $x_C$ の間に相互作用がないのであれば、予測関数は以下のように表現できます。
+
+$$\hat{f}(x)=\hat{f}(x_S,x_C)=g(x_S)+h(x_C),\quad\text{with}\quad\frac{\delta\hat{f}(x)}{\delta{}x_S}=g'(x_S)$$
+
+<!--
 
 Without interactions, the individual partial derivatives should be the same for all instances.
 If they differ, it is due to interactions and it becomes visible in the d-ICE plot.
 In addition to displaying the individual curves for the derivative of the prediction function with respect to the feature in S, showing the standard deviation of the derivative helps to highlight regions in feature in S with heterogeneity in the estimated derivatives.
 The derivative ICE plot takes a long time to compute and is rather impractical.
+-->
+相互作用がないとき、個々の偏微分は全てのインスタンスで同じである必要があります。もし、これらが異なる場合は相互作用が原因であり、d-ICE plot を用いて可視化できます。微分の標準偏差を示すことは、推定された微分に不均一性がある S の特徴量の領域を強調するのに役立ちます。
+ただし、derivative ICE plot は計算に長い時間がかかるため、現実的ではないかもしれません。
 
 
+<!--
 ### Advantages
+-->
+### 長所
 
+<!--
 Individual conditional expectation curves are **even more intuitive to understand** than partial dependence plots.
 One line represents the predictions for one instance if we vary the feature of interest. 
+-->
+ICE曲線はpartial dependence plotよりも**直感的に理解可能**です。
+1つの線は、1つのインスタンスに対して、対象の特徴量を変化させたときの予測を表します。
 
+<!--
 Unlike partial dependence plots, ICE curves can **uncover heterogeneous relationships**.
+-->
+Partial dependence plot とは異なり、ICE曲線は**不均一な関係性を明らかに**できます。
 
+<!--
 ### Disadvantages 
+-->
+### 短所
 
+<!--
 ICE curves **can only display one feature** meaningfully, because two features would require the drawing of several overlaying surfaces and you would not see anything in the plot.
+-->
+ICE曲線は**1つの特徴量のみ**を意味のある形で表示できます。2つの特徴量を使うと、いくつかの重複した面を描画する必要があるため、このプロットをみても何も理解できないでしょう。
 
+<!--
 ICE curves suffer from the same problem as PDPs: 
 If the feature of interest is correlated with the other features, then **some points in the lines might be invalid data points** according to the joint feature distribution. 
+-->
+ICE曲線は、PDPと似たような問題に直面します:
+興味のある特徴量が、その他の特徴量と相関している場合、同時分布によって、**線の中のいくつかの点は妥当でないデータ点となる可能性がある**ということです。
 
+<!--
 If many ICE curves are drawn, the **plot can become overcrowded** and you will not see anything. 
 The solution: Either add some transparency to the lines or draw only a sample of the lines.
+-->
+多くのICE曲線が描かれたとき、**プロットは激しく重なり合い**、何も発見できません。
+解決方法: 線に透明度を追加するか、線のうちいくつかのみ描画するか。
 
+<!--
 In ICE plots it might not be easy to **see the average**. 
 This has a simple solution:
 Combine individual conditional expectation curves with the partial dependence plot.
+-->
+ICE曲線の中で、**平均をみる**ことは簡単ではないかもしれません。
+これに対する単純な解決方法:
+ICE曲線とPDPを組み合わせる。
 
+<!--
 ### Software and Alternatives
+-->
+### ソフトウェアと代替手法
 
+<!--
 ICE plots are implemented in the R packages `iml` (used for these examples), `ICEbox`[^ICEbox], and `pdp`.
 Another R package that does something very similar to ICE is `condvis`.
-
+-->
+ICE plotsは、`iml`（これらの例で使用）、` ICEbox` [^ ICEbox]、および `pdp` のRパッケージで実装されています。
+ICE にとても類似しているもう1つのRパッケージは `condvis`です。
 
 
 [^ICEbox]: Goldstein, Alex, et al. "Package ‘ICEbox’." (2017).
 
 [^Goldstein2017]: Goldstein, Alex, et al. "Peeking inside the black box: Visualizing statistical learning with plots of individual conditional expectation." Journal of Computational and Graphical Statistics 24.1 (2015): 44-65.
-
