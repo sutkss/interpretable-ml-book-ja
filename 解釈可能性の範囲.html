@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>5.6 Global Surrogate | Interpretable Machine Learning</title>
+  <title>2.3 解釈可能性の範囲 | Interpretable Machine Learning</title>
   <meta name="description" content="Machine learning algorithms usually operate as black boxes and it is unclear how they derived a certain decision. This book is a guide for practitioners to make machine learning decisions interpretable." />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="5.6 Global Surrogate | Interpretable Machine Learning" />
+  <meta property="og:title" content="2.3 解釈可能性の範囲 | Interpretable Machine Learning" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="christophM/interpretable-ml-book" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="5.6 Global Surrogate | Interpretable Machine Learning" />
+  <meta name="twitter:title" content="2.3 解釈可能性の範囲 | Interpretable Machine Learning" />
   
   <meta name="twitter:description" content="Machine learning algorithms usually operate as black boxes and it is unclear how they derived a certain decision. This book is a guide for practitioners to make machine learning decisions interpretable." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="feature-importance.html"/>
-<link rel="next" href="lime.html"/>
+<link rel="prev" href="解釈可能な手法の分類.html"/>
+<link rel="next" href="解釈可能性の評価.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -344,84 +344,118 @@ window.cookieconsent.initialise({
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="global" class="section level2">
-<h2><span class="header-section-number">5.6</span> Global Surrogate</h2>
-<p>A global surrogate model is an interpretable model that is trained to approximate the predictions of a black box model. We can draw conclusions about the black box model by interpreting the surrogate model. Solving machine learning interpretability by using more machine learning!</p>
-<div id="theory-3" class="section level3">
-<h3><span class="header-section-number">5.6.1</span> Theory</h3>
-<p>Surrogate models are also used in engineering: If an outcome of interest is expensive, time-consuming or otherwise difficult to measure (e.g. because it comes from a complex computer simulation), a cheap and fast surrogate model of the outcome can be used instead. The difference between the surrogate models used in engineering and in interpretable machine learning is that the underlying model is a machine learning model (not a simulation) and that the surrogate model must be interpretable. The purpose of (interpretable) surrogate models is to approximate the predictions of the underlying model as accurately as possible and to be interpretable at the same time. The idea of surrogate models can be found under different names: Approximation model, metamodel, response surface model, emulator, ...</p>
-<p>About the theory: There is actually not much theory needed to understand surrogate models. We want to approximate our black box prediction function f as closely as possible with the surrogate model prediction function g, under the constraint that g is interpretable. For the function g any interpretable model -- for example from the <a href="simple.html#simple">interpretable models chapter</a> -- can be used.</p>
-<p>For example a linear model:</p>
-<p><span class="math display">\[g(x)=\beta_0+\beta_1{}x_1{}+\ldots+\beta_p{}x_p\]</span></p>
-<p>Or a decision tree:</p>
-<p><span class="math display">\[g(x)=\sum_{m=1}^Mc_m{}I\{x\in{}R_m\}\]</span></p>
-<p>Training a surrogate model is a model-agnostic method, since it does not require any information about the inner workings of the black box model, only access to data and the prediction function is necessary. If the underlying machine learning model was replaced with another, you could still use the surrogate method. The choice of the black box model type and of the surrogate model type is decoupled.</p>
-<p>Perform the following steps to obtain a surrogate model:</p>
-<ol style="list-style-type: decimal">
-<li>Select a dataset X. This can be the same dataset that was used for training the black box model or a new dataset from the same distribution. You could even select a subset of the data or a grid of points, depending on your application.</li>
-<li>For the selected dataset X, get the predictions of the black box model.</li>
-<li>Select an interpretable model type (linear model, decision tree, ...).</li>
-<li>Train the interpretable model on the dataset X and its predictions.</li>
-<li>Congratulations! You now have a surrogate model.</li>
-<li>Measure how well the surrogate model replicates the predictions of the black box model.</li>
-<li>Interpret the surrogate model.</li>
-</ol>
-<p>You may find approaches for surrogate models that have some extra steps or differ a little, but the general idea is usually as described here.</p>
-<p>One way to measure how well the surrogate replicates the black box model is the R-squared measure:</p>
-<p><span class="math display">\[R^2=1-\frac{SSE}{SST}=1-\frac{\sum_{i=1}^n(\hat{y}_*^{(i)}-\hat{y}^{(i)})^2}{\sum_{i=1}^n(\hat{y}^{(i)}-\bar{\hat{y}})^2}\]</span></p>
-<p>where <span class="math inline">\(\hat{y}_*^{(i)}\)</span> is the prediction for the i-th instance of the surrogate model, <span class="math inline">\(\hat{y}^{(i)}\)</span> the prediction of the black box model and <span class="math inline">\(\bar{\hat{y}}\)</span> the mean of the black box model predictions. SSE stands for sum of squares error and SST for sum of squares total. The R-squared measure can be interpreted as the percentage of variance that is captured by the surrogate model. If R-squared is close to 1 (= low SSE), then the interpretable model approximates the behavior of the black box model very well. If the interpretable model is very close, you might want to replace the complex model with the interpretable model. If the R-squared is close to 0 (= high SSE), then the interpretable model fails to explain the black box model.</p>
-<p>Note that we have not talked about the model performance of the underlying black box model, i.e. how good or bad it performs in predicting the actual outcome. The performance of the black box model does not play a role in training the surrogate model. The interpretation of the surrogate model is still valid because it makes statements about the model and not about the real world. But of course the interpretation of the surrogate model becomes irrelevant if the black box model is bad, because then the black box model itself is irrelevant.</p>
-<!-- More ideas-->
-<p>We could also build a surrogate model based on a subset of the original data or reweight the instances. In this way, we change the distribution of the surrogate model's input, which changes the focus of the interpretation (then it is no longer really global). If we weight the data locally by a specific instance of the data (the closer the instances to the selected instance, the higher their weight), we get a local surrogate model that can explain the individual prediction of the instance. Read more about local models in the <a href="lime.html#lime">following chapter</a>.</p>
+<div id="解釈可能性の範囲" class="section level2">
+<h2><span class="header-section-number">2.3</span> 解釈可能性の範囲</h2>
+<p>アルゴリズムは予測をするためにモデルを学習します。 各段階において、透明性や解釈可能性に関して評価できます。</p>
+<!--
+###  Algorithm Transparency
+*How does the algorithm create the model?*
+-->
+<p>### アルゴリズムの透明性 <em>アルゴリズムはどのようにしてモデルを作成するか。</em></p>
+<!-- 
+Algorithm transparency is about how the algorithm learns a model from the data and what kind of relationships it can learn.
+If you use convolutional neural networks to classify images, you can explain that the algorithm learns edge detectors and filters on the lowest layers.
+This is an understanding of how the algorithm works, but not for the specific model that is learned in the end, and not for how individual predictions are made.
+Algorithm transparency only requires knowledge of the algorithm and not of the data or learned model.
+This book focuses on model interpretability and not algorithm transparency.
+Algorithms such as the least squares method for linear models are well studied and understood.
+They are characterized by a high transparency.
+Deep learning approaches (pushing a gradient through a network with millions of weights) are less well understood and the inner workings are the focus of ongoing research.
+They are considered less transparent.
+-->
+<p>　アルゴリズムの透明性とは、アルゴリズムがどのようにデータからモデルを学習させるか、どのような関係性を見出せるかについてです。画像の分類にCNNを用いる場合、低階層のレイヤーにおいてはエッジの検出及び抽出が行われている、と説明できます。これはアルゴリズムがどのように動くかということに対する理解であり、モデルが最終的に何を学習したのか、個々の予測に対してどのように予測をしたのかとは関係がありません。 アルゴリズムの透明性はデータや学習済みのモデルへの知識ではなく、アルゴリズムに対する理解のみを必要とします。 なお、この本ではアルゴリズムの透明性よりもモデルの解釈可能性に焦点を当てています。線形モデルに対する最小二乗法のようなアルゴリズムは既に広範にわたって研究され理解が深められていることから、アルゴリズムの透明性は高いといえます。対して、深層学習で何百万もの重みを勾配降下法を用いて求める手法は動作が詳細には理解されておらず、この内部の動作は現在研究の対象となっています。このようなアルゴリズムは透明性が低いといえます。</p>
+<!--
+### Global, Holistic Model Interpretability
+*How does the trained model make predictions?*
+-->
+<div id="全体的なモデルの解釈可能性" class="section level3">
+<h3><span class="header-section-number">2.3.1</span> 全体的なモデルの解釈可能性</h3>
+<p><em>学習済みのモデルはどのようにして予測するか。</em></p>
+<!--
+You could describe a model as interpretable if you can comprehend the entire model at once (Lipton 2016[^Lipton2016]).
+To explain the global model output, you need the trained model, knowledge of the algorithm and the data.
+This level of interpretability is about understanding how the model makes decisions, based on a holistic view of its features and each of the learned components such as weights, other parameters, and structures.
+Which features are important and what kind of interactions between them take place?
+Global model interpretability helps to understand the distribution of your target outcome based on the features.
+Global model interpretability is very difficult to achieve in practice.
+Any model that exceeds a handful of parameters or weights is unlikely to fit into the short-term memory of the average human.
+I argue that you cannot really imagine a linear model with 5 features, because it would mean drawing the estimated hyperplane mentally in a 5-dimensional space.
+Any feature space with more than 3 dimensions is simply inconceivable for humans.
+Usually, when people try to comprehend a model, they consider only parts of it, such as the weights in linear models.
+-->
+<p>もしモデルが一目見て概要を掴めるようなものだった場合、そのモデルは解釈可能だといえるでしょう(Lipton 2016<a href="#fn7" class="footnoteRef" id="fnref7"><sup>7</sup></a>)。モデルの出力の全体を説明しようとするならば、学習済みモデル、アルゴリズムに対する知識、及びデータが必要となります。このレベルの解釈可能性は、特徴量や重みなど学習可能なパラメータ、その他のハイパーパラメータ、モデルの構造など、全ての要素から、モデルの決定がいかにしてなされるのか、ということを理解することだといえます。 どの特徴量が重要で、どのような相互作用が発生しているのでしょうか。このような問いに対し、モデルの全体的な解釈可能性は特徴量に基づいた出力の分布の理解の助けとなります。しかし、モデルの全体的な理解をすることは実際は困難です。パラメータや重みの多いモデルは人間の短い記憶には収まりません。個人的な見解ですが、人間は線形回帰モデルですら特徴量が5つもあれば、5次元の空間に超平面を想像することとなり、頭の中にイメージできなくなるでしょう。そもそも3次元以上の空間は人間には想像できません。このため、モデルの理解には線形モデルの重みなどモデルの一部のみを考えることが一般的です。</p>
+<!--
+### Global Model Interpretability on a Modular Level
+*How do parts of the model affect predictions?*
+-->
 </div>
-<div id="example-1" class="section level3">
-<h3><span class="header-section-number">5.6.2</span> Example</h3>
-<p>To demonstrate the surrogate models, we consider a regression and a classification example.</p>
-<p>First, we train a support vector machine to predict the <a href="bike-data.html#bike-data">daily number of rented bikes</a> given weather and calendar information. The support vector machine is not very interpretable, so we train a surrogate with a CART decision tree as interpretable model to approximate the behavior of the support vector machine.</p>
-<div class="figure"><span id="fig:surrogate-bike"></span>
-<img src="images/surrogate-bike-1.png" alt="The terminal nodes of a surrogate tree that approximates the predictions of a support vector machine trained on the bike rental dataset. The distributions in the nodes show that the surrogate tree predicts a higher number of rented bikes when temperature is above 13 degrees Celsius and when the day was later in the 2 year period (cut point at 435 days)." width="1050" />
-<p class="caption">
-FIGURE 5.31: The terminal nodes of a surrogate tree that approximates the predictions of a support vector machine trained on the bike rental dataset. The distributions in the nodes show that the surrogate tree predicts a higher number of rented bikes when temperature is above 13 degrees Celsius and when the day was later in the 2 year period (cut point at 435 days).
-</p>
+<div id="モジュールレベルのモデルの全体的な解釈可能性" class="section level3">
+<h3><span class="header-section-number">2.3.2</span> モジュールレベルのモデルの全体的な解釈可能性</h3>
+<p><em>モデルの一部はどのように予測に影響しているのか</em></p>
+<!--
+A Naive Bayes model with many hundreds of features would be too big for me and you to keep in our working memory. 
+And even if we manage to memorize all the weights, we would not be able to quickly make predictions for new data points. 
+In addition, you need to have the joint distribution of all features in your head to estimate the importance of each feature and how the features affect the predictions on average.
+An impossible task.
+But you can easily understand a single weight.
+While global model interpretability is usually out of reach, there is a good chance of understanding at least some models on a modular level.
+Not all models are interpretable at a parameter level.
+For linear models, the interpretable parts are the weights, for trees it would be the splits (selected features plus cut-off points) and leaf node predictions.
+Linear models, for example, look like as if they could be perfectly interpreted on a modular level, but the interpretation of a single weight is interlocked with all other weights.
+The interpretation of a single weight always comes with the footnote that the other input features remain at the same value, which is not the case with many real applications.
+A linear model that predicts the value of a house, that takes into account both the size of the house and the number of rooms, can have a negative weight for the room feature.
+It can happen because there is already the highly correlated house size feature.
+In a market where people prefer larger rooms, a house with fewer rooms could be worth more than a house with more rooms if both have the same size. 
+The weights only make sense in the context of the other features in the model.
+But the weights in a linear model can still be interpreted better than the weights of a deep neural network.
+-->
+<p>　何百もの特徴量を持つナイーブベイズモデルは大きすぎて、すべてを頭の中に記憶することは困難です。たとえ、全ての重みを記憶できたとしても、新しいデータに対して、どのように判断されるか素早く答えることはできないでしょう。それに加えて、特徴量の重要度や各特徴量が平均して予測に与える影響を測るため全ての特徴量に対する同時確率分布も把握しておく必要もあります。このようなことは不可能です。しかし、1つの重みならば簡単に理解できるでしょう。 モデルを全体的に見て解釈することは通常不可能ですが、モジュール単位で見たときに、いくつかのモデルは理解できます。全てのモデルがパラメータを用いて解釈できるわけではありません。線形回帰モデルでは重みが解釈可能な要素であり、決定木ならば分岐において選ばれた特徴量と分岐点、及び葉での予測が解釈可能な要素となるでしょう。ただし、線形モデルなどの場合、一見これらは要素レベルで完全に解釈ができるように思えますが、この重みは他の全ての重みと連動しています。重みの解釈は他の特徴量が常に同じ値であることを前提としていますが、これは多くの現実のタスクには当てはまりません。例として、家のサイズ及び部屋の数を特徴量として家の価値を予測する線形モデルを考えます。このとき、線形モデルは部屋の数に対する重みとして負の値を持つかもしれません。これは家の大きさと部屋の数の相関が大きいときに起こりえます。人々が大きい部屋を好む場合、同じ大きさの家では部屋の数が少ないほうが価値があると言えます。このように、重みはモデルの他の特徴量を考慮に入れて初めて意味を成します。ただし、それでも線形モデルの重みはニューラルネットの重みよりもはるかに解釈しやすいでしょう。</p>
+<!-- ### Local Interpretability for a Single Prediction -->
 </div>
-<p>The surrogate model has a R-squared (variance explained) of 0.77 which means it approximates the underlying black box behavior quite well, but not perfectly. If the fit were perfect, we could throw away the support vector machine and use the tree instead.</p>
-<p>In our second example, we predict the probability of <a href="cervical.html#cervical">cervical cancer</a> with a random forest. Again we train a decision tree with the original dataset, but with the prediction of the random forest as outcome, instead of the real classes (healthy vs. cancer) from the data.</p>
-<div class="figure"><span id="fig:surrogate-cervical"></span>
-<img src="images/surrogate-cervical-1.png" alt="The terminal nodes of a surrogate tree that approximates the predictions of a random forest trained on the cervical cancer dataset. The counts in the nodes show the frequency of the black box models classifications in the nodes." width="1050" />
-<p class="caption">
-FIGURE 5.32: The terminal nodes of a surrogate tree that approximates the predictions of a random forest trained on the cervical cancer dataset. The counts in the nodes show the frequency of the black box models classifications in the nodes.
-</p>
+<div id="単一の予測に対する局所的な解釈" class="section level3">
+<h3><span class="header-section-number">2.3.3</span> 単一の予測に対する局所的な解釈</h3>
+<!-- *Why did the model make a certain prediction for an instance?* -->
+<p><em>あるインスタンスに対して、なぜモデルがそのような予測をしたのか</em></p>
+<!--
+You can zoom in on a single instance and examine what the model predicts for this input, and explain why.
+If you look at an individual prediction, the behavior of the otherwise complex model might behave more pleasantly.
+Locally, the prediction might only depend linearly or monotonically on some features, rather than having a complex dependence on them.
+For example, the value of a house may depend nonlinearly on its size.
+But if you are looking at only one particular 100 square meters house, there is a possibility that for that data subset, your model prediction depends linearly on the size. 
+You can find this out by simulating how the predicted price changes when you increase or decrease the size by 10 square meters.
+Local explanations can therefore be more accurate than global explanations.
+This book presents methods that can make individual predictions more interpretable in the [section on model-agnostic methods](#agnostic).
+-->
+<p>単一のインスタンスに対して注目して、この入力に対してモデルが何を予測するのかを調査することで、その理由を説明できます。 個々の予測についてみてみると、他の複雑なモデルの振る舞いもすっきりとするかもしれません。予測は、複雑な依存関係があったとしても、局所的にはいくつかの特徴量の線形、もしくは単調な関係に従うとみなすことができます。 例えば、住宅の価格は家のサイズに対して非線形に従うかもしれません。 ただし、100平方メートルの家に限定してみると、その付近のデータでは、予測が家のサイズに線形に従っている可能性があります。これは、サイズを10平方メートル増減させたときに予測価格がどのように変化するかをシミュレーションすることで明らかにできます。 それゆえ、局所的な説明は大域的な説明よりも、より正確になります。 この本では、<a href="agnostic.html#agnostic">モデル非依存(model-agnostic)の方法</a>の章で、個々の予測をより解釈可能にするための手法を紹介しています。</p>
+<!-- ### Local Interpretability for a Group of Predictions -->
 </div>
-<p>The surrogate model has an R-squared (variance explained) of 0.19, which means it does not approximate the random forest well and we should not overinterpret the tree when drawing conclusions about the complex model.</p>
-</div>
-<div id="advantages-7" class="section level3">
-<h3><span class="header-section-number">5.6.3</span> Advantages</h3>
-<p>The surrogate model method is <strong>flexible</strong>: Any model from the <a href="simple.html#simple">interpretable models chapter</a> can be used. This also means that you can exchange not only the interpretable model, but also the underlying black box model. Suppose you create some complex model and explain it to different teams in your company. One team is familiar with linear models, the other team can understand decision trees. You can train two surrogate models (linear model and decision tree) for the original black box model and offer two kinds of explanations. If you find a better performing black box model, you do not have to change your method of interpretation, because you can use the same class of surrogate models.</p>
-<p>I would argue that the approach is very <strong>intuitive</strong> and straightforward. This means it is easy to implement, but also easy to explain to people not familiar with data science or machine learning.</p>
-<p>With the <strong>R-squared measure</strong>, we can easily measure how good our surrogate models are in approximating the black box predictions.</p>
-</div>
-<div id="disadvantages-7" class="section level3">
-<h3><span class="header-section-number">5.6.4</span> Disadvantages</h3>
-<p>You have to be aware that you draw <strong>conclusions about the model and not about the data</strong>, since the surrogate model never sees the real outcome.</p>
-<p>It is not clear what the best <strong>cut-off for R-squared</strong> is in order to be confident that the surrogate model is close enough to the black box model. 80% of variance explained? 50%? 99%?</p>
-<p>We can measure how close the surrogate model is to the black box model. Let us assume we are not very close, but close enough. It could happen that the interpretable model is very <strong>close for one subset of the dataset, but widely divergent for another subset</strong>. In this case the interpretation for the simple model would not be equally good for all data points.</p>
-<p>The interpretable model you choose as a surrogate <strong>comes with all its advantages and disadvantages</strong>.</p>
-<p>Some people argue that there are, in general, <strong>no intrinsically interpretable models</strong> (including even linear models and decision trees) and that it would even be dangerous to have an illusion of interpretability. If you share this opinion, then of course this method is not for you.</p>
-</div>
-<div id="software-1" class="section level3">
-<h3><span class="header-section-number">5.6.5</span> Software</h3>
-<p>I used the <code>iml</code> R package for the examples. If you can train a machine learning model, then you should be able to implement surrogate models yourself. Simply train an interpretable model to predict the predictions of the black box model.</p>
-
+<div id="予測のグループに対する局所的な解釈" class="section level3">
+<h3><span class="header-section-number">2.3.4</span> 予測のグループに対する局所的な解釈</h3>
+<!-- *Why did the model make specific predictions for a group of instances?* -->
+<p><em>インスタンスのグループに対して、なぜモデルがそのような予測をしたのか</em></p>
+<!--
+Model predictions for multiple instances can be explained either with global model interpretation methods (on a modular level) or with explanations of individual instances.
+The global methods can be applied by taking the group of instances, treating them as if the group were the complete dataset, and using the global methods with this subset.
+The individual explanation methods can be used on each instance and then listed or aggregated for the entire group.
+-->
+<p>複数のインスタンスに対するモデルの予測は、大域的なモデル解釈の方法（モジュールレベル）または、個々のインスタンスの説明によって説明可能です。</p>
 <!--{pagebreak}-->
+<!-- ## Evaluation of Interpretability -->
 </div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="7">
+<li id="fn7"><p>Lipton, Zachary C. &quot;The mythos of model interpretability.&quot; arXiv preprint arXiv:1606.03490, (2016).<a href="解釈可能性の範囲.html#fnref7">↩</a></p></li>
+</ol>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="feature-importance.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="lime.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="解釈可能な手法の分類.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="解釈可能性の評価.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -452,7 +486,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/christophM/interpretable-ml-book/edit/master/05.7-agnostic-global-surrogate.Rmd",
+"link": "https://github.com/christophM/interpretable-ml-book/edit/master/02-interpretability.Rmd",
 "text": "Edit"
 },
 "history": {

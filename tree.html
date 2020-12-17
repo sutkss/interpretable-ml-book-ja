@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>4.4 Decision Tree | Interpretable Machine Learning</title>
+  <title>4.5 決定木 | Interpretable Machine Learning</title>
   <meta name="description" content="Machine learning algorithms usually operate as black boxes and it is unclear how they derived a certain decision. This book is a guide for practitioners to make machine learning decisions interpretable." />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="4.4 Decision Tree | Interpretable Machine Learning" />
+  <meta property="og:title" content="4.5 決定木 | Interpretable Machine Learning" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="christophM/interpretable-ml-book" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="4.4 Decision Tree | Interpretable Machine Learning" />
+  <meta name="twitter:title" content="4.5 決定木 | Interpretable Machine Learning" />
   
   <meta name="twitter:description" content="Machine learning algorithms usually operate as black boxes and it is unclear how they derived a certain decision. This book is a guide for practitioners to make machine learning decisions interpretable." />
   
@@ -106,38 +106,36 @@ window.cookieconsent.initialise({
 <li><a href="./">Interpretable machine learning</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Summary</a></li>
-<li class="chapter" data-level="" data-path="preface-by-the-author.html"><a href="preface-by-the-author.html"><i class="fa fa-check"></i>Preface by the Author</a></li>
-<li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
-<li class="chapter" data-level="1.1" data-path="storytime.html"><a href="storytime.html"><i class="fa fa-check"></i><b>1.1</b> Story Time</a><ul>
-<li class="chapter" data-level="" data-path="storytime.html"><a href="storytime.html#lightning-never-strikes-twice"><i class="fa fa-check"></i>Lightning Never Strikes Twice</a></li>
-<li class="chapter" data-level="" data-path="storytime.html"><a href="storytime.html#trust-fall"><i class="fa fa-check"></i>Trust Fall</a></li>
-<li class="chapter" data-level="" data-path="storytime.html"><a href="storytime.html#fermis-paperclips"><i class="fa fa-check"></i>Fermi's Paperclips</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>要約</a></li>
+<li class="chapter" data-level="" data-path="著者による序文.html"><a href="著者による序文.html"><i class="fa fa-check"></i>著者による序文</a></li>
+<li class="chapter" data-level="" data-path="preface-by-the-translator.html"><a href="preface-by-the-translator.html"><i class="fa fa-check"></i>Preface by the Translator</a></li>
+<li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> イントロダクション</a><ul>
+<li class="chapter" data-level="1.1" data-path="storytime.html"><a href="storytime.html"><i class="fa fa-check"></i><b>1.1</b> 物語の時間</a><ul>
+<li class="chapter" data-level="" data-path="storytime.html"><a href="storytime.html#信用失墜"><i class="fa fa-check"></i>信用失墜</a></li>
+<li class="chapter" data-level="" data-path="storytime.html"><a href="storytime.html#フェルミのペーパークリップ"><i class="fa fa-check"></i>フェルミのペーパー・クリップ</a></li>
 </ul></li>
-<li class="chapter" data-level="1.2" data-path="what-is-machine-learning.html"><a href="what-is-machine-learning.html"><i class="fa fa-check"></i><b>1.2</b> What Is Machine Learning?</a></li>
-<li class="chapter" data-level="1.3" data-path="terminology.html"><a href="terminology.html"><i class="fa fa-check"></i><b>1.3</b> Terminology</a></li>
+<li class="chapter" data-level="1.2" data-path="機械学習とは何か.html"><a href="機械学習とは何か.html"><i class="fa fa-check"></i><b>1.2</b> 機械学習とは何か？</a></li>
+<li class="chapter" data-level="1.3" data-path="terminology.html"><a href="terminology.html"><i class="fa fa-check"></i><b>1.3</b> 専門用語</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="interpretability.html"><a href="interpretability.html"><i class="fa fa-check"></i><b>2</b> Interpretability</a><ul>
-<li class="chapter" data-level="2.1" data-path="interpretability-importance.html"><a href="interpretability-importance.html"><i class="fa fa-check"></i><b>2.1</b> Importance of Interpretability</a></li>
-<li class="chapter" data-level="2.2" data-path="taxonomy-of-interpretability-methods.html"><a href="taxonomy-of-interpretability-methods.html"><i class="fa fa-check"></i><b>2.2</b> Taxonomy of Interpretability Methods</a></li>
-<li class="chapter" data-level="2.3" data-path="scope-of-interpretability.html"><a href="scope-of-interpretability.html"><i class="fa fa-check"></i><b>2.3</b> Scope of Interpretability</a><ul>
-<li class="chapter" data-level="2.3.1" data-path="scope-of-interpretability.html"><a href="scope-of-interpretability.html#algorithm-transparency"><i class="fa fa-check"></i><b>2.3.1</b> Algorithm Transparency</a></li>
-<li class="chapter" data-level="2.3.2" data-path="scope-of-interpretability.html"><a href="scope-of-interpretability.html#global-holistic-model-interpretability"><i class="fa fa-check"></i><b>2.3.2</b> Global, Holistic Model Interpretability</a></li>
-<li class="chapter" data-level="2.3.3" data-path="scope-of-interpretability.html"><a href="scope-of-interpretability.html#global-model-interpretability-on-a-modular-level"><i class="fa fa-check"></i><b>2.3.3</b> Global Model Interpretability on a Modular Level</a></li>
-<li class="chapter" data-level="2.3.4" data-path="scope-of-interpretability.html"><a href="scope-of-interpretability.html#local-interpretability-for-a-single-prediction"><i class="fa fa-check"></i><b>2.3.4</b> Local Interpretability for a Single Prediction</a></li>
-<li class="chapter" data-level="2.3.5" data-path="scope-of-interpretability.html"><a href="scope-of-interpretability.html#local-interpretability-for-a-group-of-predictions"><i class="fa fa-check"></i><b>2.3.5</b> Local Interpretability for a Group of Predictions</a></li>
+<li class="chapter" data-level="2" data-path="interpretability.html"><a href="interpretability.html"><i class="fa fa-check"></i><b>2</b> 解釈可能性</a><ul>
+<li class="chapter" data-level="2.1" data-path="interpretability-importance.html"><a href="interpretability-importance.html"><i class="fa fa-check"></i><b>2.1</b> 解釈可能性の重要性</a></li>
+<li class="chapter" data-level="2.2" data-path="解釈可能な手法の分類.html"><a href="解釈可能な手法の分類.html"><i class="fa fa-check"></i><b>2.2</b> 解釈可能な手法の分類</a></li>
+<li class="chapter" data-level="2.3" data-path="解釈可能性の範囲.html"><a href="解釈可能性の範囲.html"><i class="fa fa-check"></i><b>2.3</b> 解釈可能性の範囲</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="解釈可能性の範囲.html"><a href="解釈可能性の範囲.html#全体的なモデルの解釈可能性"><i class="fa fa-check"></i><b>2.3.1</b> 全体的なモデルの解釈可能性</a></li>
+<li class="chapter" data-level="2.3.2" data-path="解釈可能性の範囲.html"><a href="解釈可能性の範囲.html#モジュールレベルのモデルの全体的な解釈可能性"><i class="fa fa-check"></i><b>2.3.2</b> モジュールレベルのモデルの全体的な解釈可能性</a></li>
+<li class="chapter" data-level="2.3.3" data-path="解釈可能性の範囲.html"><a href="解釈可能性の範囲.html#単一の予測に対する局所的な解釈"><i class="fa fa-check"></i><b>2.3.3</b> 単一の予測に対する局所的な解釈</a></li>
+<li class="chapter" data-level="2.3.4" data-path="解釈可能性の範囲.html"><a href="解釈可能性の範囲.html#予測のグループに対する局所的な解釈"><i class="fa fa-check"></i><b>2.3.4</b> 予測のグループに対する局所的な解釈</a></li>
 </ul></li>
-<li class="chapter" data-level="2.4" data-path="evaluation-of-interpretability.html"><a href="evaluation-of-interpretability.html"><i class="fa fa-check"></i><b>2.4</b> Evaluation of Interpretability</a></li>
-<li class="chapter" data-level="2.5" data-path="properties.html"><a href="properties.html"><i class="fa fa-check"></i><b>2.5</b> Properties of Explanations</a></li>
-<li class="chapter" data-level="2.6" data-path="explanation.html"><a href="explanation.html"><i class="fa fa-check"></i><b>2.6</b> Human-friendly Explanations</a><ul>
-<li class="chapter" data-level="2.6.1" data-path="explanation.html"><a href="explanation.html#what-is-an-explanation"><i class="fa fa-check"></i><b>2.6.1</b> What Is an Explanation?</a></li>
-<li class="chapter" data-level="2.6.2" data-path="explanation.html"><a href="explanation.html#good-explanation"><i class="fa fa-check"></i><b>2.6.2</b> What Is a Good Explanation?</a></li>
+<li class="chapter" data-level="2.4" data-path="解釈可能性の評価.html"><a href="解釈可能性の評価.html"><i class="fa fa-check"></i><b>2.4</b> 解釈可能性の評価</a></li>
+<li class="chapter" data-level="2.5" data-path="properties.html"><a href="properties.html"><i class="fa fa-check"></i><b>2.5</b> 説明に関する性質</a></li>
+<li class="chapter" data-level="2.6" data-path="explanation.html"><a href="explanation.html"><i class="fa fa-check"></i><b>2.6</b> 人間に優しい説明</a><ul>
+<li class="chapter" data-level="2.6.1" data-path="explanation.html"><a href="explanation.html#説明とはなにか"><i class="fa fa-check"></i><b>2.6.1</b> 説明とはなにか</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="data.html"><a href="data.html"><i class="fa fa-check"></i><b>3</b> Datasets</a><ul>
-<li class="chapter" data-level="3.1" data-path="bike-data.html"><a href="bike-data.html"><i class="fa fa-check"></i><b>3.1</b> Bike Rentals (Regression)</a></li>
-<li class="chapter" data-level="3.2" data-path="spam-data.html"><a href="spam-data.html"><i class="fa fa-check"></i><b>3.2</b> YouTube Spam Comments (Text Classification)</a></li>
-<li class="chapter" data-level="3.3" data-path="cervical.html"><a href="cervical.html"><i class="fa fa-check"></i><b>3.3</b> Risk Factors for Cervical Cancer (Classification)</a></li>
+<li class="chapter" data-level="3" data-path="data.html"><a href="data.html"><i class="fa fa-check"></i><b>3</b> データセット</a><ul>
+<li class="chapter" data-level="3.1" data-path="bike-data.html"><a href="bike-data.html"><i class="fa fa-check"></i><b>3.1</b> 自転車レンタル (回帰)</a></li>
+<li class="chapter" data-level="3.2" data-path="spam-data.html"><a href="spam-data.html"><i class="fa fa-check"></i><b>3.2</b> YouTube スパムコメント (テキスト分類)</a></li>
+<li class="chapter" data-level="3.3" data-path="cervical.html"><a href="cervical.html"><i class="fa fa-check"></i><b>3.3</b> 子宮頸がんのリスク要因(クラス分類)</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="simple.html"><a href="simple.html"><i class="fa fa-check"></i><b>4</b> Interpretable Models</a><ul>
 <li class="chapter" data-level="4.1" data-path="limo.html"><a href="limo.html"><i class="fa fa-check"></i><b>4.1</b> Linear Regression</a><ul>
@@ -151,140 +149,140 @@ window.cookieconsent.initialise({
 <li class="chapter" data-level="4.1.8" data-path="limo.html"><a href="limo.html#advantages"><i class="fa fa-check"></i><b>4.1.8</b> Advantages</a></li>
 <li class="chapter" data-level="4.1.9" data-path="limo.html"><a href="limo.html#disadvantages"><i class="fa fa-check"></i><b>4.1.9</b> Disadvantages</a></li>
 </ul></li>
-<li class="chapter" data-level="4.2" data-path="logistic.html"><a href="logistic.html"><i class="fa fa-check"></i><b>4.2</b> Logistic Regression</a><ul>
-<li class="chapter" data-level="4.2.1" data-path="logistic.html"><a href="logistic.html#what-is-wrong-with-linear-regression-for-classification"><i class="fa fa-check"></i><b>4.2.1</b> What is Wrong with Linear Regression for Classification?</a></li>
-<li class="chapter" data-level="4.2.2" data-path="logistic.html"><a href="logistic.html#theory"><i class="fa fa-check"></i><b>4.2.2</b> Theory</a></li>
-<li class="chapter" data-level="4.2.3" data-path="logistic.html"><a href="logistic.html#interpretation-1"><i class="fa fa-check"></i><b>4.2.3</b> Interpretation</a></li>
-<li class="chapter" data-level="4.2.4" data-path="logistic.html"><a href="logistic.html#example-1"><i class="fa fa-check"></i><b>4.2.4</b> Example</a></li>
-<li class="chapter" data-level="4.2.5" data-path="logistic.html"><a href="logistic.html#advantages-and-disadvantages"><i class="fa fa-check"></i><b>4.2.5</b> Advantages and Disadvantages</a></li>
-<li class="chapter" data-level="4.2.6" data-path="logistic.html"><a href="logistic.html#software"><i class="fa fa-check"></i><b>4.2.6</b> Software</a></li>
+<li class="chapter" data-level="4.2" data-path="logistic.html"><a href="logistic.html"><i class="fa fa-check"></i><b>4.2</b> ロジスティック回帰</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="logistic.html"><a href="logistic.html#理論"><i class="fa fa-check"></i><b>4.2.1</b> 理論</a></li>
 </ul></li>
-<li class="chapter" data-level="4.3" data-path="extend-lm.html"><a href="extend-lm.html"><i class="fa fa-check"></i><b>4.3</b> GLM, GAM and more</a><ul>
-<li class="chapter" data-level="4.3.1" data-path="extend-lm.html"><a href="extend-lm.html#glm"><i class="fa fa-check"></i><b>4.3.1</b> Non-Gaussian Outcomes - GLMs</a></li>
-<li class="chapter" data-level="4.3.2" data-path="extend-lm.html"><a href="extend-lm.html#lm-interact"><i class="fa fa-check"></i><b>4.3.2</b> Interactions</a></li>
-<li class="chapter" data-level="4.3.3" data-path="extend-lm.html"><a href="extend-lm.html#gam"><i class="fa fa-check"></i><b>4.3.3</b> Nonlinear Effects - GAMs</a></li>
-<li class="chapter" data-level="4.3.4" data-path="extend-lm.html"><a href="extend-lm.html#advantages-1"><i class="fa fa-check"></i><b>4.3.4</b> Advantages</a></li>
-<li class="chapter" data-level="4.3.5" data-path="extend-lm.html"><a href="extend-lm.html#disadvantages-1"><i class="fa fa-check"></i><b>4.3.5</b> Disadvantages</a></li>
-<li class="chapter" data-level="4.3.6" data-path="extend-lm.html"><a href="extend-lm.html#software-1"><i class="fa fa-check"></i><b>4.3.6</b> Software</a></li>
-<li class="chapter" data-level="4.3.7" data-path="extend-lm.html"><a href="extend-lm.html#more-lm-extension"><i class="fa fa-check"></i><b>4.3.7</b> Further Extensions</a></li>
+<li class="chapter" data-level="4.3" data-path="解釈性.html"><a href="解釈性.html"><i class="fa fa-check"></i><b>4.3</b> 解釈性</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="解釈性.html"><a href="解釈性.html#例"><i class="fa fa-check"></i><b>4.3.1</b> 例</a></li>
+<li class="chapter" data-level="4.3.2" data-path="解釈性.html"><a href="解釈性.html#長所と短所"><i class="fa fa-check"></i><b>4.3.2</b> 長所と短所</a></li>
+<li class="chapter" data-level="4.3.3" data-path="解釈性.html"><a href="解釈性.html#ソフトウェア"><i class="fa fa-check"></i><b>4.3.3</b> ソフトウェア</a></li>
 </ul></li>
-<li class="chapter" data-level="4.4" data-path="tree.html"><a href="tree.html"><i class="fa fa-check"></i><b>4.4</b> Decision Tree</a><ul>
-<li class="chapter" data-level="4.4.1" data-path="tree.html"><a href="tree.html#interpretation-2"><i class="fa fa-check"></i><b>4.4.1</b> Interpretation</a></li>
-<li class="chapter" data-level="4.4.2" data-path="tree.html"><a href="tree.html#example-2"><i class="fa fa-check"></i><b>4.4.2</b> Example</a></li>
-<li class="chapter" data-level="4.4.3" data-path="tree.html"><a href="tree.html#advantages-2"><i class="fa fa-check"></i><b>4.4.3</b> Advantages</a></li>
-<li class="chapter" data-level="4.4.4" data-path="tree.html"><a href="tree.html#disadvantages-2"><i class="fa fa-check"></i><b>4.4.4</b> Disadvantages</a></li>
-<li class="chapter" data-level="4.4.5" data-path="tree.html"><a href="tree.html#software-2"><i class="fa fa-check"></i><b>4.4.5</b> Software</a></li>
+<li class="chapter" data-level="4.4" data-path="extend-lm.html"><a href="extend-lm.html"><i class="fa fa-check"></i><b>4.4</b> GLM, GAM and more</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="extend-lm.html"><a href="extend-lm.html#glm"><i class="fa fa-check"></i><b>4.4.1</b> Non-Gaussian Outcomes - GLMs</a></li>
+<li class="chapter" data-level="4.4.2" data-path="extend-lm.html"><a href="extend-lm.html#lm-interact"><i class="fa fa-check"></i><b>4.4.2</b> Interactions</a></li>
+<li class="chapter" data-level="4.4.3" data-path="extend-lm.html"><a href="extend-lm.html#gam"><i class="fa fa-check"></i><b>4.4.3</b> Nonlinear Effects - GAMs</a></li>
+<li class="chapter" data-level="4.4.4" data-path="extend-lm.html"><a href="extend-lm.html#advantages-1"><i class="fa fa-check"></i><b>4.4.4</b> Advantages</a></li>
+<li class="chapter" data-level="4.4.5" data-path="extend-lm.html"><a href="extend-lm.html#disadvantages-1"><i class="fa fa-check"></i><b>4.4.5</b> Disadvantages</a></li>
+<li class="chapter" data-level="4.4.6" data-path="extend-lm.html"><a href="extend-lm.html#software"><i class="fa fa-check"></i><b>4.4.6</b> Software</a></li>
+<li class="chapter" data-level="4.4.7" data-path="extend-lm.html"><a href="extend-lm.html#more-lm-extension"><i class="fa fa-check"></i><b>4.4.7</b> Further Extensions</a></li>
 </ul></li>
-<li class="chapter" data-level="4.5" data-path="rules.html"><a href="rules.html"><i class="fa fa-check"></i><b>4.5</b> Decision Rules</a><ul>
-<li class="chapter" data-level="4.5.1" data-path="rules.html"><a href="rules.html#learn-rules-from-a-single-feature-oner"><i class="fa fa-check"></i><b>4.5.1</b> Learn Rules from a Single Feature (OneR)</a></li>
-<li class="chapter" data-level="4.5.2" data-path="rules.html"><a href="rules.html#sequential-covering"><i class="fa fa-check"></i><b>4.5.2</b> Sequential Covering</a></li>
-<li class="chapter" data-level="4.5.3" data-path="rules.html"><a href="rules.html#bayesian-rule-lists"><i class="fa fa-check"></i><b>4.5.3</b> Bayesian Rule Lists</a></li>
-<li class="chapter" data-level="4.5.4" data-path="rules.html"><a href="rules.html#advantages-3"><i class="fa fa-check"></i><b>4.5.4</b> Advantages</a></li>
-<li class="chapter" data-level="4.5.5" data-path="rules.html"><a href="rules.html#disadvantages-3"><i class="fa fa-check"></i><b>4.5.5</b> Disadvantages</a></li>
-<li class="chapter" data-level="4.5.6" data-path="rules.html"><a href="rules.html#software-and-alternatives"><i class="fa fa-check"></i><b>4.5.6</b> Software and Alternatives</a></li>
+<li class="chapter" data-level="4.5" data-path="tree.html"><a href="tree.html"><i class="fa fa-check"></i><b>4.5</b> 決定木</a><ul>
+<li class="chapter" data-level="4.5.1" data-path="tree.html"><a href="tree.html#決定木の解釈"><i class="fa fa-check"></i><b>4.5.1</b> 決定木の解釈</a></li>
+<li class="chapter" data-level="4.5.2" data-path="tree.html"><a href="tree.html#例-1"><i class="fa fa-check"></i><b>4.5.2</b> 例</a></li>
+<li class="chapter" data-level="4.5.3" data-path="tree.html"><a href="tree.html#長所"><i class="fa fa-check"></i><b>4.5.3</b> 長所</a></li>
+<li class="chapter" data-level="4.5.4" data-path="tree.html"><a href="tree.html#短所"><i class="fa fa-check"></i><b>4.5.4</b> 短所</a></li>
+<li class="chapter" data-level="4.5.5" data-path="tree.html"><a href="tree.html#ソフトウェア-1"><i class="fa fa-check"></i><b>4.5.5</b> ソフトウェア</a></li>
 </ul></li>
-<li class="chapter" data-level="4.6" data-path="rulefit.html"><a href="rulefit.html"><i class="fa fa-check"></i><b>4.6</b> RuleFit</a><ul>
-<li class="chapter" data-level="4.6.1" data-path="rulefit.html"><a href="rulefit.html#interpretation-and-example"><i class="fa fa-check"></i><b>4.6.1</b> Interpretation and Example</a></li>
-<li class="chapter" data-level="4.6.2" data-path="rulefit.html"><a href="rulefit.html#theory-1"><i class="fa fa-check"></i><b>4.6.2</b> Theory</a></li>
-<li class="chapter" data-level="4.6.3" data-path="rulefit.html"><a href="rulefit.html#advantages-4"><i class="fa fa-check"></i><b>4.6.3</b> Advantages</a></li>
-<li class="chapter" data-level="4.6.4" data-path="rulefit.html"><a href="rulefit.html#disadvantages-4"><i class="fa fa-check"></i><b>4.6.4</b> Disadvantages</a></li>
-<li class="chapter" data-level="4.6.5" data-path="rulefit.html"><a href="rulefit.html#software-and-alternative"><i class="fa fa-check"></i><b>4.6.5</b> Software and Alternative</a></li>
+<li class="chapter" data-level="4.6" data-path="rules.html"><a href="rules.html"><i class="fa fa-check"></i><b>4.6</b> Decision Rules</a><ul>
+<li class="chapter" data-level="4.6.1" data-path="rules.html"><a href="rules.html#learn-rules-from-a-single-feature-oner"><i class="fa fa-check"></i><b>4.6.1</b> Learn Rules from a Single Feature (OneR)</a></li>
+<li class="chapter" data-level="4.6.2" data-path="rules.html"><a href="rules.html#sequential-covering"><i class="fa fa-check"></i><b>4.6.2</b> Sequential Covering</a></li>
+<li class="chapter" data-level="4.6.3" data-path="rules.html"><a href="rules.html#bayesian-rule-lists"><i class="fa fa-check"></i><b>4.6.3</b> Bayesian Rule Lists</a></li>
+<li class="chapter" data-level="4.6.4" data-path="rules.html"><a href="rules.html#advantages-2"><i class="fa fa-check"></i><b>4.6.4</b> Advantages</a></li>
+<li class="chapter" data-level="4.6.5" data-path="rules.html"><a href="rules.html#disadvantages-2"><i class="fa fa-check"></i><b>4.6.5</b> Disadvantages</a></li>
+<li class="chapter" data-level="4.6.6" data-path="rules.html"><a href="rules.html#software-and-alternatives"><i class="fa fa-check"></i><b>4.6.6</b> Software and Alternatives</a></li>
 </ul></li>
-<li class="chapter" data-level="4.7" data-path="other-interpretable.html"><a href="other-interpretable.html"><i class="fa fa-check"></i><b>4.7</b> Other Interpretable Models</a><ul>
-<li class="chapter" data-level="4.7.1" data-path="other-interpretable.html"><a href="other-interpretable.html#naive-bayes-classifier"><i class="fa fa-check"></i><b>4.7.1</b> Naive Bayes Classifier</a></li>
-<li class="chapter" data-level="4.7.2" data-path="other-interpretable.html"><a href="other-interpretable.html#k-nearest-neighbors"><i class="fa fa-check"></i><b>4.7.2</b> K-Nearest Neighbors</a></li>
+<li class="chapter" data-level="4.7" data-path="rulefit.html"><a href="rulefit.html"><i class="fa fa-check"></i><b>4.7</b> RuleFit</a><ul>
+<li class="chapter" data-level="4.7.1" data-path="rulefit.html"><a href="rulefit.html#interpretation-and-example"><i class="fa fa-check"></i><b>4.7.1</b> Interpretation and Example</a></li>
+<li class="chapter" data-level="4.7.2" data-path="rulefit.html"><a href="rulefit.html#theory"><i class="fa fa-check"></i><b>4.7.2</b> Theory</a></li>
+<li class="chapter" data-level="4.7.3" data-path="rulefit.html"><a href="rulefit.html#advantages-3"><i class="fa fa-check"></i><b>4.7.3</b> Advantages</a></li>
+<li class="chapter" data-level="4.7.4" data-path="rulefit.html"><a href="rulefit.html#disadvantages-3"><i class="fa fa-check"></i><b>4.7.4</b> Disadvantages</a></li>
+<li class="chapter" data-level="4.7.5" data-path="rulefit.html"><a href="rulefit.html#software-and-alternative"><i class="fa fa-check"></i><b>4.7.5</b> Software and Alternative</a></li>
+</ul></li>
+<li class="chapter" data-level="4.8" data-path="other-interpretable.html"><a href="other-interpretable.html"><i class="fa fa-check"></i><b>4.8</b> Other Interpretable Models</a><ul>
+<li class="chapter" data-level="4.8.1" data-path="other-interpretable.html"><a href="other-interpretable.html#naive-bayes-classifier"><i class="fa fa-check"></i><b>4.8.1</b> Naive Bayes Classifier</a></li>
+<li class="chapter" data-level="4.8.2" data-path="other-interpretable.html"><a href="other-interpretable.html#k-nearest-neighbors"><i class="fa fa-check"></i><b>4.8.2</b> K-Nearest Neighbors</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="agnostic.html"><a href="agnostic.html"><i class="fa fa-check"></i><b>5</b> Model-Agnostic Methods</a><ul>
 <li class="chapter" data-level="5.1" data-path="pdp.html"><a href="pdp.html"><i class="fa fa-check"></i><b>5.1</b> Partial Dependence Plot (PDP)</a><ul>
-<li class="chapter" data-level="5.1.1" data-path="pdp.html"><a href="pdp.html#examples"><i class="fa fa-check"></i><b>5.1.1</b> Examples</a></li>
-<li class="chapter" data-level="5.1.2" data-path="pdp.html"><a href="pdp.html#advantages-5"><i class="fa fa-check"></i><b>5.1.2</b> Advantages</a></li>
-<li class="chapter" data-level="5.1.3" data-path="pdp.html"><a href="pdp.html#disadvantages-5"><i class="fa fa-check"></i><b>5.1.3</b> Disadvantages</a></li>
-<li class="chapter" data-level="5.1.4" data-path="pdp.html"><a href="pdp.html#software-and-alternatives-1"><i class="fa fa-check"></i><b>5.1.4</b> Software and Alternatives</a></li>
+<li class="chapter" data-level="5.1.1" data-path="pdp.html"><a href="pdp.html#例-2"><i class="fa fa-check"></i><b>5.1.1</b> 例</a></li>
+<li class="chapter" data-level="5.1.2" data-path="pdp.html"><a href="pdp.html#長所-1"><i class="fa fa-check"></i><b>5.1.2</b> 長所</a></li>
+<li class="chapter" data-level="5.1.3" data-path="pdp.html"><a href="pdp.html#短所-1"><i class="fa fa-check"></i><b>5.1.3</b> 短所</a></li>
+<li class="chapter" data-level="5.1.4" data-path="pdp.html"><a href="pdp.html#ソフトウェアと代替手法"><i class="fa fa-check"></i><b>5.1.4</b> ソフトウェアと代替手法</a></li>
 </ul></li>
 <li class="chapter" data-level="5.2" data-path="ice.html"><a href="ice.html"><i class="fa fa-check"></i><b>5.2</b> Individual Conditional Expectation (ICE)</a><ul>
-<li class="chapter" data-level="5.2.1" data-path="ice.html"><a href="ice.html#examples-1"><i class="fa fa-check"></i><b>5.2.1</b> Examples</a></li>
-<li class="chapter" data-level="5.2.2" data-path="ice.html"><a href="ice.html#advantages-6"><i class="fa fa-check"></i><b>5.2.2</b> Advantages</a></li>
-<li class="chapter" data-level="5.2.3" data-path="ice.html"><a href="ice.html#disadvantages-6"><i class="fa fa-check"></i><b>5.2.3</b> Disadvantages</a></li>
-<li class="chapter" data-level="5.2.4" data-path="ice.html"><a href="ice.html#software-and-alternatives-2"><i class="fa fa-check"></i><b>5.2.4</b> Software and Alternatives</a></li>
+<li class="chapter" data-level="5.2.1" data-path="ice.html"><a href="ice.html#例-3"><i class="fa fa-check"></i><b>5.2.1</b> 例</a></li>
+<li class="chapter" data-level="5.2.2" data-path="ice.html"><a href="ice.html#長所-2"><i class="fa fa-check"></i><b>5.2.2</b> 長所</a></li>
+<li class="chapter" data-level="5.2.3" data-path="ice.html"><a href="ice.html#短所-2"><i class="fa fa-check"></i><b>5.2.3</b> 短所</a></li>
+<li class="chapter" data-level="5.2.4" data-path="ice.html"><a href="ice.html#ソフトウェアと代替手法-1"><i class="fa fa-check"></i><b>5.2.4</b> ソフトウェアと代替手法</a></li>
 </ul></li>
 <li class="chapter" data-level="5.3" data-path="ale.html"><a href="ale.html"><i class="fa fa-check"></i><b>5.3</b> Accumulated Local Effects (ALE) Plot</a><ul>
 <li class="chapter" data-level="5.3.1" data-path="ale.html"><a href="ale.html#motivation-and-intuition"><i class="fa fa-check"></i><b>5.3.1</b> Motivation and Intuition</a></li>
-<li class="chapter" data-level="5.3.2" data-path="ale.html"><a href="ale.html#theory-2"><i class="fa fa-check"></i><b>5.3.2</b> Theory</a></li>
+<li class="chapter" data-level="5.3.2" data-path="ale.html"><a href="ale.html#theory-1"><i class="fa fa-check"></i><b>5.3.2</b> Theory</a></li>
 <li class="chapter" data-level="5.3.3" data-path="ale.html"><a href="ale.html#estimation"><i class="fa fa-check"></i><b>5.3.3</b> Estimation</a></li>
-<li class="chapter" data-level="5.3.4" data-path="ale.html"><a href="ale.html#examples-2"><i class="fa fa-check"></i><b>5.3.4</b> Examples</a></li>
-<li class="chapter" data-level="5.3.5" data-path="ale.html"><a href="ale.html#advantages-7"><i class="fa fa-check"></i><b>5.3.5</b> Advantages</a></li>
-<li class="chapter" data-level="5.3.6" data-path="ale.html"><a href="ale.html#disadvantages-7"><i class="fa fa-check"></i><b>5.3.6</b> Disadvantages</a></li>
+<li class="chapter" data-level="5.3.4" data-path="ale.html"><a href="ale.html#examples"><i class="fa fa-check"></i><b>5.3.4</b> Examples</a></li>
+<li class="chapter" data-level="5.3.5" data-path="ale.html"><a href="ale.html#advantages-4"><i class="fa fa-check"></i><b>5.3.5</b> Advantages</a></li>
+<li class="chapter" data-level="5.3.6" data-path="ale.html"><a href="ale.html#disadvantages-4"><i class="fa fa-check"></i><b>5.3.6</b> Disadvantages</a></li>
 <li class="chapter" data-level="5.3.7" data-path="ale.html"><a href="ale.html#implementation-and-alternatives"><i class="fa fa-check"></i><b>5.3.7</b> Implementation and Alternatives</a></li>
 </ul></li>
 <li class="chapter" data-level="5.4" data-path="interaction.html"><a href="interaction.html"><i class="fa fa-check"></i><b>5.4</b> Feature Interaction</a><ul>
 <li class="chapter" data-level="5.4.1" data-path="interaction.html"><a href="interaction.html#feature-interaction"><i class="fa fa-check"></i><b>5.4.1</b> Feature Interaction?</a></li>
 <li class="chapter" data-level="5.4.2" data-path="interaction.html"><a href="interaction.html#theory-friedmans-h-statistic"><i class="fa fa-check"></i><b>5.4.2</b> Theory: Friedman's H-statistic</a></li>
-<li class="chapter" data-level="5.4.3" data-path="interaction.html"><a href="interaction.html#examples-3"><i class="fa fa-check"></i><b>5.4.3</b> Examples</a></li>
-<li class="chapter" data-level="5.4.4" data-path="interaction.html"><a href="interaction.html#advantages-8"><i class="fa fa-check"></i><b>5.4.4</b> Advantages</a></li>
-<li class="chapter" data-level="5.4.5" data-path="interaction.html"><a href="interaction.html#disadvantages-8"><i class="fa fa-check"></i><b>5.4.5</b> Disadvantages</a></li>
+<li class="chapter" data-level="5.4.3" data-path="interaction.html"><a href="interaction.html#examples-1"><i class="fa fa-check"></i><b>5.4.3</b> Examples</a></li>
+<li class="chapter" data-level="5.4.4" data-path="interaction.html"><a href="interaction.html#advantages-5"><i class="fa fa-check"></i><b>5.4.4</b> Advantages</a></li>
+<li class="chapter" data-level="5.4.5" data-path="interaction.html"><a href="interaction.html#disadvantages-5"><i class="fa fa-check"></i><b>5.4.5</b> Disadvantages</a></li>
 <li class="chapter" data-level="5.4.6" data-path="interaction.html"><a href="interaction.html#implementations"><i class="fa fa-check"></i><b>5.4.6</b> Implementations</a></li>
 <li class="chapter" data-level="5.4.7" data-path="interaction.html"><a href="interaction.html#alternatives"><i class="fa fa-check"></i><b>5.4.7</b> Alternatives</a></li>
 </ul></li>
 <li class="chapter" data-level="5.5" data-path="feature-importance.html"><a href="feature-importance.html"><i class="fa fa-check"></i><b>5.5</b> Permutation Feature Importance</a><ul>
-<li class="chapter" data-level="5.5.1" data-path="feature-importance.html"><a href="feature-importance.html#theory-3"><i class="fa fa-check"></i><b>5.5.1</b> Theory</a></li>
+<li class="chapter" data-level="5.5.1" data-path="feature-importance.html"><a href="feature-importance.html#theory-2"><i class="fa fa-check"></i><b>5.5.1</b> Theory</a></li>
 <li class="chapter" data-level="5.5.2" data-path="feature-importance.html"><a href="feature-importance.html#feature-importance-data"><i class="fa fa-check"></i><b>5.5.2</b> Should I Compute Importance on Training or Test Data?</a></li>
 <li class="chapter" data-level="5.5.3" data-path="feature-importance.html"><a href="feature-importance.html#example-and-interpretation"><i class="fa fa-check"></i><b>5.5.3</b> Example and Interpretation</a></li>
-<li class="chapter" data-level="5.5.4" data-path="feature-importance.html"><a href="feature-importance.html#advantages-9"><i class="fa fa-check"></i><b>5.5.4</b> Advantages</a></li>
-<li class="chapter" data-level="5.5.5" data-path="feature-importance.html"><a href="feature-importance.html#disadvantages-9"><i class="fa fa-check"></i><b>5.5.5</b> Disadvantages</a></li>
-<li class="chapter" data-level="5.5.6" data-path="feature-importance.html"><a href="feature-importance.html#software-and-alternatives-3"><i class="fa fa-check"></i><b>5.5.6</b> Software and Alternatives</a></li>
+<li class="chapter" data-level="5.5.4" data-path="feature-importance.html"><a href="feature-importance.html#advantages-6"><i class="fa fa-check"></i><b>5.5.4</b> Advantages</a></li>
+<li class="chapter" data-level="5.5.5" data-path="feature-importance.html"><a href="feature-importance.html#disadvantages-6"><i class="fa fa-check"></i><b>5.5.5</b> Disadvantages</a></li>
+<li class="chapter" data-level="5.5.6" data-path="feature-importance.html"><a href="feature-importance.html#software-and-alternatives-1"><i class="fa fa-check"></i><b>5.5.6</b> Software and Alternatives</a></li>
 </ul></li>
 <li class="chapter" data-level="5.6" data-path="global.html"><a href="global.html"><i class="fa fa-check"></i><b>5.6</b> Global Surrogate</a><ul>
-<li class="chapter" data-level="5.6.1" data-path="global.html"><a href="global.html#theory-4"><i class="fa fa-check"></i><b>5.6.1</b> Theory</a></li>
-<li class="chapter" data-level="5.6.2" data-path="global.html"><a href="global.html#example-4"><i class="fa fa-check"></i><b>5.6.2</b> Example</a></li>
-<li class="chapter" data-level="5.6.3" data-path="global.html"><a href="global.html#advantages-10"><i class="fa fa-check"></i><b>5.6.3</b> Advantages</a></li>
-<li class="chapter" data-level="5.6.4" data-path="global.html"><a href="global.html#disadvantages-10"><i class="fa fa-check"></i><b>5.6.4</b> Disadvantages</a></li>
-<li class="chapter" data-level="5.6.5" data-path="global.html"><a href="global.html#software-3"><i class="fa fa-check"></i><b>5.6.5</b> Software</a></li>
+<li class="chapter" data-level="5.6.1" data-path="global.html"><a href="global.html#theory-3"><i class="fa fa-check"></i><b>5.6.1</b> Theory</a></li>
+<li class="chapter" data-level="5.6.2" data-path="global.html"><a href="global.html#example-1"><i class="fa fa-check"></i><b>5.6.2</b> Example</a></li>
+<li class="chapter" data-level="5.6.3" data-path="global.html"><a href="global.html#advantages-7"><i class="fa fa-check"></i><b>5.6.3</b> Advantages</a></li>
+<li class="chapter" data-level="5.6.4" data-path="global.html"><a href="global.html#disadvantages-7"><i class="fa fa-check"></i><b>5.6.4</b> Disadvantages</a></li>
+<li class="chapter" data-level="5.6.5" data-path="global.html"><a href="global.html#software-1"><i class="fa fa-check"></i><b>5.6.5</b> Software</a></li>
 </ul></li>
 <li class="chapter" data-level="5.7" data-path="lime.html"><a href="lime.html"><i class="fa fa-check"></i><b>5.7</b> Local Surrogate (LIME)</a><ul>
 <li class="chapter" data-level="5.7.1" data-path="lime.html"><a href="lime.html#lime-for-tabular-data"><i class="fa fa-check"></i><b>5.7.1</b> LIME for Tabular Data</a></li>
 <li class="chapter" data-level="5.7.2" data-path="lime.html"><a href="lime.html#lime-for-text"><i class="fa fa-check"></i><b>5.7.2</b> LIME for Text</a></li>
 <li class="chapter" data-level="5.7.3" data-path="lime.html"><a href="lime.html#images-lime"><i class="fa fa-check"></i><b>5.7.3</b> LIME for Images</a></li>
-<li class="chapter" data-level="5.7.4" data-path="lime.html"><a href="lime.html#advantages-11"><i class="fa fa-check"></i><b>5.7.4</b> Advantages</a></li>
-<li class="chapter" data-level="5.7.5" data-path="lime.html"><a href="lime.html#disadvantages-11"><i class="fa fa-check"></i><b>5.7.5</b> Disadvantages</a></li>
+<li class="chapter" data-level="5.7.4" data-path="lime.html"><a href="lime.html#advantages-8"><i class="fa fa-check"></i><b>5.7.4</b> Advantages</a></li>
+<li class="chapter" data-level="5.7.5" data-path="lime.html"><a href="lime.html#disadvantages-8"><i class="fa fa-check"></i><b>5.7.5</b> Disadvantages</a></li>
 </ul></li>
 <li class="chapter" data-level="5.8" data-path="anchors.html"><a href="anchors.html"><i class="fa fa-check"></i><b>5.8</b> Scoped Rules (Anchors)</a><ul>
 <li class="chapter" data-level="5.8.1" data-path="anchors.html"><a href="anchors.html#finding-anchors"><i class="fa fa-check"></i><b>5.8.1</b> Finding Anchors</a></li>
 <li class="chapter" data-level="5.8.2" data-path="anchors.html"><a href="anchors.html#complexity-and-runtime"><i class="fa fa-check"></i><b>5.8.2</b> Complexity and Runtime</a></li>
 <li class="chapter" data-level="5.8.3" data-path="anchors.html"><a href="anchors.html#tabular-data-example"><i class="fa fa-check"></i><b>5.8.3</b> Tabular Data Example</a></li>
-<li class="chapter" data-level="5.8.4" data-path="anchors.html"><a href="anchors.html#advantages-12"><i class="fa fa-check"></i><b>5.8.4</b> Advantages</a></li>
-<li class="chapter" data-level="5.8.5" data-path="anchors.html"><a href="anchors.html#disadvantages-12"><i class="fa fa-check"></i><b>5.8.5</b> Disadvantages</a></li>
-<li class="chapter" data-level="5.8.6" data-path="anchors.html"><a href="anchors.html#software-and-alternatives-4"><i class="fa fa-check"></i><b>5.8.6</b> Software and Alternatives</a></li>
+<li class="chapter" data-level="5.8.4" data-path="anchors.html"><a href="anchors.html#advantages-9"><i class="fa fa-check"></i><b>5.8.4</b> Advantages</a></li>
+<li class="chapter" data-level="5.8.5" data-path="anchors.html"><a href="anchors.html#disadvantages-9"><i class="fa fa-check"></i><b>5.8.5</b> Disadvantages</a></li>
+<li class="chapter" data-level="5.8.6" data-path="anchors.html"><a href="anchors.html#software-and-alternatives-2"><i class="fa fa-check"></i><b>5.8.6</b> Software and Alternatives</a></li>
 </ul></li>
 <li class="chapter" data-level="5.9" data-path="shapley.html"><a href="shapley.html"><i class="fa fa-check"></i><b>5.9</b> Shapley Values</a><ul>
 <li class="chapter" data-level="5.9.1" data-path="shapley.html"><a href="shapley.html#general-idea"><i class="fa fa-check"></i><b>5.9.1</b> General Idea</a></li>
 <li class="chapter" data-level="5.9.2" data-path="shapley.html"><a href="shapley.html#examples-and-interpretation"><i class="fa fa-check"></i><b>5.9.2</b> Examples and Interpretation</a></li>
 <li class="chapter" data-level="5.9.3" data-path="shapley.html"><a href="shapley.html#the-shapley-value-in-detail"><i class="fa fa-check"></i><b>5.9.3</b> The Shapley Value in Detail</a></li>
-<li class="chapter" data-level="5.9.4" data-path="shapley.html"><a href="shapley.html#advantages-13"><i class="fa fa-check"></i><b>5.9.4</b> Advantages</a></li>
-<li class="chapter" data-level="5.9.5" data-path="shapley.html"><a href="shapley.html#disadvantages-13"><i class="fa fa-check"></i><b>5.9.5</b> Disadvantages</a></li>
-<li class="chapter" data-level="5.9.6" data-path="shapley.html"><a href="shapley.html#software-and-alternatives-5"><i class="fa fa-check"></i><b>5.9.6</b> Software and Alternatives</a></li>
+<li class="chapter" data-level="5.9.4" data-path="shapley.html"><a href="shapley.html#advantages-10"><i class="fa fa-check"></i><b>5.9.4</b> Advantages</a></li>
+<li class="chapter" data-level="5.9.5" data-path="shapley.html"><a href="shapley.html#disadvantages-10"><i class="fa fa-check"></i><b>5.9.5</b> Disadvantages</a></li>
+<li class="chapter" data-level="5.9.6" data-path="shapley.html"><a href="shapley.html#software-and-alternatives-3"><i class="fa fa-check"></i><b>5.9.6</b> Software and Alternatives</a></li>
 </ul></li>
 <li class="chapter" data-level="5.10" data-path="shap.html"><a href="shap.html"><i class="fa fa-check"></i><b>5.10</b> SHAP (SHapley Additive exPlanations)</a><ul>
 <li class="chapter" data-level="5.10.1" data-path="shap.html"><a href="shap.html#definition"><i class="fa fa-check"></i><b>5.10.1</b> Definition</a></li>
 <li class="chapter" data-level="5.10.2" data-path="shap.html"><a href="shap.html#kernelshap"><i class="fa fa-check"></i><b>5.10.2</b> KernelSHAP</a></li>
 <li class="chapter" data-level="5.10.3" data-path="shap.html"><a href="shap.html#treeshap"><i class="fa fa-check"></i><b>5.10.3</b> TreeSHAP</a></li>
-<li class="chapter" data-level="5.10.4" data-path="shap.html"><a href="shap.html#examples-4"><i class="fa fa-check"></i><b>5.10.4</b> Examples</a></li>
+<li class="chapter" data-level="5.10.4" data-path="shap.html"><a href="shap.html#examples-2"><i class="fa fa-check"></i><b>5.10.4</b> Examples</a></li>
 <li class="chapter" data-level="5.10.5" data-path="shap.html"><a href="shap.html#shap-feature-importance"><i class="fa fa-check"></i><b>5.10.5</b> SHAP Feature Importance</a></li>
 <li class="chapter" data-level="5.10.6" data-path="shap.html"><a href="shap.html#shap-summary-plot"><i class="fa fa-check"></i><b>5.10.6</b> SHAP Summary Plot</a></li>
 <li class="chapter" data-level="5.10.7" data-path="shap.html"><a href="shap.html#shap-dependence-plot"><i class="fa fa-check"></i><b>5.10.7</b> SHAP Dependence Plot</a></li>
 <li class="chapter" data-level="5.10.8" data-path="shap.html"><a href="shap.html#shap-interaction-values"><i class="fa fa-check"></i><b>5.10.8</b> SHAP Interaction Values</a></li>
 <li class="chapter" data-level="5.10.9" data-path="shap.html"><a href="shap.html#clustering-shap-values"><i class="fa fa-check"></i><b>5.10.9</b> Clustering SHAP values</a></li>
-<li class="chapter" data-level="5.10.10" data-path="shap.html"><a href="shap.html#advantages-14"><i class="fa fa-check"></i><b>5.10.10</b> Advantages</a></li>
-<li class="chapter" data-level="5.10.11" data-path="shap.html"><a href="shap.html#disadvantages-14"><i class="fa fa-check"></i><b>5.10.11</b> Disadvantages</a></li>
-<li class="chapter" data-level="5.10.12" data-path="shap.html"><a href="shap.html#software-4"><i class="fa fa-check"></i><b>5.10.12</b> Software</a></li>
+<li class="chapter" data-level="5.10.10" data-path="shap.html"><a href="shap.html#advantages-11"><i class="fa fa-check"></i><b>5.10.10</b> Advantages</a></li>
+<li class="chapter" data-level="5.10.11" data-path="shap.html"><a href="shap.html#disadvantages-11"><i class="fa fa-check"></i><b>5.10.11</b> Disadvantages</a></li>
+<li class="chapter" data-level="5.10.12" data-path="shap.html"><a href="shap.html#software-2"><i class="fa fa-check"></i><b>5.10.12</b> Software</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="example-based.html"><a href="example-based.html"><i class="fa fa-check"></i><b>6</b> Example-Based Explanations</a><ul>
 <li class="chapter" data-level="6.1" data-path="counterfactual.html"><a href="counterfactual.html"><i class="fa fa-check"></i><b>6.1</b> Counterfactual Explanations</a><ul>
 <li class="chapter" data-level="6.1.1" data-path="counterfactual.html"><a href="counterfactual.html#generating-counterfactual-explanations"><i class="fa fa-check"></i><b>6.1.1</b> Generating Counterfactual Explanations</a></li>
-<li class="chapter" data-level="6.1.2" data-path="counterfactual.html"><a href="counterfactual.html#example-8"><i class="fa fa-check"></i><b>6.1.2</b> Example</a></li>
-<li class="chapter" data-level="6.1.3" data-path="counterfactual.html"><a href="counterfactual.html#advantages-15"><i class="fa fa-check"></i><b>6.1.3</b> Advantages</a></li>
-<li class="chapter" data-level="6.1.4" data-path="counterfactual.html"><a href="counterfactual.html#disadvantages-15"><i class="fa fa-check"></i><b>6.1.4</b> Disadvantages</a></li>
+<li class="chapter" data-level="6.1.2" data-path="counterfactual.html"><a href="counterfactual.html#examples-3"><i class="fa fa-check"></i><b>6.1.2</b> Examples</a></li>
+<li class="chapter" data-level="6.1.3" data-path="counterfactual.html"><a href="counterfactual.html#advantages-12"><i class="fa fa-check"></i><b>6.1.3</b> Advantages</a></li>
+<li class="chapter" data-level="6.1.4" data-path="counterfactual.html"><a href="counterfactual.html#disadvantages-12"><i class="fa fa-check"></i><b>6.1.4</b> Disadvantages</a></li>
 <li class="chapter" data-level="6.1.5" data-path="counterfactual.html"><a href="counterfactual.html#example-software"><i class="fa fa-check"></i><b>6.1.5</b> Software and Alternatives</a></li>
 </ul></li>
 <li class="chapter" data-level="6.2" data-path="adversarial.html"><a href="adversarial.html"><i class="fa fa-check"></i><b>6.2</b> Adversarial Examples</a><ul>
@@ -292,10 +290,10 @@ window.cookieconsent.initialise({
 <li class="chapter" data-level="6.2.2" data-path="adversarial.html"><a href="adversarial.html#the-cybersecurity-perspective"><i class="fa fa-check"></i><b>6.2.2</b> The Cybersecurity Perspective</a></li>
 </ul></li>
 <li class="chapter" data-level="6.3" data-path="proto.html"><a href="proto.html"><i class="fa fa-check"></i><b>6.3</b> Prototypes and Criticisms</a><ul>
-<li class="chapter" data-level="6.3.1" data-path="proto.html"><a href="proto.html#theory-5"><i class="fa fa-check"></i><b>6.3.1</b> Theory</a></li>
-<li class="chapter" data-level="6.3.2" data-path="proto.html"><a href="proto.html#examples-5"><i class="fa fa-check"></i><b>6.3.2</b> Examples</a></li>
-<li class="chapter" data-level="6.3.3" data-path="proto.html"><a href="proto.html#advantages-16"><i class="fa fa-check"></i><b>6.3.3</b> Advantages</a></li>
-<li class="chapter" data-level="6.3.4" data-path="proto.html"><a href="proto.html#disadvantages-16"><i class="fa fa-check"></i><b>6.3.4</b> Disadvantages</a></li>
+<li class="chapter" data-level="6.3.1" data-path="proto.html"><a href="proto.html#theory-4"><i class="fa fa-check"></i><b>6.3.1</b> Theory</a></li>
+<li class="chapter" data-level="6.3.2" data-path="proto.html"><a href="proto.html#examples-4"><i class="fa fa-check"></i><b>6.3.2</b> Examples</a></li>
+<li class="chapter" data-level="6.3.3" data-path="proto.html"><a href="proto.html#advantages-13"><i class="fa fa-check"></i><b>6.3.3</b> Advantages</a></li>
+<li class="chapter" data-level="6.3.4" data-path="proto.html"><a href="proto.html#disadvantages-13"><i class="fa fa-check"></i><b>6.3.4</b> Disadvantages</a></li>
 <li class="chapter" data-level="6.3.5" data-path="proto.html"><a href="proto.html#code-and-alternatives"><i class="fa fa-check"></i><b>6.3.5</b> Code and Alternatives</a></li>
 </ul></li>
 <li class="chapter" data-level="6.4" data-path="influential.html"><a href="influential.html"><i class="fa fa-check"></i><b>6.4</b> Influential Instances</a><ul>
@@ -303,15 +301,15 @@ window.cookieconsent.initialise({
 <li class="chapter" data-level="6.4.2" data-path="influential.html"><a href="influential.html#influence-functions"><i class="fa fa-check"></i><b>6.4.2</b> Influence Functions</a></li>
 <li class="chapter" data-level="6.4.3" data-path="influential.html"><a href="influential.html#advantages-of-identifying-influential-instances"><i class="fa fa-check"></i><b>6.4.3</b> Advantages of Identifying Influential Instances</a></li>
 <li class="chapter" data-level="6.4.4" data-path="influential.html"><a href="influential.html#disadvantages-of-identifying-influential-instances"><i class="fa fa-check"></i><b>6.4.4</b> Disadvantages of Identifying Influential Instances</a></li>
-<li class="chapter" data-level="6.4.5" data-path="influential.html"><a href="influential.html#software-and-alternatives-6"><i class="fa fa-check"></i><b>6.4.5</b> Software and Alternatives</a></li>
+<li class="chapter" data-level="6.4.5" data-path="influential.html"><a href="influential.html#software-and-alternatives-4"><i class="fa fa-check"></i><b>6.4.5</b> Software and Alternatives</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="neural-networks.html"><a href="neural-networks.html"><i class="fa fa-check"></i><b>7</b> Neural Network Interpretation</a><ul>
 <li class="chapter" data-level="7.1" data-path="cnn-features.html"><a href="cnn-features.html"><i class="fa fa-check"></i><b>7.1</b> Learned Features</a><ul>
 <li class="chapter" data-level="7.1.1" data-path="cnn-features.html"><a href="cnn-features.html#feature-visualization"><i class="fa fa-check"></i><b>7.1.1</b> Feature Visualization</a></li>
 <li class="chapter" data-level="7.1.2" data-path="cnn-features.html"><a href="cnn-features.html#network-dissection"><i class="fa fa-check"></i><b>7.1.2</b> Network Dissection</a></li>
-<li class="chapter" data-level="7.1.3" data-path="cnn-features.html"><a href="cnn-features.html#advantages-17"><i class="fa fa-check"></i><b>7.1.3</b> Advantages</a></li>
-<li class="chapter" data-level="7.1.4" data-path="cnn-features.html"><a href="cnn-features.html#disadvantages-17"><i class="fa fa-check"></i><b>7.1.4</b> Disadvantages</a></li>
+<li class="chapter" data-level="7.1.3" data-path="cnn-features.html"><a href="cnn-features.html#advantages-14"><i class="fa fa-check"></i><b>7.1.3</b> Advantages</a></li>
+<li class="chapter" data-level="7.1.4" data-path="cnn-features.html"><a href="cnn-features.html#disadvantages-14"><i class="fa fa-check"></i><b>7.1.4</b> Disadvantages</a></li>
 <li class="chapter" data-level="7.1.5" data-path="cnn-features.html"><a href="cnn-features.html#software-and-further-material"><i class="fa fa-check"></i><b>7.1.5</b> Software and Further Material</a></li>
 </ul></li>
 </ul></li>
@@ -347,76 +345,258 @@ window.cookieconsent.initialise({
 
             <section class="normal" id="section-">
 <div id="tree" class="section level2">
-<h2><span class="header-section-number">4.4</span> Decision Tree</h2>
-<p>Linear regression and logistic regression models fail in situations where the relationship between features and outcome is nonlinear or where features interact with each other. Time to shine for the decision tree! Tree based models split the data multiple times according to certain cutoff values in the features. Through splitting, different subsets of the dataset are created, with each instance belonging to one subset. The final subsets are called terminal or leaf nodes and the intermediate subsets are called internal nodes or split nodes. To predict the outcome in each leaf node, the average outcome of the training data in this node is used. Trees can be used for classification and regression.</p>
-<p>There are various algorithms that can grow a tree. They differ in the possible structure of the tree (e.g. number of splits per node), the criteria how to find the splits, when to stop splitting and how to estimate the simple models within the leaf nodes. The classification and regression trees (CART) algorithm is probably the most popular algorithm for tree induction. We will focus on CART, but the interpretation is similar for most other tree types. I recommend the book 'The Elements of Statistical Learning' (Friedman, Hastie and Tibshirani 2009)<a href="#fn17" class="footnoteRef" id="fnref17"><sup>17</sup></a> for a more detailed introduction to CART.</p>
+<h2><span class="header-section-number">4.5</span> 決定木</h2>
+<!--
+## Decision Tree {#tree}
+-->
+<!--
+Linear regression and logistic regression models fail in situations where the relationship between features and outcome is nonlinear or where features interact with each other.
+Time to shine for the decision tree!
+Tree based models split the data multiple times according to certain cutoff values in the features.
+Through splitting, different subsets of the dataset are created, with each instance belonging to one subset.
+The final subsets are called terminal or leaf nodes and the intermediate subsets are called internal nodes or split nodes.
+To predict the outcome in each leaf node, the average outcome of the training data in this node is used.
+Trees can be used for classification and regression.
+-->
+<p>線形回帰とロジスックモデルは特徴量と出力が非線形の時や特徴量が相互作用する時に失敗します。 この状況こそ決定木が輝く時です！ 木をベースにしたモデルは、特徴量のうち、あるカットオフ値によって、データを複数回分岐します。 この分岐を通して、データセットは異なる部分集合に分岐され、それぞれのインスタンスはこのうちの1つに属します。 この最後の部分集合は終端ノードまたは葉と呼ばれていて、中間の部分集合は内部ノード、または、分岐ノードと呼ばれています。それぞれの葉で出力を予測するためには、ノードの中の学習データの出力の平均値が使用されます。決定木は、分類でも回帰でも使われています。</p>
+<!--
+There are various algorithms that can grow a tree.
+They differ in the possible structure of the tree (e.g. number of splits per node), the criteria how to find the splits, when to stop splitting and how to estimate the simple models within the leaf nodes.
+The classification and regression trees (CART) algorithm is probably the most popular algorithm for tree induction.
+We will focus on CART, but the interpretation is similar for most other tree types.
+I recommend the book 'The Elements of Statistical Learning' (Friedman, Hastie and Tibshirani 2009)[^Hastie] for a more detailed introduction to CART.
+-->
+<p>決定木を成長させるためのさまざまなアルゴリズムが知られています。 これらのアルゴリズムでは、決定木の構造（例:ノードあたりの分岐数）、分岐を見つけるための指標、いつ分岐を止めるか、そしてどのようにして葉の中で簡単なモデルを予測するかが異なっています。 CART(Classification And Regression Trees)アルゴリズムは、おそらく決定木を構築するためのもっとも有名なアルゴリズムです。 本章ではCARTに焦点をあてますが、他の木も同様に解釈可能です。 CARTに関して、より詳細を知りたいのであれは、’The Elements of Statistical Learning' (Friedman, Hastie and Tibshirani 2009)<a href="#fn18" class="footnoteRef" id="fnref18"><sup>18</sup></a> の本をお勧めします。</p>
+<!--
+fig.cap="Decision tree with artificial data. Instances with a value greater than 3 for feature x1 end up in node 5. All other instances are assigned to node 3 or node 4, depending on whether values of feature x2  exceed 1."
+-->
 <div class="figure"><span id="fig:tree-artificial"></span>
-<img src="images/tree-artificial-1.png" alt="Decision tree with artificial data. Instances with a value greater than 3 for feature x1 end up in node 5. All other instances are assigned to node 3 or node 4, depending on whether values of feature x2  exceed 1." width="1050" />
+<img src="images/tree-artificial-1.png" alt="人工データに対する決定木 特徴量 x1 が 3 より大きいとき、ノード 5 に割り当てられる。それ以外のインスタンスは特徴量 x2 が 1 を超えるかどうかでのノード3かノード4に割り当てられる。" width="1050" />
 <p class="caption">
-FIGURE 4.16: Decision tree with artificial data. Instances with a value greater than 3 for feature x1 end up in node 5. All other instances are assigned to node 3 or node 4, depending on whether values of feature x2 exceed 1.
+FIGURE 4.16: 人工データに対する決定木 特徴量 x1 が 3 より大きいとき、ノード 5 に割り当てられる。それ以外のインスタンスは特徴量 x2 が 1 を超えるかどうかでのノード3かノード4に割り当てられる。
 </p>
 </div>
-<p>The following formula describes the relationship between the outcome y and features x.</p>
-<p><span class="math display">\[\hat{y}=\hat{f}(x)=\sum_{m=1}^Mc_m{}I\{x\in{}R_m\}\]</span></p>
-<p>Each instance falls into exactly one leaf node (=subset <span class="math inline">\(R_m\)</span>). <span class="math inline">\(I_{\{x\in{}R_m\}}\)</span> is the identity function that returns 1 if <span class="math inline">\(x\)</span> is in the subset <span class="math inline">\(R_m\)</span> and 0 otherwise. If an instance falls into a leaf node <span class="math inline">\(R_l\)</span>, the predicted outcome is <span class="math inline">\(\hat{y}=c_l\)</span>, where <span class="math inline">\(c_l\)</span> is the average of all training instances in leaf node <span class="math inline">\(R_l\)</span>.</p>
-<p>But where do the subsets come from? This is quite simple: CART takes a feature and determines which cut-off point minimizes the variance of y for a regression task or the Gini index of the class distribution of y for classification tasks. The variance tells us how much the y values in a node are spread around their mean value. The Gini index tells us how &quot;impure&quot; a node is, e.g. if all classes have the same frequency, the node is impure, if only one class is present, it is maximally pure. Variance and Gini index are minimized when the data points in the nodes have very similar values for y. As a consequence, the best cut-off point makes the two resulting subsets as different as possible with respect to the target outcome. For categorical features, the algorithm tries to create subsets by trying different groupings of categories. After the best cutoff per feature has been determined, the algorithm selects the feature for splitting that would result in the best partition in terms of the variance or Gini index and adds this split to the tree. The algorithm continues this search-and-split recursively in both new nodes until a stop criterion is reached. Possible criteria are: A minimum number of instances that have to be in a node before the split, or the minimum number of instances that have to be in a terminal node.</p>
-<div id="interpretation-2" class="section level3">
-<h3><span class="header-section-number">4.4.1</span> Interpretation</h3>
-<p>The interpretation is simple: Starting from the root node, you go to the next nodes and the edges tell you which subsets you are looking at. Once you reach the leaf node, the node tells you the predicted outcome. All the edges are connected by 'AND'.</p>
-<p>Template: If feature x is [smaller/bigger] than threshold c AND ... then the predicted outcome is the mean value of y of the instances in that node.</p>
+<!--
+The following formula describes the relationship between the outcome y and features x.
+-->
+<p>下記の方程式は特徴量 x と出力 y の関係を記述しています。 <span class="math display">\[\hat{y}=\hat{f}(x)=\sum_{m=1}^Mc_m{}I\{x\in{}R_m\}\]</span></p>
+<!--
+Each instance falls into exactly one leaf node (=subset $R_m$).
+$I_{\{x\in{}R_m\}}$ is the identity function that returns 1 if $x$ is in the subset $R_m$ and 0 otherwise.
+If an instance falls into a leaf node $R_l$, the predicted outcome is $\hat{y}=c_l$, where $c_l$ is the average of all training instances in leaf node $R_l$.
+-->
+<p>それぞれのインスタンスは1つの葉(=subset <span class="math inline">\(R_m\)</span>)に対応します. <span class="math inline">\(I_{\{x\in{}R_m\}}\)</span> は、<span class="math inline">\(x\)</span>が<span class="math inline">\(R_m\)</span>の部分集合に属していれば1を、そうでないなら0を返す指示関数です。もし、インスタンスが葉<span class="math inline">\(R_l\)</span>対応したとすると、予測による出力は<span class="math inline">\(\hat{y}=c_l\)</span>となります。ただし、<span class="math inline">\(c_l\)</span>は葉<span class="math inline">\(R_l\)</span>に対応する全ての学習データのインスタンスの出力の平均値です。</p>
+<!--
+But where do the subsets come from?
+This is quite simple:
+CART takes a feature and determines which cut-off point minimizes the variance of y for a regression task or the Gini index of the class distribution of y for classification tasks.
+The variance tells us how much the y values in a node are spread around their mean value.
+The Gini index tells us how "impure" a node is, e.g. if all classes have the same frequency, the node is impure, if only one class is present, it is maximally pure.
+Variance and Gini index are minimized when the data points in the nodes have very similar values for y.
+-->
+<p>しかし、これらの部分集合はどこからきたのでしょうか？ これはとても簡単です: CARTは回帰であればyの分散を、分類であれば y のクラス分布のジニ係数を最小にするように、特徴量を選び、カットオフ点を決定します。 分散はノード内のyの値が平均からどの程度広がっているかを教えてくれます。 ジニ係数はノードがどれだけ不純かを教えてくれます。例えば、ノード内に全てのクラスが同じ数あるとき、ノードは不純になります。一方で、ノードのクラスが1つだけの場合、純度が最大になります。 ノードの中のデータ点がとても似た y の値を持つとき、分散やジニ係数は最小化されます。</p>
+<!--
+As a consequence, the best cut-off point makes the two resulting subsets as different as possible with respect to the target outcome.
+For categorical features, the algorithm tries to create subsets by trying different groupings of categories.
+After the best cutoff per feature has been determined, the algorithm selects the feature for splitting that would result in the best partition in terms of the variance or Gini index and adds this split to the tree.
+The algorithm continues this search-and-split recursively in both new nodes until a stop criterion is reached.
+Possible criteria are:
+A minimum number of instances that have to be in a node before the split, or the minimum number of instances that have to be in a terminal node.
+-->
+<p>結果として、最適なカットオフポイントは、目標値に関して、2つの結果の部分集合が出来る限り異なる値となるように選ばれます。 カテゴリカルデータに対して、アルゴリズムは各カテゴリーごとにまとめる様にして部分集合を作成します。 特徴量ごとの最適なカットオフが決まったあと、アルゴリズムは、その中から分散やジニ係数に関して最適な分岐を与える特徴量を選び、この分岐を木に追加します。 アルゴリズムは、両方の新しいノードに対して、この探索と分岐を停止の基準に到達するまで再帰的に繰り返します。 考えられる停止基準: 分岐の前にノードの中に存在するべきインスタンスの最小の数、または、終端点に含まれるインスタンスの最小の数。</p>
+<!-- 
+### Interpretation
+-->
+<div id="決定木の解釈" class="section level3">
+<h3><span class="header-section-number">4.5.1</span> 決定木の解釈</h3>
+<!--
+The interpretation is simple:
+Starting from the root node, you go to the next nodes and the edges tell you which subsets you are looking at.
+Once you reach the leaf node, the node tells you the predicted outcome.
+All the edges are connected by 'AND'.
+
+Template: If feature x is [smaller/bigger] than threshold c AND ... then the predicted outcome is the mean value of y of the instances in that node.
+-->
+<p>決定木の解釈は単純です: 根のノードから始めて、辺を辿って次のノードへと移っていきます。 葉に到達すると、そのノードから予測結果を得ることができます。 すべての枝は ’AND’ で繋がっています。</p>
+<p>例: 特徴量 x が しきい値 c より[小さい/大きい] かつ … 、このとき、予測結果は対応するノードに含まれるインスタンスの y の平均値になります。</p>
+<!-- **Feature importance** -->
 <p><strong>Feature importance</strong></p>
-<p>The overall importance of a feature in a decision tree can be computed in the following way: Go through all the splits for which the feature was used and measure how much it has reduced the variance or Gini index compared to the parent node. The sum of all importances is scaled to 100. This means that each importance can be interpreted as share of the overall model importance.</p>
-<p><strong>Tree decomposition</strong></p>
-<p>Individual predictions of a decision tree can be explained by decomposing the decision path into one component per feature. We can track a decision through the tree and explain a prediction by the contributions added at each decision node.</p>
-<p>The root node in a decision tree is our starting point. If we were to use the root node to make predictions, it would predict the mean of the outcome of the training data. With the next split, we either subtract or add a term to this sum, depending on the next node in the path. To get to the final prediction, we have to follow the path of the data instance that we want to explain and keep adding to the formula.</p>
+<!--
+The overall importance of a feature in a decision tree can be computed in the following way:
+Go through all the splits for which the feature was used and measure how much it has reduced the variance or Gini index compared to the parent node.
+The sum of all importances is scaled to 100.
+This means that each importance can be interpreted as share of the overall model importance.
+-->
+<p>決定木での特徴量の全体の重要度は次のように計算されます。 その特徴が使われた全ての分岐を見て、それが親のノードに比べてどのくらい分散やジニ係数を減少させているかを計算します。 全部の重要度の和を100にスケールします。 これはそれぞれの重要度がモデル全体に対する重要度からの寄与率として解釈できることを意味します。</p>
+<!-- **Tree decomposition** -->
+<p><strong>木の分解</strong></p>
+<!--
+Individual predictions of a decision tree can be explained by decomposing the decision path into one component per feature.
+We can track a decision through the tree and explain a prediction by the contributions  added at each decision node.
+
+The root node in a decision tree is our starting point.
+If we were to use the root node to make predictions, it would predict the mean of the outcome of the training data.
+With the next split, we either subtract or add a term to this sum, depending on the next node in the path.
+To get to the final prediction, we have to follow the path of the data instance that we want to explain and keep adding to the formula.
+
+$$\hat{f}(x)=\bar{y}+\sum_{d=1}^D\text{split.contrib(d,x)}=\bar{y}+\sum_{j=1}^p\text{feat.contrib(j,x)}$$
+-->
+<p>決定木の個々の予測は決定経路を特徴量ごとに1つの要素に分解することで説明可能です。 木に沿って決定を追うことができ、それぞれの決定ノードに与えられた寄与度によって予測を説明できます。</p>
+<p>根のノードは始点となります。 根のノードを最終的な予測をするために使うならば、学習データの結果の平均を出力することになります。 次の分岐では、経路上の次のノードによって、この和に項を減らしたり加えたりします。 最終的な結果を得るためには、説明したいデータの経路に従って、式に加え続ける必要があります。</p>
 <p><span class="math display">\[\hat{f}(x)=\bar{y}+\sum_{d=1}^D\text{split.contrib(d,x)}=\bar{y}+\sum_{j=1}^p\text{feat.contrib(j,x)}\]</span></p>
-<p>The prediction of an individual instance is the mean of the target outcome plus the sum of all contributions of the D splits that occur between the root node and the terminal node where the instance ends up. We are not interested in the split contributions though, but in the feature contributions. A feature might be used for more than one split or not at all. We can add the contributions for each of the p features and get an interpretation of how much each feature has contributed to a prediction.</p>
+<!--
+The prediction of an individual instance is the mean of the target outcome plus the sum of all contributions of the D splits that occur between the root node and the terminal node where the instance ends up.
+We are not interested in the split contributions though, but in the feature contributions.
+A feature might be used for more than one split or not at all.
+We can add the contributions for each of the p features and get an interpretation of how much each feature has contributed to a prediction.
+-->
+<p>それぞれのデータの予測は、目的の結果の平均値に、根のノードとそのデータの予測が終わる終端ノードの間で起こる D回の分岐の寄与度の和を足したものになります。 我々は分岐の寄与度ではなく特徴量の寄与度に関心があります。 1つの特徴量は2回以上使われるかもしれないし全く使われないかもしれません。 p個の特徴量それぞれに寄与度をつけることができ、それぞれの特徴量がどれだけ予測に寄与してるかの解釈を得ることができます。</p>
+<!--
+### Example
+-->
 </div>
-<div id="example-2" class="section level3">
-<h3><span class="header-section-number">4.4.2</span> Example</h3>
-<p>Let us have another look at the <a href="bike-data.html#bike-data">bike rental data</a>. We want to predict the number of rented bikes on a certain day with a decision tree. The learned tree looks like this:</p>
+<div id="例-1" class="section level3">
+<h3><span class="header-section-number">4.5.2</span> 例</h3>
+<!--
+Let us have another look at the [bike rental data](#bike-data).
+We want to predict the number of rented bikes on a certain day with a decision tree.
+The learned tree looks like this:
+-->
+<p><a href="bike-data.html#bike-data">自転車レンタルデータ</a>をみてみましょう。 決定木を用いて、特定の日の自転車レンタル数を予測してみましょう。学習した決定木は以下の通りです。</p>
+<!--
+fig.cap="Regression tree fitted on the bike rental data. The maximum allowed depth for the tree was set to 2. The trend feature (days since 2011) and the temperature (temp) have been selected for the splits. The boxplots show the distribution of bicycle counts in the terminal node."
+-->
 <div class="figure"><span id="fig:tree-example"></span>
-<img src="images/tree-example-1.png" alt="Regression tree fitted on the bike rental data. The maximum allowed depth for the tree was set to 2. The trend feature (days since 2011) and the temperature (temp) have been selected for the splits. The boxplots show the distribution of bicycle counts in the terminal node." width="1050" />
+<img src="images/tree-example-1.png" alt="自転車レンタルデータセットで学習された回帰木 木の最大深さは 2 に設定されている。トレンド特徴量(2011年からの経過日数)と気温(temp)が分割に選ばれている。箱ひげ図は終端ノードにおける自転車レンタル数の分布を示している。" width="1050" />
 <p class="caption">
-FIGURE 4.17: Regression tree fitted on the bike rental data. The maximum allowed depth for the tree was set to 2. The trend feature (days since 2011) and the temperature (temp) have been selected for the splits. The boxplots show the distribution of bicycle counts in the terminal node.
+FIGURE 4.17: 自転車レンタルデータセットで学習された回帰木 木の最大深さは 2 に設定されている。トレンド特徴量(2011年からの経過日数)と気温(temp)が分割に選ばれている。箱ひげ図は終端ノードにおける自転車レンタル数の分布を示している。
 </p>
 </div>
-<p>The first split and one of the second splits were performed with the trend feature, which counts the days since data collection began and covers the trend that the bike rental service has become more popular over time. For days prior to the 105th day, the predicted number of bicycles is around 1800, between the 106th and 430th day it is around 3900. For days after the 430th day, the prediction is either 4600 (if temperature is below 12 degrees) or 6600 (if temperature is above 12 degrees).</p>
-<p>The feature importance tells us how much a feature helped to improve the purity of all nodes. Here, the variance was used, since predicting bicycle rentals is a regression task.</p>
-<p>The visualized tree shows that both temperature and time trend were used for the splits, but does not quantify which feature was more important. The feature importance measure shows that the time trend is far more important than temperature.</p>
+<!--
+The first split and one of the second splits were performed with the trend feature, which counts the days since  data collection began and covers the trend that the bike rental service has become more popular over time.
+For days prior to the 105th day, the predicted number of bicycles is around 1800, between the 106th and 430th day it is around 3900.
+For days after the 430th day, the prediction is either 4600 (if temperature is below 12 degrees) or 6600 (if temperature is above 12 degrees).
+-->
+<p>１段目と２段目のひとつの分岐は、時間のトレンドの特徴量によって行われていますが、データ収集を開始してからの日数を考慮に入れているので、レンタルサービスがだんだんと人気になっていった様子が表現されています。 105日目より前のとき、自転車の数の予測は約1800台で、106 ~ 430日目の間は約3900台となりました。430日以降については、予測は4600台(気温が12度以下のとき)、または、6600台(気温が12度以上のとき)となりました。</p>
+<!--
+The feature importance tells us how much a feature helped to improve the purity of all nodes.
+Here, the variance was used, since predicting bicycle rentals is a regression task.
+-->
+<p>feature importanceを見ると、ある特徴量がノードの純度をどの程度向上させるかが分かります。ここでは、自転車レンタル数の予測は回帰問題であるので、分散が使用されています。</p>
+<!--
+The visualized tree shows that both temperature and time trend were used for the splits, but does not quantify which feature was more important.
+The feature importance measure shows that the time trend is far more important than temperature.
+-->
+<p>可視化された決定木によって、温度と時間のトレンドの両方が分岐に使われていることはわかりますが、どの特徴量がどれほど重要かは定量化できていません。 feature importanceは時間のトレンドが温度よりも需要であることを示しています。</p>
+<!--
+fig.cap = "Importance of the features measured by how much the node purity is improved on average."
+-->
 <div class="figure"><span id="fig:tree-importance"></span>
-<img src="images/tree-importance-1.png" alt="Importance of the features measured by how much the node purity is improved on average." width="1050" />
+<img src="images/tree-importance-1.png" alt="平均的にノードの不純度がどの程度改善されたかによって計算された特徴量の重要度" width="1050" />
 <p class="caption">
-FIGURE 4.18: Importance of the features measured by how much the node purity is improved on average.
+FIGURE 4.18: 平均的にノードの不純度がどの程度改善されたかによって計算された特徴量の重要度
 </p>
 </div>
+<!--
+### Advantages
+-->
 </div>
-<div id="advantages-2" class="section level3">
-<h3><span class="header-section-number">4.4.3</span> Advantages</h3>
-<p>The tree structure is ideal for <strong>capturing interactions</strong> between features in the data.</p>
-<p>The data ends up in <strong>distinct groups</strong> that are often easier to understand than points on a multi-dimensional hyperplane as in linear regression. The interpretation is arguably pretty simple.</p>
-<p>The tree structure also has a <strong>natural visualization</strong>, with its nodes and edges.</p>
-<p>Trees <strong>create good explanations</strong> as defined in the <a href="explanation.html#good-explanation">chapter on &quot;Human-Friendly Explanations&quot;</a>. The tree structure automatically invites to think about predicted values for individual instances as counterfactuals: &quot;If a feature had been greater / smaller than the split point, the prediction would have been y1 instead of y2.&quot; The tree explanations are contrastive, since you can always compare the prediction of an instance with relevant &quot;what if&quot;-scenarios (as defined by the tree) that are simply the other leaf nodes of the tree. If the tree is short, like one to three splits deep, the resulting explanations are selective. A tree with a depth of three requires a maximum of three features and split points to create the explanation for the prediction of an individual instance. The truthfulness of the prediction depends on the predictive performance of the tree. The explanations for short trees are very simple and general, because for each split the instance falls into either one or the other leaf, and binary decisions are easy to understand.</p>
-<p>There is no need to transform features. In linear models, it is sometimes necessary to take the logarithm of a feature. A decision tree works equally well with any monotonic transformation of a feature.</p>
+<div id="長所" class="section level3">
+<h3><span class="header-section-number">4.5.3</span> 長所</h3>
+<!--
+The tree structure is ideal for **capturing interactions** between features in the data.
+-->
+<p>決定木の構造は、データの特徴量間の<strong>相互作用を捉える</strong>ために理想的です。</p>
+<!--
+The data ends up in **distinct groups** that are often easier to understand than points on a multi-dimensional hyperplane as in linear regression.
+The interpretation is arguably pretty simple.
+-->
+<p>データは最終的に<strong>個別のグループ</strong>に分かれるので、線型回帰のような多次元の超平面上の点として理解するよりも簡単です。</p>
+<!--
+The tree structure also has a **natural visualization**, with its nodes and edges.
+-->
+<p>決定木の構造は、ノードと辺により<strong>自然な描画</strong>が可能です。</p>
+<!--
+Trees **create good explanations** as defined in the [chapter on "Human-Friendly Explanations"](#good-explanation).
+The tree structure automatically invites to think about predicted values for individual instances as counterfactuals:
+"If a feature had been greater / smaller than the split point, the prediction would have been y1 instead of y2."
+The tree explanations are contrastive, since you can always compare the prediction of an instance with relevant "what if"-scenarios (as defined by the tree) that are simply the other leaf nodes of the tree.
+If the tree is short, like one to three splits deep, the resulting explanations are selective.
+A tree with a depth of three requires a maximum of three features and split points to create the explanation for the prediction of an individual instance.
+The truthfulness of the prediction depends on the predictive performance of the tree.
+The explanations for short trees are very simple and general, because for each split the instance falls into either one or the other leaf, and binary decisions are easy to understand.
+-->
+<p>決定木は<a href="#good-explanation">chapter on &quot;Human-Friendly Explanations&quot;</a>で定義されているように、<strong>よい説明</strong>を与えることができます。 決定木の構造は、自動的に個々のインスタンスに対して反事実的に予測値を考えるように誘導します。: 「この特徴量が分岐点より、大きい(小さい)なら、予測値はy2ではなくてy1であったのに。」 決定木の説明は対照的です。なぜなら、いつでも予測値と、決定木によって定められたwhat ifシナリオ(他のノードの葉)と比べられるからです。 もし、木の深さが1から3のように短かったら、最終的な説明は選択的です。 深さが3の決定木は、個々のインスタンスの予測の説明を得るために、最大3つの特徴量と分岐点を必要とします。 予測値の真実性は、決定木の予測性能に依存します。 短い木の説明は非常に単純かつ一般的です。なぜなら、それぞれの分岐において、インスタンスは左右いずれかのノードに分かれていくので、このような二者択一は理解しやすいからです。</p>
+<!--
+There is no need to transform features. 
+In linear models, it is sometimes necessary to take the logarithm of a feature. 
+A decision tree works equally well with any monotonic transformation of a feature.
+-->
+<p>特徴量を変換する必要はありません。 線型モデルでは、特徴量の対数をとる必要があることがあります。 決定木は、特徴量の任意の単調変換に対して等価な動きをします。</p>
+<!--
+### Disadvantages
+-->
 </div>
-<div id="disadvantages-2" class="section level3">
-<h3><span class="header-section-number">4.4.4</span> Disadvantages</h3>
-<p><strong>Trees fail to deal with linear relationships</strong>. Any linear relationship between an input feature and the outcome has to be approximated by splits, creating a step function. This is not efficient.</p>
-<p>This goes hand in hand with <strong>lack of smoothness</strong>. Slight changes in the input feature can have a big impact on the predicted outcome, which is usually not desirable. Imagine a tree that predicts the value of a house and the tree uses the size of the house as one of the split feature. The split occurs at 100.5 square meters. Imagine user of a house price estimator using your decision tree model: They measure their house, come to the conclusion that the house has 99 square meters, enter it into the price calculator and get a prediction of 200 000 Euro. The users notice that they have forgotten to measure a small storage room with 2 square meters. The storage room has a sloping wall, so they are not sure whether they can count all of the area or only half of it. So they decide to try both 100.0 and 101.0 square meters. The results: The price calculator outputs 200 000 Euro and 205 000 Euro, which is rather unintuitive, because there has been no change from 99 square meters to 100.</p>
-<p>Trees are also quite <strong>unstable</strong>. A few changes in the training dataset can create a completely different tree. This is because each split depends on the parent split. And if a different feature is selected as the first split feature, the entire tree structure changes. It does not create confidence in the model if the structure changes so easily.</p>
-<p>Decision trees are very interpretable -- as long as they are short. <strong>The number of terminal nodes increases quickly with depth.</strong> The more terminal nodes and the deeper the tree, the more difficult it becomes to understand the decision rules of a tree. A depth of 1 means 2 terminal nodes. Depth of 2 means max. 4 nodes. Depth of 3 means max. 8 nodes. The maximum number of terminal nodes in a tree is 2 to the power of the depth.</p>
+<div id="短所" class="section level3">
+<h3><span class="header-section-number">4.5.4</span> 短所</h3>
+<!--
+**Trees fail to deal with linear relationships**.
+Any linear relationship between an input feature and the outcome has to be approximated by splits, creating a step function.
+This is not efficient.
+-->
+<p><strong>木は線形な関係をうまく扱うことができない</strong> 任意の入力特徴量と出力の間の線形な関係は、分岐されて作られたステップ関数で近似されるため、これは効率的ではない。</p>
+<!--
+This goes hand in hand with **lack of smoothness**.
+Slight changes in the input feature can have a big impact on the predicted outcome, which is usually not desirable.
+Imagine a tree that predicts the value of a house and the tree uses the size of the house as one of the split feature.
+The split occurs at 100.5 square meters.
+Imagine user of a house price estimator using your decision tree model:
+They measure their house, come to the conclusion that the house has 99 square meters, enter it into the price calculator and get a prediction of 200 000 Euro.
+The users notice that they have forgotten to measure a small storage room with 2 square meters.
+The storage room has a sloping wall, so they are not sure whether they can count all of the area or only half of it.
+So they decide to try both 100.0 and 101.0 square meters.
+The results: The price calculator outputs 200 000 Euro and 205 000 Euro, which is rather unintuitive, because there has been no change from 99 square meters to 100.
+-->
+<p>これは、<strong>滑らかさの欠如</strong>と密接に関係しています。入力特徴量のわずかな変化が、予測結果に大きな影響を与える場合がありますが、これは望ましくありません。家のサイズを特徴量の1つとした決定木で住宅の価格を予測する場合を考えてみましょう。 100.5平方メートルで分岐が発生したとします。 この決定木の予測モデルを使ってユーザが家の価格を見積もるとどうなるでしょうか。 家のサイズは99平方メートルだったとして、それを入力すると200, 000 ユーロという予測結果を得ました。ユーザは2平方メートルの倉庫部屋の計算を忘れていたことに気がつきました。また、その倉庫には斜めの壁があったため、全ての面積を計算するべきか、半分にするべきか確証を持てませんでした。なので、100.0平方メートルと101.0平方メートルの場合のどちらもを試すことに決めました。結果として、200, 000ユーロと205, 000ユーロという予測結果が得られましたが、これはユーザの直感に反します。なぜなら、99平方メートルが100平方メートルになっても価格に変化が生じなかったためです。</p>
+<!--
+Trees are also quite **unstable**.
+A few changes in the training dataset can create a completely different tree.
+This is because each split depends on the parent split.
+And if a different feature is selected as the first split feature, the entire tree structure changes.
+It does not create confidence in the model if the structure changes so easily.
+-->
+<p>決定木は、かなり<strong>不安定</strong>でもあります。 学習データがわずかに変わっただけで、全く異なった決定木が作られることがあります。 これはそれぞれの分岐が親の分岐に依存しているためです。 そのため、もし最初の分岐で異なる特徴が選択されたとすると、全体の木構造に違いが生じます。このように、構造が容易に変化するため、モデルに信頼性があるとは言えません。</p>
+<!--
+Decision trees are very interpretable -- as long as they are short.
+**The number of terminal nodes increases quickly with depth.**
+The more terminal nodes and the deeper the tree, the more difficult it becomes to understand the decision rules of a tree.
+A depth of 1 means 2 terminal nodes.
+Depth of 2 means max. 4 nodes. 
+Depth of 3 means max. 8 nodes.
+The maximum number of terminal nodes in a tree is 2 to the power of the depth.
+-->
+<p>決定木は木の深さが小さいときは非常に解釈しやすいです。 <strong>終端点の数は深さにともなって急激に増加します</strong> 終端点の数と木の深さが増加するにつれて、木の決定規則を理解することがより難しくなります。深さが1のときは2つの終端点、深さが2のときは最大4つ、深さが3のときは最大8つと、最大の終端点の数は、2の(木の深さ)乗となります。</p>
+<!--
+### Software
+-->
 </div>
-<div id="software-2" class="section level3">
-<h3><span class="header-section-number">4.4.5</span> Software</h3>
-<p>For the examples in this chapter, I used the <code>rpart</code> R package that implements CART (classification and regression trees). CART is implemented in many programming languages, including <a href="https://scikit-learn.org/stable/modules/tree.html">Python</a>. Arguably, CART is a pretty old and somewhat outdated algorithm and there are some interesting new algorithms for fitting trees. You can find an overview of some R packages for decision trees in the <a href="https://cran.r-project.org/web/views/MachineLearning.html">Machine Learning and Statistical Learning CRAN Task View</a> under the keyword &quot;Recursive Partitioning&quot;.</p>
+<div id="ソフトウェア-1" class="section level3">
+<h3><span class="header-section-number">4.5.5</span> ソフトウェア</h3>
+<!--
+For the examples in this chapter, I used the `rpart` R package that implements CART (classification and regression trees).
+CART is implemented in many programming languages, including [Python](https://scikit-learn.org/stable/modules/tree.html).
+Arguably, CART is a pretty old and somewhat outdated algorithm and there are some interesting new algorithms for fitting trees.
+You can find an overview of some R packages for decision trees in the [Machine Learning and Statistical Learning CRAN Task View](https://cran.r-project.org/web/views/MachineLearning.html) under the keyword "Recursive Partitioning".
+-->
+<p>この章の例では、CART (Classification And Regression Tree) の実装は <code>rpart</code> というRパッケージを用いました。 CART は<a href="https://scikit-learn.org/stable/modules/tree.html">Python</a>を含む多くのプログラミング言語で実装されています。 間違いなく、CARTはかなり古く、やや時代遅れのアルゴリズムであり、木を学習するためのいくつかの興味深い新しいアルゴリズムがあります。 決定木に関するいくつかのRパッケージの概要は<a href="https://cran.r-project.org/web/views/MachineLearning.html">Machine Learning and Statistical Learning CRAN Task View</a>の&quot;Recursive Partitioning&quot;の項目のところに書かれています。</p>
 
 <!--{pagebreak}-->
 </div>
 </div>
 <div class="footnotes">
 <hr />
-<ol start="17">
-<li id="fn17"><p>Friedman, Jerome, Trevor Hastie, and Robert Tibshirani. &quot;The elements of statistical learning&quot;. www.web.stanford.edu/~hastie/ElemStatLearn/ (2009).<a href="tree.html#fnref17">↩</a></p></li>
+<ol start="18">
+<li id="fn18"><p>Friedman, Jerome, Trevor Hastie, and Robert Tibshirani. &quot;The elements of statistical learning&quot;. www.web.stanford.edu/~hastie/ElemStatLearn/ (2009).<a href="tree.html#fnref18">↩</a></p></li>
 </ol>
 </div>
             </section>

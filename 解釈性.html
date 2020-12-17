@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>5.6 Global Surrogate | Interpretable Machine Learning</title>
+  <title>4.3 解釈性 | Interpretable Machine Learning</title>
   <meta name="description" content="Machine learning algorithms usually operate as black boxes and it is unclear how they derived a certain decision. This book is a guide for practitioners to make machine learning decisions interpretable." />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="5.6 Global Surrogate | Interpretable Machine Learning" />
+  <meta property="og:title" content="4.3 解釈性 | Interpretable Machine Learning" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="christophM/interpretable-ml-book" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="5.6 Global Surrogate | Interpretable Machine Learning" />
+  <meta name="twitter:title" content="4.3 解釈性 | Interpretable Machine Learning" />
   
   <meta name="twitter:description" content="Machine learning algorithms usually operate as black boxes and it is unclear how they derived a certain decision. This book is a guide for practitioners to make machine learning decisions interpretable." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="feature-importance.html"/>
-<link rel="next" href="lime.html"/>
+<link rel="prev" href="logistic.html"/>
+<link rel="next" href="extend-lm.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -344,73 +344,190 @@ window.cookieconsent.initialise({
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="global" class="section level2">
-<h2><span class="header-section-number">5.6</span> Global Surrogate</h2>
-<p>A global surrogate model is an interpretable model that is trained to approximate the predictions of a black box model. We can draw conclusions about the black box model by interpreting the surrogate model. Solving machine learning interpretability by using more machine learning!</p>
-<div id="theory-3" class="section level3">
-<h3><span class="header-section-number">5.6.1</span> Theory</h3>
-<p>Surrogate models are also used in engineering: If an outcome of interest is expensive, time-consuming or otherwise difficult to measure (e.g. because it comes from a complex computer simulation), a cheap and fast surrogate model of the outcome can be used instead. The difference between the surrogate models used in engineering and in interpretable machine learning is that the underlying model is a machine learning model (not a simulation) and that the surrogate model must be interpretable. The purpose of (interpretable) surrogate models is to approximate the predictions of the underlying model as accurately as possible and to be interpretable at the same time. The idea of surrogate models can be found under different names: Approximation model, metamodel, response surface model, emulator, ...</p>
-<p>About the theory: There is actually not much theory needed to understand surrogate models. We want to approximate our black box prediction function f as closely as possible with the surrogate model prediction function g, under the constraint that g is interpretable. For the function g any interpretable model -- for example from the <a href="simple.html#simple">interpretable models chapter</a> -- can be used.</p>
-<p>For example a linear model:</p>
-<p><span class="math display">\[g(x)=\beta_0+\beta_1{}x_1{}+\ldots+\beta_p{}x_p\]</span></p>
-<p>Or a decision tree:</p>
-<p><span class="math display">\[g(x)=\sum_{m=1}^Mc_m{}I\{x\in{}R_m\}\]</span></p>
-<p>Training a surrogate model is a model-agnostic method, since it does not require any information about the inner workings of the black box model, only access to data and the prediction function is necessary. If the underlying machine learning model was replaced with another, you could still use the surrogate method. The choice of the black box model type and of the surrogate model type is decoupled.</p>
-<p>Perform the following steps to obtain a surrogate model:</p>
-<ol style="list-style-type: decimal">
-<li>Select a dataset X. This can be the same dataset that was used for training the black box model or a new dataset from the same distribution. You could even select a subset of the data or a grid of points, depending on your application.</li>
-<li>For the selected dataset X, get the predictions of the black box model.</li>
-<li>Select an interpretable model type (linear model, decision tree, ...).</li>
-<li>Train the interpretable model on the dataset X and its predictions.</li>
-<li>Congratulations! You now have a surrogate model.</li>
-<li>Measure how well the surrogate model replicates the predictions of the black box model.</li>
-<li>Interpret the surrogate model.</li>
-</ol>
-<p>You may find approaches for surrogate models that have some extra steps or differ a little, but the general idea is usually as described here.</p>
-<p>One way to measure how well the surrogate replicates the black box model is the R-squared measure:</p>
-<p><span class="math display">\[R^2=1-\frac{SSE}{SST}=1-\frac{\sum_{i=1}^n(\hat{y}_*^{(i)}-\hat{y}^{(i)})^2}{\sum_{i=1}^n(\hat{y}^{(i)}-\bar{\hat{y}})^2}\]</span></p>
-<p>where <span class="math inline">\(\hat{y}_*^{(i)}\)</span> is the prediction for the i-th instance of the surrogate model, <span class="math inline">\(\hat{y}^{(i)}\)</span> the prediction of the black box model and <span class="math inline">\(\bar{\hat{y}}\)</span> the mean of the black box model predictions. SSE stands for sum of squares error and SST for sum of squares total. The R-squared measure can be interpreted as the percentage of variance that is captured by the surrogate model. If R-squared is close to 1 (= low SSE), then the interpretable model approximates the behavior of the black box model very well. If the interpretable model is very close, you might want to replace the complex model with the interpretable model. If the R-squared is close to 0 (= high SSE), then the interpretable model fails to explain the black box model.</p>
-<p>Note that we have not talked about the model performance of the underlying black box model, i.e. how good or bad it performs in predicting the actual outcome. The performance of the black box model does not play a role in training the surrogate model. The interpretation of the surrogate model is still valid because it makes statements about the model and not about the real world. But of course the interpretation of the surrogate model becomes irrelevant if the black box model is bad, because then the black box model itself is irrelevant.</p>
-<!-- More ideas-->
-<p>We could also build a surrogate model based on a subset of the original data or reweight the instances. In this way, we change the distribution of the surrogate model's input, which changes the focus of the interpretation (then it is no longer really global). If we weight the data locally by a specific instance of the data (the closer the instances to the selected instance, the higher their weight), we get a local surrogate model that can explain the individual prediction of the instance. Read more about local models in the <a href="lime.html#lime">following chapter</a>.</p>
+<div id="解釈性" class="section level2">
+<h2><span class="header-section-number">4.3</span> 解釈性</h2>
+<p>ロジスティック回帰の重みの解釈性は線形回帰モデルの重みの解釈性と異なります。 なぜなら、ロジスティック回帰モデルの出力は0から1の確率で表現されるからです。 重みは確率に線形には影響を及ぼしません。 重みの合計はロジスティック関数によって確率に変換されます。 それゆえ、方程式の右側の線形項を解釈性のために式を再定義する必要があります。</p>
+<p><span class="math display">\[log\left(\frac{P(y=1)}{1-P(y=1)}\right)=log\left(\frac{P(y=1)}{P(y=0)}\right)=\beta_{0}+\beta_{1}x_{1}+\ldots+\beta_{p}x_{p}\]</span></p>
+<!--
+We call the term in the log() function "odds" (probability of event divided by probability of no event) and wrapped in the logarithm it is called log odds.
+
+This formula shows that the logistic regression model is a linear model for the log odds.
+Great!
+That does not sound helpful!
+With a little shuffling of the terms, you can figure out how the prediction changes when one of the features $x_j$ is changed by 1 unit.
+To do this, we can first apply the exp() function to both sides of the equation:
+-->
+<p>このlog関数は&quot;オッズ&quot;といい、それに対し対数をとったものを対数オッズといいます。</p>
+<p>この式はロジスティック回帰モデルが対数オッズの線形モデルであることを表しています。 すばらしい！ それでは役に立つようには見えません。 少し項を入れ替えると、特徴<span class="math inline">\(x_j\)</span>の1つを1単位変化した時どのように予測が変化するか分かります。 このように変換すると、exp()関数を方程式の両辺にかけることができます。</p>
+<p><span class="math display">\[\frac{P(y=1)}{1-P(y=1)}=odds=exp\left(\beta_{0}+\beta_{1}x_{1}+\ldots+\beta_{p}x_{p}\right)\]</span></p>
+<!--
+Then we compare what happens when we increase one of the feature values by 1.
+But instead of looking at the difference, we look at the ratio of the two predictions:
+-->
+<p>そして、1つの特徴の値を1まで増加させると何が起きるかを比較します。 変化を見る代わりに、2つの予測の比に注目します。</p>
+<p><span class="math display">\[\frac{odds_{x_j+1}}{odds}=\frac{exp\left(\beta_{0}+\beta_{1}x_{1}+\ldots+\beta_{j}(x_{j}+1)+\ldots+\beta_{p}x_{p}\right)}{exp\left(\beta_{0}+\beta_{1}x_{1}+\ldots+\beta_{j}x_{j}+\ldots+\beta_{p}x_{p}\right)}\]</span></p>
+<!--
+We apply the following rule:
+-->
+<p>下に続くルールを適用します。</p>
+<p><span class="math display">\[\frac{exp(a)}{exp(b)}=exp(a-b)\]</span></p>
+<!--
+And we remove many terms:
+-->
+<p>そして、たくさんの項を削除します。</p>
+<p><span class="math display">\[\frac{odds_{x_j+1}}{odds}=exp\left(\beta_{j}(x_{j}+1)-\beta_{j}x_{j}\right)=exp\left(\beta_j\right)\]</span></p>
+<!--
+In the end, we have something as simple as exp() of a feature weight.
+A change in a feature by one unit changes the odds ratio (multiplicative) by a factor of $\exp(\beta_j)$.
+We could also interpret it this way:
+A change in $x_j$ by one unit increases the log odds ratio by the value of the corresponding weight.
+Most people interpret the odds ratio because thinking about the log() of something is known to be hard on the brain.
+Interpreting the odds ratio already requires some getting used to.
+For example, if you have odds of 2, it means that the probability for y=1 is twice as high as y=0.
+If you have a weight (= log odds ratio) of 0.7, then increasing the respective feature by one unit multiplies the odds by exp(0.7) (approximately 2) and the odds change to 4.
+But usually you do not deal with the odds and interpret the weights only as the odds ratios.
+Because for actually calculating the odds you would need to set a value for each feature, which only makes sense if you want to look at one specific instance of your dataset.
+
+These are the interpretations for the logistic regression model with different feature types:
+
+- Numerical feature:
+If you increase the value of feature $x_{j}$ by one unit, the estimated odds change by a factor of $\exp(\beta_{j})$
+- Binary categorical feature:
+One of the two values of the feature is the reference category (in some languages, the one encoded in 0).
+Changing the feature $x_{j}$ from the reference category to the other category changes the estimated odds by a factor of $\exp(\beta_{j})$.
+- Categorical feature with more than two categories:
+One solution to deal with multiple categories is one-hot-encoding, meaning that each category has its own column.
+You only need L-1 columns for a categorical feature with L categories, otherwise it is over-parameterized.
+The L-th category is then the reference category.
+You can use any other encoding that can be used in linear regression.
+The interpretation for each category then is equivalent to the interpretation of binary features.
+- Intercept $\beta_{0}$:
+When all numerical features are zero and the categorical features are at the reference category, the estimated odds are $\exp(\beta_{0})$.
+The interpretation of the intercept weight is usually not relevant.
+-->
+<p>最後に、特徴重みのexp()のような単純な式を得ることができます。 特徴量の中の1単位の変化はオッズ比を<span class="math inline">\(\exp(\beta_j)\)</span>だけ変化させます。 この式は以下のように解釈できます。 <span class="math inline">\(x_j\)</span>を1単位だけ変化させると、対応する重みの値だけ対数オッズ比が増加します。 ほとんどの人はオッズ比と解釈します。なぜなら、対数について頭で考えることは困難だからです。 オッズ比を解釈するには慣れが必要です。 例えば、もしオッズとして2が与えられたら、0の確率より1の方が2倍高いことを意味します。 重み（=対数オッズ比）が0.7の場合、それぞれの特徴量を1単位増やすと、オッズにexp（0.7）（約2）が乗算され、オッズは4に変わります。 しかし、通常はオッズを扱う必要がなく、重みだけをオッズ比として解釈します。 オッズを実際に計算するためには、それぞれの特徴量に値を設定する必要があるためです。 これは、データセットの特定の1つの観測データを見たい時のみ意味を成します。</p>
+<p>ロジスティック回帰には異なる特徴量に対して解釈性があります。</p>
+<ul>
+<li>Numerical featureの場合: <span class="math inline">\(x_{j}\)</span>を1単位だけ増加させると、予測されるオッズは<span class="math inline">\(\exp(\beta_{j})\)</span>だけ変化します。</li>
+<li>Binary categorical featureの場合: 特徴量の2つの値のうちの1つはreference categoryです。</li>
+<li>2つ以上のカテゴリーを持つ、カテゴリカルデータの場合: 複数のカテゴリーを扱う1つの方法はone-hot-encodingです。one-hot-encodingはそれぞれのカテゴリーがそれぞれ列を持ちます。 L個のカテゴリーを持つ時、L-1列である必要があります。そうでなければ、過剰パラメータです。 L番目のカテゴリーはreference categoryの必要があります。 線形回帰で使用可能な任意のencodingを用いることができます。 それぞれのカテゴリーの解釈性はbinary featuresの解釈性と等しいです。</li>
+<li>切片<span class="math inline">\(\beta_{0}\)</span>: 全ての特徴量がゼロでカテゴリカルデータがreference categoryの時、予測されるオッズの値は<span class="math inline">\(\exp(\beta_{0})\)</span>です。 切片の重みの解釈性は通常無関係です。</li>
+</ul>
+<!--
+### Example
+
+We use the logistic regression model to predict [cervical cancer](#cervical) based on some risk factors.
+The following table shows the estimate weights, the associated odds ratios, and the standard error of the estimates.
+-->
+<div id="例" class="section level3">
+<h3><span class="header-section-number">4.3.1</span> 例</h3>
+<p>ここでは、ロジスティック回帰をリスク因子に基づいて、子宮頸癌などを予測することに用います。 以下の表は推測された重み、関連するオッズ比、予測の標準誤差を表しています。</p>
+<!--
+caption='The results of fitting a logistic regression model on the cervical cancer dataset. Shown are the features used in the model, their estimated weights and corresponding odds ratios, and the standard errors of the estimated weights.'
+-->
+<table>
+<caption><span id="tab:logistic-example">TABLE 4.1: </span>ロジスティック回帰モデルを子宮頸がんデータセットに適合させた結果。 モデルで使用されている特徴量、それらの推定された重みと対応するオッズ比、および推定された重みの標準誤差が示されています。</caption>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">Weight</th>
+<th align="right">Odds ratio</th>
+<th align="right">Std. Error</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Intercept</td>
+<td align="right">-2.91</td>
+<td align="right">0.05</td>
+<td align="right">0.32</td>
+</tr>
+<tr class="even">
+<td align="left">Hormonal contraceptives y/n</td>
+<td align="right">-0.12</td>
+<td align="right">0.89</td>
+<td align="right">0.30</td>
+</tr>
+<tr class="odd">
+<td align="left">Smokes y/n</td>
+<td align="right">0.26</td>
+<td align="right">1.29</td>
+<td align="right">0.37</td>
+</tr>
+<tr class="even">
+<td align="left">Num. of pregnancies</td>
+<td align="right">0.04</td>
+<td align="right">1.04</td>
+<td align="right">0.10</td>
+</tr>
+<tr class="odd">
+<td align="left">Num. of diagnosed STDs</td>
+<td align="right">0.82</td>
+<td align="right">2.26</td>
+<td align="right">0.33</td>
+</tr>
+<tr class="even">
+<td align="left">Intrauterine device y/n</td>
+<td align="right">0.62</td>
+<td align="right">1.85</td>
+<td align="right">0.40</td>
+</tr>
+</tbody>
+</table>
+<!--
+Interpretation of a numerical feature ("Num. of diagnosed STDs"):
+An increase in the number of diagnosed STDs (sexually transmitted diseases) changes (increases) the odds of cancer vs. no cancer by a factor of 2.26, when all other features remain the same.
+Keep in mind that correlation does not imply causation.
+
+Interpretation of a categorical feature ("Hormonal contraceptives y/n"):
+For women using hormonal contraceptives, the odds for cancer vs. no cancer are by a factor of 0.89 lower, compared to women without hormonal contraceptives, given all other features stay the same.
+
+Like in the linear model, the interpretations always come with the clause that 'all other features stay the same'.
+-->
+<p>数値特徴量の解釈(&quot;Num. of diagnosed STDs(性的感染症と診断された数)&quot;): STDsと診断された人数によって、癌とそうではない人の割合が2.26倍変化します。 ただし、他の特徴量を固定した場合です。 共分散が因果関係を示しているとは限らないことに注意してください。</p>
+<p>カテゴリー特徴量の解釈(“Hormonal contraceptives(ホルモン避妊薬) y/n”):ホルモン避妊薬を使っている女性に関して、癌にかかっている人とかかっていない人のオッズ比は、ホルモン避妊薬を使っていない人に比べて0.89倍低いです。 ただし、他の特徴量を固定した場合です。</p>
+<p>線形モデルと同様に、解釈は常に他の特徴量が固定されている元で行われます。</p>
+<!--
+### Advantages and Disadvantages
+
+Many of the pros and cons of the [linear regression model](#limo) also apply to the logistic regression model.
+Logistic regression has been widely used by many different people, but it struggles with its restrictive expressiveness (e.g. interactions must be added manually) and other models may have better predictive performance.
+
+Another disadvantage of the logistic regression model is that the interpretation is more difficult because the interpretation of the weights is multiplicative and not additive.
+
+Logistic regression can suffer from **complete separation**. 
+If there is a feature that would perfectly separate the two classes, the logistic regression model can no longer be trained.
+This is because the weight for that feature would not converge, because the optimal weight would be infinite.
+This is really a bit unfortunate, because such a feature is really useful. 
+But you do not need machine learning if you have a simple rule that separates both classes.
+The problem of complete separation can be solved by introducing penalization of the weights or defining a prior probability distribution of weights.
+
+On the good side, the logistic regression model is not only a classification model, but also gives you probabilities. 
+This is a big advantage over models that can only provide the final classification.
+Knowing that an instance has a 99% probability for a class compared to 51% makes a big difference.
+
+Logistic regression can also be extended from binary classification to multi-class classification.
+Then it is called Multinomial Regression.
+-->
 </div>
-<div id="example-1" class="section level3">
-<h3><span class="header-section-number">5.6.2</span> Example</h3>
-<p>To demonstrate the surrogate models, we consider a regression and a classification example.</p>
-<p>First, we train a support vector machine to predict the <a href="bike-data.html#bike-data">daily number of rented bikes</a> given weather and calendar information. The support vector machine is not very interpretable, so we train a surrogate with a CART decision tree as interpretable model to approximate the behavior of the support vector machine.</p>
-<div class="figure"><span id="fig:surrogate-bike"></span>
-<img src="images/surrogate-bike-1.png" alt="The terminal nodes of a surrogate tree that approximates the predictions of a support vector machine trained on the bike rental dataset. The distributions in the nodes show that the surrogate tree predicts a higher number of rented bikes when temperature is above 13 degrees Celsius and when the day was later in the 2 year period (cut point at 435 days)." width="1050" />
-<p class="caption">
-FIGURE 5.31: The terminal nodes of a surrogate tree that approximates the predictions of a support vector machine trained on the bike rental dataset. The distributions in the nodes show that the surrogate tree predicts a higher number of rented bikes when temperature is above 13 degrees Celsius and when the day was later in the 2 year period (cut point at 435 days).
-</p>
+<div id="長所と短所" class="section level3">
+<h3><span class="header-section-number">4.3.2</span> 長所と短所</h3>
+<p>[線形回帰モデル]（＃limo）の長所と短所は、多くの場合ロジスティック回帰モデルにも当てはまります。</p>
+<p>ロジスティック回帰は様々な分野の人々によって広く使用されていますが、その表現力の低さが問題であり（たとえば、相互作用を手動で追加する必要があります）、他のモデルの方が予測パフォーマンスが優れていることもあります。</p>
+<p>ロジスティック回帰モデルのもう1つの欠点は、重みの解釈が乗法的であり、加法的ではないため、解釈がより困難になることです。</p>
+<p>ロジスティック回帰は、<strong>完全分離</strong>に悩まされることがあります。 2つのクラスを完全に分離できる特徴量がある場合、ロジスティック回帰モデルは学習できなくなります。 これは、その特徴量の最適な重みが無限大となり、収束しないためです。 このような特徴量はクラス分類の際に有用なので、これは残念なことです。 しかし、このように2つのクラスを分離する単純なルールがある場合は、機械学習は必要ありません。 完全分離の問題は、重みのペナルティを導入するか、重みの事前確率分布を定義することで解決できます。</p>
+<p>良い面として、ロジスティック回帰モデルは分類モデルであるだけでなく、確率も提供します。 これは、最終的な分類結果しか提供できないモデルに比べて大きな利点です。 ある観測データがあるクラスに分類される確率が51％であるのと99％であるのとでは、大きな違いがあります。</p>
+<p>ロジスティック回帰は、2クラス分類から多クラス分類に拡張できます。 それは多項回帰と呼ばれます。</p>
+<!--
+### Software
+
+I used the `glm` function in R for all examples.
+You can find logistic regression in any programming language that can be used for performing data analysis, such as Python, Java, Stata, Matlab, ...
+-->
 </div>
-<p>The surrogate model has a R-squared (variance explained) of 0.77 which means it approximates the underlying black box behavior quite well, but not perfectly. If the fit were perfect, we could throw away the support vector machine and use the tree instead.</p>
-<p>In our second example, we predict the probability of <a href="cervical.html#cervical">cervical cancer</a> with a random forest. Again we train a decision tree with the original dataset, but with the prediction of the random forest as outcome, instead of the real classes (healthy vs. cancer) from the data.</p>
-<div class="figure"><span id="fig:surrogate-cervical"></span>
-<img src="images/surrogate-cervical-1.png" alt="The terminal nodes of a surrogate tree that approximates the predictions of a random forest trained on the cervical cancer dataset. The counts in the nodes show the frequency of the black box models classifications in the nodes." width="1050" />
-<p class="caption">
-FIGURE 5.32: The terminal nodes of a surrogate tree that approximates the predictions of a random forest trained on the cervical cancer dataset. The counts in the nodes show the frequency of the black box models classifications in the nodes.
-</p>
-</div>
-<p>The surrogate model has an R-squared (variance explained) of 0.19, which means it does not approximate the random forest well and we should not overinterpret the tree when drawing conclusions about the complex model.</p>
-</div>
-<div id="advantages-7" class="section level3">
-<h3><span class="header-section-number">5.6.3</span> Advantages</h3>
-<p>The surrogate model method is <strong>flexible</strong>: Any model from the <a href="simple.html#simple">interpretable models chapter</a> can be used. This also means that you can exchange not only the interpretable model, but also the underlying black box model. Suppose you create some complex model and explain it to different teams in your company. One team is familiar with linear models, the other team can understand decision trees. You can train two surrogate models (linear model and decision tree) for the original black box model and offer two kinds of explanations. If you find a better performing black box model, you do not have to change your method of interpretation, because you can use the same class of surrogate models.</p>
-<p>I would argue that the approach is very <strong>intuitive</strong> and straightforward. This means it is easy to implement, but also easy to explain to people not familiar with data science or machine learning.</p>
-<p>With the <strong>R-squared measure</strong>, we can easily measure how good our surrogate models are in approximating the black box predictions.</p>
-</div>
-<div id="disadvantages-7" class="section level3">
-<h3><span class="header-section-number">5.6.4</span> Disadvantages</h3>
-<p>You have to be aware that you draw <strong>conclusions about the model and not about the data</strong>, since the surrogate model never sees the real outcome.</p>
-<p>It is not clear what the best <strong>cut-off for R-squared</strong> is in order to be confident that the surrogate model is close enough to the black box model. 80% of variance explained? 50%? 99%?</p>
-<p>We can measure how close the surrogate model is to the black box model. Let us assume we are not very close, but close enough. It could happen that the interpretable model is very <strong>close for one subset of the dataset, but widely divergent for another subset</strong>. In this case the interpretation for the simple model would not be equally good for all data points.</p>
-<p>The interpretable model you choose as a surrogate <strong>comes with all its advantages and disadvantages</strong>.</p>
-<p>Some people argue that there are, in general, <strong>no intrinsically interpretable models</strong> (including even linear models and decision trees) and that it would even be dangerous to have an illusion of interpretability. If you share this opinion, then of course this method is not for you.</p>
-</div>
-<div id="software-1" class="section level3">
-<h3><span class="header-section-number">5.6.5</span> Software</h3>
-<p>I used the <code>iml</code> R package for the examples. If you can train a machine learning model, then you should be able to implement surrogate models yourself. Simply train an interpretable model to predict the predictions of the black box model.</p>
+<div id="ソフトウェア" class="section level3">
+<h3><span class="header-section-number">4.3.3</span> ソフトウェア</h3>
+<p>上記の例は、すべてRの<code>glm</code>関数を使用しました。 ロジスティック回帰は、Python、Java、Stata、Matlabなど、データ分析に用いられるプログラミング言語で実装されています。</p>
 
 <!--{pagebreak}-->
 </div>
@@ -420,8 +537,8 @@ FIGURE 5.32: The terminal nodes of a surrogate tree that approximates the predic
           </div>
         </div>
       </div>
-<a href="feature-importance.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="lime.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="logistic.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="extend-lm.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -452,7 +569,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/christophM/interpretable-ml-book/edit/master/05.7-agnostic-global-surrogate.Rmd",
+"link": "https://github.com/christophM/interpretable-ml-book/edit/master/04.3-interpretable-logistic.Rmd",
 "text": "Edit"
 },
 "history": {

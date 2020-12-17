@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>5.6 Global Surrogate | Interpretable Machine Learning</title>
+  <title>著者による序文 | Interpretable Machine Learning</title>
   <meta name="description" content="Machine learning algorithms usually operate as black boxes and it is unclear how they derived a certain decision. This book is a guide for practitioners to make machine learning decisions interpretable." />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="5.6 Global Surrogate | Interpretable Machine Learning" />
+  <meta property="og:title" content="著者による序文 | Interpretable Machine Learning" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="christophM/interpretable-ml-book" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="5.6 Global Surrogate | Interpretable Machine Learning" />
+  <meta name="twitter:title" content="著者による序文 | Interpretable Machine Learning" />
   
   <meta name="twitter:description" content="Machine learning algorithms usually operate as black boxes and it is unclear how they derived a certain decision. This book is a guide for practitioners to make machine learning decisions interpretable." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="feature-importance.html"/>
-<link rel="next" href="lime.html"/>
+<link rel="prev" href="index.html"/>
+<link rel="next" href="preface-by-the-translator.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -344,84 +344,90 @@ window.cookieconsent.initialise({
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="global" class="section level2">
-<h2><span class="header-section-number">5.6</span> Global Surrogate</h2>
-<p>A global surrogate model is an interpretable model that is trained to approximate the predictions of a black box model. We can draw conclusions about the black box model by interpreting the surrogate model. Solving machine learning interpretability by using more machine learning!</p>
-<div id="theory-3" class="section level3">
-<h3><span class="header-section-number">5.6.1</span> Theory</h3>
-<p>Surrogate models are also used in engineering: If an outcome of interest is expensive, time-consuming or otherwise difficult to measure (e.g. because it comes from a complex computer simulation), a cheap and fast surrogate model of the outcome can be used instead. The difference between the surrogate models used in engineering and in interpretable machine learning is that the underlying model is a machine learning model (not a simulation) and that the surrogate model must be interpretable. The purpose of (interpretable) surrogate models is to approximate the predictions of the underlying model as accurately as possible and to be interpretable at the same time. The idea of surrogate models can be found under different names: Approximation model, metamodel, response surface model, emulator, ...</p>
-<p>About the theory: There is actually not much theory needed to understand surrogate models. We want to approximate our black box prediction function f as closely as possible with the surrogate model prediction function g, under the constraint that g is interpretable. For the function g any interpretable model -- for example from the <a href="simple.html#simple">interpretable models chapter</a> -- can be used.</p>
-<p>For example a linear model:</p>
-<p><span class="math display">\[g(x)=\beta_0+\beta_1{}x_1{}+\ldots+\beta_p{}x_p\]</span></p>
-<p>Or a decision tree:</p>
-<p><span class="math display">\[g(x)=\sum_{m=1}^Mc_m{}I\{x\in{}R_m\}\]</span></p>
-<p>Training a surrogate model is a model-agnostic method, since it does not require any information about the inner workings of the black box model, only access to data and the prediction function is necessary. If the underlying machine learning model was replaced with another, you could still use the surrogate method. The choice of the black box model type and of the surrogate model type is decoupled.</p>
-<p>Perform the following steps to obtain a surrogate model:</p>
-<ol style="list-style-type: decimal">
-<li>Select a dataset X. This can be the same dataset that was used for training the black box model or a new dataset from the same distribution. You could even select a subset of the data or a grid of points, depending on your application.</li>
-<li>For the selected dataset X, get the predictions of the black box model.</li>
-<li>Select an interpretable model type (linear model, decision tree, ...).</li>
-<li>Train the interpretable model on the dataset X and its predictions.</li>
-<li>Congratulations! You now have a surrogate model.</li>
-<li>Measure how well the surrogate model replicates the predictions of the black box model.</li>
-<li>Interpret the surrogate model.</li>
-</ol>
-<p>You may find approaches for surrogate models that have some extra steps or differ a little, but the general idea is usually as described here.</p>
-<p>One way to measure how well the surrogate replicates the black box model is the R-squared measure:</p>
-<p><span class="math display">\[R^2=1-\frac{SSE}{SST}=1-\frac{\sum_{i=1}^n(\hat{y}_*^{(i)}-\hat{y}^{(i)})^2}{\sum_{i=1}^n(\hat{y}^{(i)}-\bar{\hat{y}})^2}\]</span></p>
-<p>where <span class="math inline">\(\hat{y}_*^{(i)}\)</span> is the prediction for the i-th instance of the surrogate model, <span class="math inline">\(\hat{y}^{(i)}\)</span> the prediction of the black box model and <span class="math inline">\(\bar{\hat{y}}\)</span> the mean of the black box model predictions. SSE stands for sum of squares error and SST for sum of squares total. The R-squared measure can be interpreted as the percentage of variance that is captured by the surrogate model. If R-squared is close to 1 (= low SSE), then the interpretable model approximates the behavior of the black box model very well. If the interpretable model is very close, you might want to replace the complex model with the interpretable model. If the R-squared is close to 0 (= high SSE), then the interpretable model fails to explain the black box model.</p>
-<p>Note that we have not talked about the model performance of the underlying black box model, i.e. how good or bad it performs in predicting the actual outcome. The performance of the black box model does not play a role in training the surrogate model. The interpretation of the surrogate model is still valid because it makes statements about the model and not about the real world. But of course the interpretation of the surrogate model becomes irrelevant if the black box model is bad, because then the black box model itself is irrelevant.</p>
-<!-- More ideas-->
-<p>We could also build a surrogate model based on a subset of the original data or reweight the instances. In this way, we change the distribution of the surrogate model's input, which changes the focus of the interpretation (then it is no longer really global). If we weight the data locally by a specific instance of the data (the closer the instances to the selected instance, the higher their weight), we get a local surrogate model that can explain the individual prediction of the instance. Read more about local models in the <a href="lime.html#lime">following chapter</a>.</p>
-</div>
-<div id="example-1" class="section level3">
-<h3><span class="header-section-number">5.6.2</span> Example</h3>
-<p>To demonstrate the surrogate models, we consider a regression and a classification example.</p>
-<p>First, we train a support vector machine to predict the <a href="bike-data.html#bike-data">daily number of rented bikes</a> given weather and calendar information. The support vector machine is not very interpretable, so we train a surrogate with a CART decision tree as interpretable model to approximate the behavior of the support vector machine.</p>
-<div class="figure"><span id="fig:surrogate-bike"></span>
-<img src="images/surrogate-bike-1.png" alt="The terminal nodes of a surrogate tree that approximates the predictions of a support vector machine trained on the bike rental dataset. The distributions in the nodes show that the surrogate tree predicts a higher number of rented bikes when temperature is above 13 degrees Celsius and when the day was later in the 2 year period (cut point at 435 days)." width="1050" />
-<p class="caption">
-FIGURE 5.31: The terminal nodes of a surrogate tree that approximates the predictions of a support vector machine trained on the bike rental dataset. The distributions in the nodes show that the surrogate tree predicts a higher number of rented bikes when temperature is above 13 degrees Celsius and when the day was later in the 2 year period (cut point at 435 days).
-</p>
-</div>
-<p>The surrogate model has a R-squared (variance explained) of 0.77 which means it approximates the underlying black box behavior quite well, but not perfectly. If the fit were perfect, we could throw away the support vector machine and use the tree instead.</p>
-<p>In our second example, we predict the probability of <a href="cervical.html#cervical">cervical cancer</a> with a random forest. Again we train a decision tree with the original dataset, but with the prediction of the random forest as outcome, instead of the real classes (healthy vs. cancer) from the data.</p>
-<div class="figure"><span id="fig:surrogate-cervical"></span>
-<img src="images/surrogate-cervical-1.png" alt="The terminal nodes of a surrogate tree that approximates the predictions of a random forest trained on the cervical cancer dataset. The counts in the nodes show the frequency of the black box models classifications in the nodes." width="1050" />
-<p class="caption">
-FIGURE 5.32: The terminal nodes of a surrogate tree that approximates the predictions of a random forest trained on the cervical cancer dataset. The counts in the nodes show the frequency of the black box models classifications in the nodes.
-</p>
-</div>
-<p>The surrogate model has an R-squared (variance explained) of 0.19, which means it does not approximate the random forest well and we should not overinterpret the tree when drawing conclusions about the complex model.</p>
-</div>
-<div id="advantages-7" class="section level3">
-<h3><span class="header-section-number">5.6.3</span> Advantages</h3>
-<p>The surrogate model method is <strong>flexible</strong>: Any model from the <a href="simple.html#simple">interpretable models chapter</a> can be used. This also means that you can exchange not only the interpretable model, but also the underlying black box model. Suppose you create some complex model and explain it to different teams in your company. One team is familiar with linear models, the other team can understand decision trees. You can train two surrogate models (linear model and decision tree) for the original black box model and offer two kinds of explanations. If you find a better performing black box model, you do not have to change your method of interpretation, because you can use the same class of surrogate models.</p>
-<p>I would argue that the approach is very <strong>intuitive</strong> and straightforward. This means it is easy to implement, but also easy to explain to people not familiar with data science or machine learning.</p>
-<p>With the <strong>R-squared measure</strong>, we can easily measure how good our surrogate models are in approximating the black box predictions.</p>
-</div>
-<div id="disadvantages-7" class="section level3">
-<h3><span class="header-section-number">5.6.4</span> Disadvantages</h3>
-<p>You have to be aware that you draw <strong>conclusions about the model and not about the data</strong>, since the surrogate model never sees the real outcome.</p>
-<p>It is not clear what the best <strong>cut-off for R-squared</strong> is in order to be confident that the surrogate model is close enough to the black box model. 80% of variance explained? 50%? 99%?</p>
-<p>We can measure how close the surrogate model is to the black box model. Let us assume we are not very close, but close enough. It could happen that the interpretable model is very <strong>close for one subset of the dataset, but widely divergent for another subset</strong>. In this case the interpretation for the simple model would not be equally good for all data points.</p>
-<p>The interpretable model you choose as a surrogate <strong>comes with all its advantages and disadvantages</strong>.</p>
-<p>Some people argue that there are, in general, <strong>no intrinsically interpretable models</strong> (including even linear models and decision trees) and that it would even be dangerous to have an illusion of interpretability. If you share this opinion, then of course this method is not for you.</p>
-</div>
-<div id="software-1" class="section level3">
-<h3><span class="header-section-number">5.6.5</span> Software</h3>
-<p>I used the <code>iml</code> R package for the examples. If you can train a machine learning model, then you should be able to implement surrogate models yourself. Simply train an interpretable model to predict the predictions of the black box model.</p>
+<div id="著者による序文" class="section level1 unnumbered">
+<h1>著者による序文</h1>
+<p>本書は、私が臨床研究で統計学者として働いていたときに、サイドプロジェクトとして始めたものです。 週に4日働き、「休みの日」にはサイドプロジェクトに取り組んでいました。 最終的に解釈可能な機械学習は私のサイドプロジェクトの1つになりました。 最初は本を書くつもりはありませんでした。 その代わり、私は単に解釈可能な機械学習についてもっと理解したいと思っていて、学ぶための良いリソースを探していました。 機械学習の成功と解釈可能性の重要性を考えると、このトピックに関する書籍やチュートリアルはたくさんあるだろうと予想していました。 しかし、私が見つけたのは関連する研究論文と、インターネット上に散らばっているわずかなブログ記事だけで、概要がよくわかるものはありませんでした。 本、チュートリアル、概要の論文は何もありませんでした。 このギャップに触発されて、この本を書き始めました。 私は結局、解釈可能な機械学習の研究を始めたときに利用できることを願っていた本を書くことになりました。 私がこの本を書いた意図は2つあります。それは自分自身のために学ぶためと、この新しい知識を他の人と共有するためです。</p>
+<!-- Introduction to Author -->
+<!--
+I received my bachelor's and master's degree in statistics at the LMU Munich, Germany.
+Most of my knowledge about machine learning was self-taught through online courses, competitions, side projects and professional activities.
+My statistical background was an excellent basis for getting into machine learning, and especially for interpretability.
+In statistics, a major focus is on building interpretable regression models.
+After I finished my master's degree in statistics, I decided not to pursue a PhD, because I did not enjoy writing my master's thesis.
+Writing just stressed me out too much.
+So I took jobs as data scientist in a Fintech start-up and as statistician in clinical research.
+After these three years in industry I started writing this book and a few months later I started a PhD in interpretable machine learning.
+By starting this book, I regained the joy of writing and it helped me to develop a passion for research.
+-->
+<p>私はドイツのミュンヘン大学（LMU Munich）で統計学の学士号と修士号を取得しました。 機械学習に関する私の知識のほとんどは、オンラインコース、コンペティション、サイドプロジェクト、専門的な活動を通じて独学で習得しました。 私の統計学のバックグラウンドは、機械学習、特に解釈可能性の分野に入るための優れた基礎となりました。 統計学では、解釈可能な回帰モデルを構築することに主に焦点を当てています。 統計学の修士号を取得した後、私は博士号を取得しないことにしました。 修士論文を書くのが好きではなかったからです。 書くことがものすごくストレスだったのです。 そこで私は、Fintechのスタートアップ企業でデータサイエンティストとして、また臨床研究の統計学者として仕事をしました。 この3年間の業界での仕事の後、私はこの本を書き始め、数ヶ月後には解釈可能な機械学習の博士号を取得しました。 この本を書き始めることで、書くことの楽しさを取り戻し、研究への情熱をもつことができるようになりました。</p>
+<!--
+This book covers many techniques of interpretable machine learning.
+In the first chapters I introduce the concept of interpretability and motivate why interpretability is necessary.
+There are even some short stories!
+The book discusses the different properties of explanations and what humans think is a good explanation.
+Then we will discuss machine learning models that are inherently interpretable, for example regression models and decision trees.
+The main focus of this book is on model-agnostic interpretability methods.
+Model-agnostic means that these methods can be applied to any machine learning model and are applied after the model has been trained.
+The independence of the model makes model-agnostic methods very flexible and powerful.
+Some techniques explain how individual predictions were made, like local interpretable model-agnostic explanations (LIME) and Shapley values.
+Other techniques describe the average behavior of the model across a dataset.
+Here we learn about the partial dependence plot, accumulated local effects, permutation feature importance and many other methods.
+A special category are example-based methods that produce data points as explanations.
+Counterfactual explanations, prototypes, influential instances and adversarial examples are example-based methods that are discussed in this book.
+The book concludes with some reflections on what the future of interpretable machine learning might look like.
+-->
+<p>本書は、解釈可能な機械学習の多くの手法を網羅しています。 最初の章では、解釈可能性の概念を紹介し、なぜ解釈可能性が必要なのかを動機付けています。 短い話もあります! この本では、説明の性質の違いや、人間が考える良い説明とは何かを論じています。 そして、本質的に解釈可能な機械学習モデル、例えば回帰モデルや決定木などについて論じます。 この本の主な焦点は、モデル不可知的な解釈可能性の手法にあります。 モデル不可知的とは、これらの手法がどのような機械学習モデルにも適用可能であり、モデルが訓練された後に適用されることを意味します。 モデルが独立しているため、モデル不可知的な手法は非常に柔軟で強力です。 いくつかの技法は、局所的に解釈可能なモデル不可知的説明（LIME）やシャプリー値のように、個々の予測がどのように行われたかを説明します。 他の手法は、データセット全体のモデルの平均的な振る舞いを説明する。 ここでは、部分依存性プロット、蓄積された局所効果、順列特徴重要度、その他多くの手法について学びます。 特別なカテゴリとして、データ点を説明として生成する例示ベースの手法があります。 対事実説明、プロトタイプ、影響力のあるインスタンス、対立する例は、本書で議論されている例題ベースの方法です。 本書は、解釈可能な機械学習の将来がどのようなものになるかについての考察で締めくくられています。</p>
+<!--
+You do not have to read the book from cover to cover, you can jump back and forth and concentrate on the techniques that interest you most.
+I only recommend that you start with the introduction and the chapter on interpretability.
+Most chapters follow a similar structure and focus on one interpretation method.
+The first paragraph summarizes the method.
+Then I try to explain the method intuitively without relying on mathematical formulas.
+Then we look at the theory of the method to get a deep understanding of how it works.
+You will not be spared here, because the theory will contain formulas.
+I believe that a new method is best understood using examples.
+Therefore, each method is applied to real data.
+Some people say that statistician are very critical people.
+For me, this is true, because each chapter contains critical discussions about advantages and disadvantages of the respective interpretation method.
+This book is not an advertisement for the methods, but it should help you decide whether a method works well for your application or not.
+In the last section of each chapter, available software implementations are discussed.
+-->
+<p>最初から最後まで読まなくても、前後にジャンプして、自分が最も興味を持ったテクニックに集中できます。 私がお勧めするのは、序章と解釈可能性の章から始めることだけです。 ほとんどの章は似たような構成で、1つの解釈手法に焦点を当てています。 最初の段落でその手法を要約します。 そして、数式に頼らず、その方法を直感的に説明するようにしています。 それから、その手法の理論を見て、その方法がどのように機能しているのかを深く理解します。 理論には数式が含まれているでしょうから、ここでは惜しむことはありません。 私は、新しい方法は例を使って理解するのが一番だと考えています。 そのため、それぞれの手法を実際のデータに当てはめていきます。 統計学者は非常に批判的な人だと言う人がいます。 私にとっては、各章にそれぞれの解釈法の長所と短所について批判的な議論が含まれているので、その通りだと思います。 本書は手法の宣伝ではありませんが、ある手法が自分の応用に適しているかどうかの判断材料にはなるはずです。 各章の最後のセクションでは、利用可能なソフトウェアの実装が議論されています。</p>
+<!--
+Machine learning has received great attention from many people in research and industry.
+Sometimes machine learning is overhyped in the media, but there are many real and impactful applications.
+Machine learning is a powerful technology for products, research and automation.
+Today machine learning is used, for example,  to detect fraudulent financial transactions, recommend movies to watch and classify images.
+It is often crucial that the machine learning models are interpretable.
+Interpretability helps the developer to debug and improve the model, build trust in the model, justify model predictions and gain insights.
+The increased need for machine learning interpretability is a natural consequence of an increased use of machine learning.
+This book has become a valuable resource for many people.
+Teaching instructors use the book to introduce their students to the concepts of interpretable machine learning.
+I received e-mails from various master and doctoral students who told me that this book was the starting point and most important reference for their theses.
+The book has helped applied researchers in the field of ecology, finance, psychology, etc.  who use machine learning to understand their data.
+Data scientists from industry told me that they use the "Interpretable Machine Learning" book for their work and recommend it to their colleagues.
+I am happy that many people can benefit from this book and become experts in model interpretation.
+-->
+<p>機械学習は、研究や産業界の多くの人々から大きな注目を集めています。 機械学習はメディアで過剰に宣伝されることもありますが、実際には影響力のあるアプリケーションがたくさんあります。 機械学習は、製品、研究、自動化のための強力な技術です。 今日、機械学習は、例えば、詐欺的な金融取引を検出したり、視聴する映画をおすすめしたり、画像を分類したりするために使用されています。 機械学習モデルが解釈可能であることはしばしば非常に重要です。 解釈可能性は、開発者がモデルをデバッグして改善し、モデルの信頼を築き、モデルの予測を正当化し、洞察を得るのに役立ちます。 機械学習の解釈可能性の必要性が高まっているのは、機械学習の利用が増えたことによる自然な結果です。 本書は多くの人にとって貴重なリソースとなっています。 教職の先生方は、本書を使って、生徒に解釈可能な機械学習の概念を紹介しています。 私は、様々な修士課程や博士課程の学生から、この本が論文の出発点であり、最も重要な参考文献であることを教えてくれるメールを受け取りました。 この本は、生態学、金融、心理学などの分野で機械学習を使ってデータを理解する応用研究者に役立ってきました。 産業界のデータサイエンティストは、『解釈可能な機械学習』の本を仕事に使っていて、同僚にも勧めていると話してくれました。 多くの人がこの本の恩恵を受け、モデル解釈の専門家になれることを嬉しく思います。</p>
+<!--
+I would recommend this book to practitioners who want an overview of techniques to make their machine learning models more interpretable.
+It is also recommended to students and researchers (and anyone else) who is interested in the topic.
+To benefit from this book, you should already have a basic understanding of machine learning.
+You should also have a mathematical understanding at university entry level to be able to follow the theory and formulas in this book.
+It should also be possible, however, to understand the intuitive description of the method at the beginning of each chapter without mathematics.
 
-<!--{pagebreak}-->
-</div>
+I hope you enjoy the book!
+-->
+<p>機械学習モデルをより解釈しやすくするための技術の概要を知りたい実務家の方にお勧めしたい一冊です。 また、このトピックに興味を持っている学生や研究者（他の誰にでも）にもお勧めします。 本書の恩恵を受けるためには、機械学習の基本的な理解をすでに持っている必要があります。 加えて、本書の理論と公式を理解できるように、大学入学レベルの数学的理解を持っている必要があります。 しかし、各章の冒頭にある手法の直感的な説明は数学なしで理解できるはずです。</p>
+<p>ぜひ本書をお楽しみください。</p>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="feature-importance.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="lime.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="preface-by-the-translator.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -452,7 +458,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/christophM/interpretable-ml-book/edit/master/05.7-agnostic-global-surrogate.Rmd",
+"link": "https://github.com/christophM/interpretable-ml-book/edit/master/index.Rmd",
 "text": "Edit"
 },
 "history": {

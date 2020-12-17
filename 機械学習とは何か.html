@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>5.6 Global Surrogate | Interpretable Machine Learning</title>
+  <title>1.2 機械学習とは何か？ | Interpretable Machine Learning</title>
   <meta name="description" content="Machine learning algorithms usually operate as black boxes and it is unclear how they derived a certain decision. This book is a guide for practitioners to make machine learning decisions interpretable." />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="5.6 Global Surrogate | Interpretable Machine Learning" />
+  <meta property="og:title" content="1.2 機械学習とは何か？ | Interpretable Machine Learning" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="christophM/interpretable-ml-book" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="5.6 Global Surrogate | Interpretable Machine Learning" />
+  <meta name="twitter:title" content="1.2 機械学習とは何か？ | Interpretable Machine Learning" />
   
   <meta name="twitter:description" content="Machine learning algorithms usually operate as black boxes and it is unclear how they derived a certain decision. This book is a guide for practitioners to make machine learning decisions interpretable." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="feature-importance.html"/>
-<link rel="next" href="lime.html"/>
+<link rel="prev" href="storytime.html"/>
+<link rel="next" href="terminology.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -344,84 +344,93 @@ window.cookieconsent.initialise({
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="global" class="section level2">
-<h2><span class="header-section-number">5.6</span> Global Surrogate</h2>
-<p>A global surrogate model is an interpretable model that is trained to approximate the predictions of a black box model. We can draw conclusions about the black box model by interpreting the surrogate model. Solving machine learning interpretability by using more machine learning!</p>
-<div id="theory-3" class="section level3">
-<h3><span class="header-section-number">5.6.1</span> Theory</h3>
-<p>Surrogate models are also used in engineering: If an outcome of interest is expensive, time-consuming or otherwise difficult to measure (e.g. because it comes from a complex computer simulation), a cheap and fast surrogate model of the outcome can be used instead. The difference between the surrogate models used in engineering and in interpretable machine learning is that the underlying model is a machine learning model (not a simulation) and that the surrogate model must be interpretable. The purpose of (interpretable) surrogate models is to approximate the predictions of the underlying model as accurately as possible and to be interpretable at the same time. The idea of surrogate models can be found under different names: Approximation model, metamodel, response surface model, emulator, ...</p>
-<p>About the theory: There is actually not much theory needed to understand surrogate models. We want to approximate our black box prediction function f as closely as possible with the surrogate model prediction function g, under the constraint that g is interpretable. For the function g any interpretable model -- for example from the <a href="simple.html#simple">interpretable models chapter</a> -- can be used.</p>
-<p>For example a linear model:</p>
-<p><span class="math display">\[g(x)=\beta_0+\beta_1{}x_1{}+\ldots+\beta_p{}x_p\]</span></p>
-<p>Or a decision tree:</p>
-<p><span class="math display">\[g(x)=\sum_{m=1}^Mc_m{}I\{x\in{}R_m\}\]</span></p>
-<p>Training a surrogate model is a model-agnostic method, since it does not require any information about the inner workings of the black box model, only access to data and the prediction function is necessary. If the underlying machine learning model was replaced with another, you could still use the surrogate method. The choice of the black box model type and of the surrogate model type is decoupled.</p>
-<p>Perform the following steps to obtain a surrogate model:</p>
-<ol style="list-style-type: decimal">
-<li>Select a dataset X. This can be the same dataset that was used for training the black box model or a new dataset from the same distribution. You could even select a subset of the data or a grid of points, depending on your application.</li>
-<li>For the selected dataset X, get the predictions of the black box model.</li>
-<li>Select an interpretable model type (linear model, decision tree, ...).</li>
-<li>Train the interpretable model on the dataset X and its predictions.</li>
-<li>Congratulations! You now have a surrogate model.</li>
-<li>Measure how well the surrogate model replicates the predictions of the black box model.</li>
-<li>Interpret the surrogate model.</li>
-</ol>
-<p>You may find approaches for surrogate models that have some extra steps or differ a little, but the general idea is usually as described here.</p>
-<p>One way to measure how well the surrogate replicates the black box model is the R-squared measure:</p>
-<p><span class="math display">\[R^2=1-\frac{SSE}{SST}=1-\frac{\sum_{i=1}^n(\hat{y}_*^{(i)}-\hat{y}^{(i)})^2}{\sum_{i=1}^n(\hat{y}^{(i)}-\bar{\hat{y}})^2}\]</span></p>
-<p>where <span class="math inline">\(\hat{y}_*^{(i)}\)</span> is the prediction for the i-th instance of the surrogate model, <span class="math inline">\(\hat{y}^{(i)}\)</span> the prediction of the black box model and <span class="math inline">\(\bar{\hat{y}}\)</span> the mean of the black box model predictions. SSE stands for sum of squares error and SST for sum of squares total. The R-squared measure can be interpreted as the percentage of variance that is captured by the surrogate model. If R-squared is close to 1 (= low SSE), then the interpretable model approximates the behavior of the black box model very well. If the interpretable model is very close, you might want to replace the complex model with the interpretable model. If the R-squared is close to 0 (= high SSE), then the interpretable model fails to explain the black box model.</p>
-<p>Note that we have not talked about the model performance of the underlying black box model, i.e. how good or bad it performs in predicting the actual outcome. The performance of the black box model does not play a role in training the surrogate model. The interpretation of the surrogate model is still valid because it makes statements about the model and not about the real world. But of course the interpretation of the surrogate model becomes irrelevant if the black box model is bad, because then the black box model itself is irrelevant.</p>
-<!-- More ideas-->
-<p>We could also build a surrogate model based on a subset of the original data or reweight the instances. In this way, we change the distribution of the surrogate model's input, which changes the focus of the interpretation (then it is no longer really global). If we weight the data locally by a specific instance of the data (the closer the instances to the selected instance, the higher their weight), we get a local surrogate model that can explain the individual prediction of the instance. Read more about local models in the <a href="lime.html#lime">following chapter</a>.</p>
-</div>
-<div id="example-1" class="section level3">
-<h3><span class="header-section-number">5.6.2</span> Example</h3>
-<p>To demonstrate the surrogate models, we consider a regression and a classification example.</p>
-<p>First, we train a support vector machine to predict the <a href="bike-data.html#bike-data">daily number of rented bikes</a> given weather and calendar information. The support vector machine is not very interpretable, so we train a surrogate with a CART decision tree as interpretable model to approximate the behavior of the support vector machine.</p>
-<div class="figure"><span id="fig:surrogate-bike"></span>
-<img src="images/surrogate-bike-1.png" alt="The terminal nodes of a surrogate tree that approximates the predictions of a support vector machine trained on the bike rental dataset. The distributions in the nodes show that the surrogate tree predicts a higher number of rented bikes when temperature is above 13 degrees Celsius and when the day was later in the 2 year period (cut point at 435 days)." width="1050" />
-<p class="caption">
-FIGURE 5.31: The terminal nodes of a surrogate tree that approximates the predictions of a support vector machine trained on the bike rental dataset. The distributions in the nodes show that the surrogate tree predicts a higher number of rented bikes when temperature is above 13 degrees Celsius and when the day was later in the 2 year period (cut point at 435 days).
-</p>
-</div>
-<p>The surrogate model has a R-squared (variance explained) of 0.77 which means it approximates the underlying black box behavior quite well, but not perfectly. If the fit were perfect, we could throw away the support vector machine and use the tree instead.</p>
-<p>In our second example, we predict the probability of <a href="cervical.html#cervical">cervical cancer</a> with a random forest. Again we train a decision tree with the original dataset, but with the prediction of the random forest as outcome, instead of the real classes (healthy vs. cancer) from the data.</p>
-<div class="figure"><span id="fig:surrogate-cervical"></span>
-<img src="images/surrogate-cervical-1.png" alt="The terminal nodes of a surrogate tree that approximates the predictions of a random forest trained on the cervical cancer dataset. The counts in the nodes show the frequency of the black box models classifications in the nodes." width="1050" />
-<p class="caption">
-FIGURE 5.32: The terminal nodes of a surrogate tree that approximates the predictions of a random forest trained on the cervical cancer dataset. The counts in the nodes show the frequency of the black box models classifications in the nodes.
-</p>
-</div>
-<p>The surrogate model has an R-squared (variance explained) of 0.19, which means it does not approximate the random forest well and we should not overinterpret the tree when drawing conclusions about the complex model.</p>
-</div>
-<div id="advantages-7" class="section level3">
-<h3><span class="header-section-number">5.6.3</span> Advantages</h3>
-<p>The surrogate model method is <strong>flexible</strong>: Any model from the <a href="simple.html#simple">interpretable models chapter</a> can be used. This also means that you can exchange not only the interpretable model, but also the underlying black box model. Suppose you create some complex model and explain it to different teams in your company. One team is familiar with linear models, the other team can understand decision trees. You can train two surrogate models (linear model and decision tree) for the original black box model and offer two kinds of explanations. If you find a better performing black box model, you do not have to change your method of interpretation, because you can use the same class of surrogate models.</p>
-<p>I would argue that the approach is very <strong>intuitive</strong> and straightforward. This means it is easy to implement, but also easy to explain to people not familiar with data science or machine learning.</p>
-<p>With the <strong>R-squared measure</strong>, we can easily measure how good our surrogate models are in approximating the black box predictions.</p>
-</div>
-<div id="disadvantages-7" class="section level3">
-<h3><span class="header-section-number">5.6.4</span> Disadvantages</h3>
-<p>You have to be aware that you draw <strong>conclusions about the model and not about the data</strong>, since the surrogate model never sees the real outcome.</p>
-<p>It is not clear what the best <strong>cut-off for R-squared</strong> is in order to be confident that the surrogate model is close enough to the black box model. 80% of variance explained? 50%? 99%?</p>
-<p>We can measure how close the surrogate model is to the black box model. Let us assume we are not very close, but close enough. It could happen that the interpretable model is very <strong>close for one subset of the dataset, but widely divergent for another subset</strong>. In this case the interpretation for the simple model would not be equally good for all data points.</p>
-<p>The interpretable model you choose as a surrogate <strong>comes with all its advantages and disadvantages</strong>.</p>
-<p>Some people argue that there are, in general, <strong>no intrinsically interpretable models</strong> (including even linear models and decision trees) and that it would even be dangerous to have an illusion of interpretability. If you share this opinion, then of course this method is not for you.</p>
-</div>
-<div id="software-1" class="section level3">
-<h3><span class="header-section-number">5.6.5</span> Software</h3>
-<p>I used the <code>iml</code> R package for the examples. If you can train a machine learning model, then you should be able to implement surrogate models yourself. Simply train an interpretable model to predict the predictions of the black box model.</p>
-
+<div id="機械学習とは何か" class="section level2">
+<h2><span class="header-section-number">1.2</span> 機械学習とは何か？</h2>
+<!-- 
+## What Is Machine Learning?
+ -->
+<!--
+Machine learning is a set of methods that computers use to make and improve predictions or behaviors based on data.
+-->
+<p>機械学習とは、コンピュータがデータから予測や動作をしたり、それらを改善するために用いる手法全般のことを指します。</p>
+<!-- 
+For example, to predict the value of a house, the computer would learn patterns from past house sales.
+ -->
+<p>例えば、家の価値を予測するためには、コンピュータは過去の家の売値からパターンを学習するでしょう。</p>
+<!-- 
+The book focuses on supervised machine learning, which covers all prediction problems where we have a dataset for which we already know the outcome of interest (e.g. past house prices) and want to learn to predict the outcome for new data.
+-->
+<p>この本は機械学習の中でも、教師あり学習に焦点を当てています。 教師あり学習は、関心のある結果(過去の住宅価格など)が既知のデータセットがある状況で新しいデータに対する予測の仕方を学習したいというような場合の全ての予測問題に相当します。</p>
+<!--
+Excluded from supervised learning are for example clustering tasks (= unsupervised learning) where we do not have a specific outcome of interest, but want to find clusters of data points.
+-->
+<p>教師あり学習以外のものは、例えば、クラスタリング問題 (= 教師なし学習)があります。 これは、関心のある結果が手元にない状況で、データ点の集まり (クラスタ)を知りたいという問題設定です。</p>
+<!--
+Also excluded are things like reinforcement learning, where an agent learns to optimize a certain reward by acting in an environment (e.g. a computer playing Tetris).
+-->
+<p>強化学習という、テトリスをプレイするコンピュータなど、ある環境下での行動に対して、得られる報酬を最大化するように学習する方法も扱わないこととします。</p>
+<!--
+The goal of supervised learning is to learn a predictive model that maps features of the data (e.g. house size, location, floor type, ...) to an output (e.g. house price).
+-->
+<p>教師あり学習の目的は、データの特徴量(敷地面積、場所、床の種類など）と結果（家の価格など）を対応させる予測モデルを学習することです。</p>
+<!--
+If the output is categorical, the task is called classification, and if it is numerical, it is called regression.
+-->
+<p>予測対象がカテゴリカルな場合、それはクラス分類と呼ばれ、予測対象が連続の数値である場合は回帰と呼ばれます。</p>
+<!--
+The machine learning algorithm learns a model by estimating parameters (like weights) or learning structures (like trees).
+-->
+<p>機械学習アルゴリズムにおける学習とは、重みのようなパラメータを推定するか、グラフの木のような構造を決定することをいいます。</p>
+<!-- The algorithm is guided by a score or loss function that is minimized.
+In the house value example, the machine minimizes the difference between the estimated house price and the predicted price.
+A fully trained machine learning model can then be used to make predictions for new instances. -->
+<p>そのアルゴリズムはスコアまたは損失関数を最小化するように動きます。 住宅価格の例では、機械は予測した住宅価格と実際の住宅価格の差を最小化します。 こうして訓練された機械学習モデルを用いることで、新しいインスタンスに対して予測できるようになります。</p>
+<!--
+Estimation of house prices, product recommendations, street sign detection, credit default prediction and fraud detection:
+All these examples have in common that they can be solved by machine learning.
+The tasks are different, but the approach is the same:  
+Step 1: Data collection.
+The more, the better.
+The data must contain the outcome you want to predict and additional information from which to make the prediction.
+For a street sign detector ("Is there a street sign in the image?"), you would collect street images and label whether a street sign is visible or not.
+For a credit default predictor, you need past data on actual loans, information on whether the customers were in default with their loans, and data that will help you make predictions, such as income, past credit defaults, and so on.
+For an automatic house value estimator program, you could collect data from past house sales and information about the real estate such as size, location, and so on.  
+Step 2: Enter this information into a machine learning algorithm that generates a sign detector model, a credit rating model or a house value estimator.  
+Step 3: Use model with new data.
+Integrate the model into a product or process, such as a self-driving car, a credit application process or a real estate marketplace website. 
+-->
+<p>住宅価格予測、商品のレコメンド、道路標識検出、債務不履行予測、不正検知： これらのすべての例は機械学習で解決できるという共通した点があります。 それぞれのタスクは異なりますが、アプローチは一緒です： ステップ1：データを収集します。 多ければ多いほど良いです。 データには予測したい結果と予測するための追加情報が含まれていなければなりません。 道路標識検出の場合（「画像に道路標識はあるのか？」）、道路の画像を集めて標識が含まれているか否かのラベルを付けます。 債務不履行予測の場合、過去の債務情報、顧客が債務不履行をしたかの情報、及び収入や債務不履行歴など予測に役立つデータが必要です。 住宅価格自動予測プログラムの場合、過去の住宅売買情報や広さ・立地など不動産に関する情報が収集可能です。 ステップ2：これらの情報を道路標識検出モデル、債務評価モデル、住宅価格予測モデルなどを生成する機外学習のアルゴリズムに入力します。 ステップ3：新しいデータに対してモデルを使用します。 モデルを自動運転、債務申請手続き、不動産市場のウェブサイト、などの商品や手続きに統合します。</p>
+<!-- Machines surpass humans in many tasks, such as playing chess (or more recently Go) or predicting the weather.
+Even if the machine is as good as a human or a bit worse at a task, there remain great advantages in terms of speed, reproducibility and scaling.
+A once implemented machine learning model can complete a task much faster than humans, reliably delivers consistent results and can be copied infinitely.
+Replicating a machine learning model on another machine is fast and cheap.
+The training of a human for a task can take decades (especially when they are young) and is very costly.
+A major disadvantage of using machine learning is that insights about the data and the task the machine solves is hidden in increasingly complex models.
+You need millions of numbers to describe a deep neural network, and there is no way to understand the model in its entirety.
+-->
+<p>機械は、チェス（または最近では囲碁）、天気予測など多くのタスクにおいて人間を上回っています。 機械が人間と同じくらい優れている、もしくは少し劣っていた場合でも、スピード、再現性、スケールの観点で大きな利点があります。 一度導入された機械学習のモデルは、人間よりもはるかに速くタスクを完遂でき、一貫した結果を確実に提供し、複製も無限にできます。 機械学習モデルを別の機械に複製するのはとても早くて安価です。 あるタスクのために人間を訓練させるために数十年かかることがあり（特に若い人）、多くの費用がかかります。 機械学習を使用する時の大きな欠点は、データや機械が解決する問題に関する洞察が、ますます複雑になるモデルの中に隠されてしまうことです。 ディープニューラルネットワークを説明するためには数百万の数値が必要であり、モデル全体を理解する方法はないのです。</p>
+<!--
+Other models, such as the random forest, consist of hundreds of decision trees that "vote" for predictions.
+To understand how the decision was made, you would have to look into the votes and structures of each of the hundreds of trees.
+That just does not work no matter how clever you are or how good your working memory is.
+The best performing models are often blends of several models (also called ensembles) that cannot be interpreted, even if each single model could be interpreted.
+If you focus only on performance, you will automatically get more and more opaque models.
+Just take a look at [interviews with winners on the kaggle.com machine learning competition platform](http://blog.kaggle.com/):
+The winning models were mostly ensembles of models or very complex models such as boosted trees or deep neural networks.
+-->
+<p>ランダムフォレストのような他のモデルでは、多数の決定木を用いて”多数決”を行うことで予測します。このとき、どのように意思決定がなされたかを理解するためには、投票がどのように行われたかと、それぞれの決定木の構造を調べる必要があります。しかし、それはあなたがどんなに賢くて、記憶力が優れていてもうまくいかないでしょう。 最も性能のいいモデルは大抵、いくつかのモデルをブレンドしたもの (アンサンブル)であり、たとえ個々のモデルが解釈可能なものであったとしても全体として解釈ができないものとなってしまいます。もし、あなたが性能のみに注目するのであれば、自動的により不透明なモデルとなるでしょう。 機械学習コンペティションプラットフォーム kaggle.com の<a href="http://blog.kaggle.com/">優勝者インタビュー</a>をご覧ください。 優勝したモデルは、ほとんど boosted trees やディープニューラルネットワークのような、とても複雑なモデルのアンサンブルモデルです。</p>
 <!--{pagebreak}-->
-</div>
+<!--
+## Terminology {#terminology}
+-->
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="feature-importance.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="lime.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="storytime.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="terminology.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -452,7 +461,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/christophM/interpretable-ml-book/edit/master/05.7-agnostic-global-surrogate.Rmd",
+"link": "https://github.com/christophM/interpretable-ml-book/edit/master/01.3-ml-definitions.Rmd",
 "text": "Edit"
 },
 "history": {
